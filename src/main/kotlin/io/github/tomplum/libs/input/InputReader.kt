@@ -9,7 +9,7 @@ import java.io.File
  * A companion utility class for de-serialising puzzle input text files.
  * This class is open for extension so a test implementation can be created.
  */
-open class InputReader {
+open class InputReader private constructor() {
     companion object {
         /**
          * Reads the puzzle input for a single day.

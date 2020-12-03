@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory.getLogger
  * - The logging functions in the class are ordered in ascending granularity.
  * @see org.slf4j.Logger
  */
-class AdventLogger : Logger {
+class AdventLogger private constructor() : Logger {
     companion object {
         @JvmStatic
         @Suppress("JAVA_CLASS_ON_COMPANION")

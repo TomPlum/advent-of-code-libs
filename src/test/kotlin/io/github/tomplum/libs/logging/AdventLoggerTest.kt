@@ -1,5 +1,7 @@
 package io.github.tomplum.libs.logging
 
+import assertk.assertThat
+import assertk.assertions.isNotNull
 import org.junit.jupiter.api.Test
 
 class AdventLoggerTest {
