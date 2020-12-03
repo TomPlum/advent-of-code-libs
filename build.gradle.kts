@@ -12,6 +12,7 @@ buildscript {
 
 plugins {
     idea
+    jacoco
     `maven-publish`
     kotlin("jvm") version "1.4.0"
 }
@@ -36,10 +37,10 @@ dependencies {
 
     //Testing
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
-    testImplementation("org.junit.platform:junit-platform-launcher:1.3.1")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.3.1")
 }
 
 tasks.withType<KotlinCompile> {
@@ -66,6 +67,41 @@ publishing {
         create<MavenPublication>("default") {
             from(components["java"])
             artifact(sourcesJar)
+        }
+    }
+}
+
+tasks.test {
+    useJUnitPlatform { }
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/reports")
+}
+
+tasks.jacocoTestReport {
+    group = "Reporting"
+    description = "Generate Jacoco test coverage report"
+
+    reports {
+        xml.isEnabled = true
+        html.isEnabled = true
+        csv.isEnabled = false
+    }
+}
+
+tasks.jacocoTestCoverageVerification  {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.9".toBigDecimal()
+            }
         }
     }
 }
