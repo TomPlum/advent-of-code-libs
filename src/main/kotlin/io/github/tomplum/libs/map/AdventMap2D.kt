@@ -1,7 +1,6 @@
 package io.github.tomplum.libs.map
 
 import io.github.tomplum.libs.math.Point2D
-import kotlin.contracts.ExperimentalContracts
 
 /**
  * This class is designed for inheritance.
@@ -68,12 +67,6 @@ abstract class AdventMap2D<T> {
      */
     protected fun filterTiles(predicate: (T) -> Boolean): Map<Point2D, T> = data.filterValues(predicate)
 
-    @ExperimentalContracts
-    protected fun whereIs(predicate: (T) -> Boolean): Point2D? = data.filterValues(predicate).keys.firstOrNull()
-
-    @ExperimentalContracts
-    protected fun findTile(predicate: (T) -> Boolean): T? = data.filterValues(predicate).values.firstOrNull()
-
     /**
      * Gets all the tiles that are adjacent to the given [positions].
      * @see Point2D.adjacentPoints
@@ -83,10 +76,6 @@ abstract class AdventMap2D<T> {
         return positions.flatMap { it.adjacentPoints() }.associateWith(this::getTile)
     }
 
-    @ExperimentalContracts
-    protected fun adjacentTiles(position: Point2D, predicate: (T) -> Boolean) = adjacentTiles(position).filterValues(predicate)
-    private fun adjacentTiles(position: Point2D): Map<Point2D, T> = data.filterKeys { it in position.adjacentPoints() }
-
     /**
      * Resets the map as if it is a new instance of [AdventMap2D]. All internally stored data is cleared.
      */
@@ -95,22 +84,22 @@ abstract class AdventMap2D<T> {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected fun xMin() = data.keys.minByOrNull { it.x }!!.x
+    protected fun xMin(): Int? = data.keys.minByOrNull { it.x }?.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected fun yMin() = data.keys.minByOrNull { it.y }!!.y
+    protected fun yMin(): Int? = data.keys.minByOrNull { it.y }?.y
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected fun xMax() = data.keys.maxByOrNull { it.x }!!.x
+    protected fun xMax(): Int? = data.keys.maxByOrNull { it.x }?.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun yMax() = data.keys.maxByOrNull { it.y }!!.y
+    protected fun yMax(): Int? = data.keys.maxByOrNull { it.y }?.y
 
     /**
      * Two [AdventMap2D]s are equal to one another if they have the same [data].
@@ -128,8 +117,12 @@ abstract class AdventMap2D<T> {
      * Creates a cartesian graph style visual representation of the [data]
      */
     override fun toString(): String {
-        return (yMin()..yMax()).joinToString("\n") { y ->
-            (xMin()..xMax()).joinToString(" ") { x ->
+        val yMin = yMin() ?: 0
+        val yMax = yMax() ?: 0
+        val xMin = xMin() ?: 0
+        val xMax = xMax() ?: 0
+        return (yMin..yMax).joinToString("\n") { y ->
+            (xMin..xMax).joinToString(" ") { x ->
                 data.getOrDefault(Point2D(x, y), " ").toString()
             }
         }.plus("\n")

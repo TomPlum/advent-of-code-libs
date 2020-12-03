@@ -3,7 +3,7 @@
 ## About
 * [Logging](#logging)
 * [Input De-Serialisation](#input-de-serialisation)
-* [Math](#map)
+* [Math](#math)
 
 ### Logging
 The [AdventLogger](https://git.io/JILT9) provides a simple companion-object class that wraps the

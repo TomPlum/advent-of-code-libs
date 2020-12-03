@@ -3,21 +3,51 @@ package io.github.tomplum.libs.map
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class MapTileTest {
-    @Test
-    fun equalityPositive() {
-        assertThat(MapTile("Test")).isEqualTo(MapTile("Test"))
+    @Nested
+    inner class Equality {
+        @Test
+        fun sameValue() {
+            assertThat(MapTile("Test")).isEqualTo(MapTile("Test"))
+        }
+
+        @Test
+        fun differentValue() {
+            assertThat(MapTile("Right")).isNotEqualTo(MapTile("Wrong"))
+        }
+
+        @Test
+        fun differentType() {
+            assertThat(MapTile('#')).isNotEqualTo(listOf<Char>())
+        }
     }
 
-    @Test
-    fun equalityTestNegative() {
-        assertThat(MapTile("Right")).isNotEqualTo(MapTile("Wrong"))
+    @Nested
+    inner class HashCode {
+        @Test
+        fun sameValue() {
+            assertThat(MapTile("Test").hashCode()).isEqualTo(MapTile("Test").hashCode())
+        }
+
+        @Test
+        fun differentValue() {
+            assertThat(MapTile("Right").hashCode()).isNotEqualTo(MapTile("Wrong").hashCode())
+        }
     }
 
-    @Test
-    fun toStringTest() {
-        assertThat(MapTile(15).toString()).isEqualTo("15")
+    @Nested
+    inner class ToStringTest {
+        @Test
+        fun integerValue() {
+            assertThat(MapTile(15).toString()).isEqualTo("15")
+        }
+
+        @Test
+        fun stringValue() {
+            assertThat(MapTile("Hello").toString()).isEqualTo("Hello")
+        }
     }
 }
