@@ -3,8 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
-        google()
     }
 
     dependencies {
@@ -26,7 +24,6 @@ apply(plugin = "kotlin")
 repositories {
     mavenCentral()
     jcenter()
-    google()
 }
 
 dependencies {
@@ -49,6 +46,11 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.getByName("main").allSource)
+}
+
 publishing {
     repositories {
         maven {
@@ -63,6 +65,7 @@ publishing {
     publications {
         create<MavenPublication>("default") {
             from(components["java"])
+            artifact(sourcesJar)
         }
     }
 }
