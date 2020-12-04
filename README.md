@@ -1,5 +1,9 @@
 # :christmas_tree: Advent of Code Library
 
+![GitHub](https://img.shields.io/github/license/TomPlum/advent-of-code-2020?color=informational)
+![GitHub](https://img.shields.io/badge/instructions-98%25-success)
+![GitHub](https://img.shields.io/badge/branches-93%25-orange)
+
 ## About
 * [Logging](#logging)
 * [Input De-Serialisation](#input-de-serialisation)
