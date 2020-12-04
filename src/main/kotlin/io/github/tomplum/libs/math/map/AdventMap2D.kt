@@ -1,4 +1,4 @@
-package io.github.tomplum.libs.map
+package io.github.tomplum.libs.math.map
 
 import io.github.tomplum.libs.math.Point2D
 

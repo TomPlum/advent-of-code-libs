@@ -1,4 +1,4 @@
-package io.github.tomplum.libs.map
+package io.github.tomplum.libs.math.map
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
