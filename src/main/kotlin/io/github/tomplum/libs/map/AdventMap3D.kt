@@ -30,7 +30,8 @@ abstract class AdventMap3D<T> {
      * Retrieves the tile at the given [position].
      * @throws IllegalArgumentException if the map does not contain a tile at the given [position]
      */
-    protected fun getTile(position: Point3D): T = data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
+    protected fun getTile(position: Point3D): T =
+        data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
 
     /**
      * @return true if the map has recorded a tile at the given [position]
@@ -42,7 +43,8 @@ abstract class AdventMap3D<T> {
      * then it is omitted from the response.
      * @return a [Map] of the given [positions] and their respective tiles.
      */
-    protected fun filterPoints(positions: Set<Point3D>): Map<Point3D, T> = positions.filter(this::hasRecorded).associateWith(this::getTile)
+    protected fun filterPoints(positions: Set<Point3D>): Map<Point3D, T> =
+        positions.filter(this::hasRecorded).associateWith(this::getTile)
 
     /**
      * Gets all the tiles that equate to true on the given [predicate].
@@ -53,7 +55,7 @@ abstract class AdventMap3D<T> {
     protected fun filterTiles(predicate: (T) -> Boolean): Map<Point3D, T> = data.filterValues(predicate)
 
     /**
-     * Gets all the tiles that are adjacent to the given [positions].
+     * Gets all the tiles that are adjacent to the given [positions] on the same plane.
      * @see Point3D.planarAdjacentPoints
      * @return a [Map] of adjacent [Point3D] and their respective tiles, [T].
      */
@@ -61,6 +63,9 @@ abstract class AdventMap3D<T> {
         return positions.flatMap { it.planarAdjacentPoints() }.associateWith(this::getTile)
     }
 
+    /**
+     * Duplicates the top-layer (where z = 0) [n] times in the upwards direction.
+     */
     protected fun duplicateTopLayer(n: Int) {
         val topLayer = data.entries
         val nIterator = (1..n).iterator()
@@ -68,7 +73,7 @@ abstract class AdventMap3D<T> {
         while (nIterator.hasNext()) {
             val it = topLayer.iterator()
             val z = nIterator.nextInt()
-            while(it.hasNext()) {
+            while (it.hasNext()) {
                 val next = it.next()
                 val position = next.key
                 toAdd[Point3D(position.x, position.y, z)] = next.value
@@ -80,48 +85,61 @@ abstract class AdventMap3D<T> {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected open fun xMin() = data.keys.filter { it.z == 0 }.minByOrNull { it.x }!!.x
+    protected open fun xMin() = data.keys.filter { it.z == 0 }.minByOrNull { it.x }?.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected open fun yMin() = data.keys.minByOrNull { it.y }!!.y
+    protected open fun yMin() = data.keys.minByOrNull { it.y }?.y
 
     /**
      * @return The minimum z-ordinate currently recorded in the map.
      */
-    protected fun zMin() = data.keys.minByOrNull { it.z }!!.z
+    protected fun zMin() = data.keys.minByOrNull { it.z }?.z
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxByOrNull { it.x }!!.x
+    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxByOrNull { it.x }?.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected open fun yMax() = data.keys.maxByOrNull { it.y }!!.y
+    protected open fun yMax() = data.keys.maxByOrNull { it.y }?.y
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun zMax() = data.keys.maxByOrNull { it.z }!!.z
+    protected fun zMax() = data.keys.maxByOrNull { it.z }?.z
 
-    fun toStringTopLevel() {
-        (yMin()..yMax()).joinToString("\n") { y ->
-            (xMin()..xMax()).joinToString(" ") { x ->
+    /**
+     * Creates a cartesian graph style visual representation of the [data] at the top-level where z = 0.
+     */
+    fun toStringTopLevel(): String {
+        val yMin = yMin() ?: 0
+        val yMax = yMax() ?: 0
+        val xMin = xMin() ?: 0
+        val xMax = xMax() ?: 0
+        return (yMin..yMax).joinToString("\n") { y ->
+            (xMin..xMax).joinToString(" ") { x ->
                 data.getOrDefault(Point3D(x, y, 0), " ").toString()
             }
         }.plus("\n")
     }
 
     /**
-     * Creates a cartesian graph style visual representation of the [data]
+     * Creates a cartesian graph style visual representation of the [data].
      */
     override fun toString(): String {
-        return (zMin()..zMax()).joinToString("\n") { z ->
-            (yMin()..yMax()).joinToString("\n") { y ->
-                (xMin()..xMax()).joinToString(" ") { x ->
+        val yMin = yMin() ?: 0
+        val yMax = yMax() ?: 0
+        val xMin = xMin() ?: 0
+        val xMax = xMax() ?: 0
+        val zMin = zMin() ?: 0
+        val zMax = zMax() ?: 0
+        return (zMin..zMax).joinToString("\n") { z ->
+            (yMin..yMax).joinToString("\n") { y ->
+                (xMin..xMax).joinToString(" ") { x ->
                     data.getOrDefault(Point3D(x, y, z), " ").toString()
                 }
             }.plus("\n")
