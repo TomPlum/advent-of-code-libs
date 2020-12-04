@@ -10,7 +10,7 @@
 * [Math](#math)
 
 ### Logging
-The [AdventLogger](https://git.io/JILT9) provides a simple companion-object class that wraps the
+The [`AdventLogger`](https://git.io/JILT9) provides a simple companion-object class that wraps the
 [SLF4J](http://www.slf4j.org/) abstraction. The class exposes the usual levels which are as follows
 
 | Level | Description                                                                                                |
@@ -22,19 +22,20 @@ The [AdventLogger](https://git.io/JILT9) provides a simple companion-object clas
 | Trace | Designates finer-grained informational events than the debug level.                                        |
 
 ### Input De-Serialisation
-The [InputReader](https://git.io/JILkc) provides an easy way to read the puzzle inputs from the `resources` directory
+The [`InputReader`](https://git.io/JILkc) provides an easy way to read the puzzle inputs from the `resources` directory
 of the main source set. The reader looks for a file named `input.txt` in a sub-folder named `dayX` where `X` is the day 
 number. The `read()` function also expects a generic type parameter which changes the type of collection that is returned.
 The currently supported types are `Integer` and `String`.
 
 ### Math
 A common theme in the Advent of Code is maps, which are usually represented on a 2D cartesian grid. Thus,
-[Point2D](https://git.io/JImDn) is a wrapper class for co-ordinates that provides useful translation, transformation
-and interacting with other points. Likewise, [Point3D](https://git.io/JImDz) does a similar thing for 3-Dimensions.
+[`Point2D`](https://git.io/JImDn) is a wrapper class for co-ordinates that provides useful translation, transformation
+and interacting with other points. Likewise, [`Point3D`](https://git.io/JImDz) does a similar thing for 3-Dimensions.
 
-To accompany the `Point` classes, [AdventMap2D]() and [AdventMap3D]() have been created for `Point2D` and `Point3D`
-respectively. These classes are essentially cartesian grids backed by a `Map` of the respective `Point` class against
-a [MapTile]() which accepts a generic type. This is usually a `Char` due to the nature of Advent of Code puzzle inputs.
+To accompany the `Point` classes, [`AdventMap2D`](https://git.io/JIsth) and [`AdventMap3D`](https://git.io/JIsqe) have 
+been created for `Point2D` and `Point3D`respectively. These classes are essentially cartesian grids backed by a `Map` 
+of the respective `Point` class against a [`MapTile`](https://git.io/JIsqt) which accepts a generic type.
+This is usually a `Char` due to the nature of Advent of Code puzzle inputs.
 
 An example puzzle input of a map that could be read and stored in an `AdventMap2D`;
 
