@@ -17,8 +17,18 @@ class InputReaderTest {
     }
 
     @Test
-    fun asInteger() {
+    fun asInt() {
         assertThat(InputReader.read<Int>(Day(100)).value).isEqualTo(listOf(1, 2, 3, 4, 5))
+    }
+
+    @Test
+    fun asInteger() {
+        assertThat(InputReader.read<Integer>(Day(100)).value).isEqualTo(listOf(1, 2, 3, 4, 5))
+    }
+
+    @Test
+    fun asLong() {
+        assertThat(InputReader.read<Long>(Day(100)).value).isEqualTo(listOf<Long>(1, 2, 3, 4, 5))
     }
 
     @Test

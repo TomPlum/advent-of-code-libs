@@ -2,6 +2,7 @@ package io.github.tomplum.libs.input
 
 import io.github.tomplum.libs.input.types.Input
 import io.github.tomplum.libs.input.types.IntegerInput
+import io.github.tomplum.libs.input.types.LongInput
 import io.github.tomplum.libs.input.types.StringInput
 import java.io.File
 
@@ -14,7 +15,7 @@ open class InputReader private constructor() {
         /**
          * Reads the puzzle input for a single day.
          *
-         * Supports Kotlin's [Int] and [String] and also Java's [Integer].
+         * Supports [Int], [Long] and [String].
          *
          * @param T the desired return type for the lines in the input file.
          * @param day the day whose puzzle input you wish to read.
@@ -27,8 +28,8 @@ open class InputReader private constructor() {
 
             return when (val cls = T::class.java) {
                 String::class.java -> StringInput(lines) as Input<T>
-                Int::class.java -> IntegerInput(lines) as Input<T>
-                Integer::class.java  -> IntegerInput(lines) as Input<T>
+                Int::class.javaObjectType -> IntegerInput(lines) as Input<T>
+                Long::class.javaObjectType -> LongInput(lines) as Input<T>
                 else -> throw UnsupportedOperationException("Input Reader does not support type: ${cls.simpleName}")
             }
         }
