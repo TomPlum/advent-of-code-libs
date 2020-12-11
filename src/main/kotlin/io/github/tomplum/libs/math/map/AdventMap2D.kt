@@ -28,7 +28,7 @@ abstract class AdventMap2D<T> {
      * Retrieves the tile at the given [position].
      * If there is no tile present then the [default] is returned.
      */
-    protected fun getTile(position: Point2D, default: T): T = data.getOrDefault(position, default)
+    protected fun getTile(position: Point2D, default: T?): T? = data.getOrDefault(position, default)
 
     /**
      * Retrieves the tile at the given [position].
@@ -53,11 +53,11 @@ abstract class AdventMap2D<T> {
     protected fun tileQuantity(): Int = data.size
 
     /**
-     * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions],
+     * Gets all the tiles at the given [positions]. If there is no recorded tile at one of the given [positions],
      * then it is omitted from the response.
      * @return a [Map] of the given [positions] and their respective tiles.
      */
-    protected fun filterPoints(positions: Collection<Point2D>): Map<Point2D, T> = positions.filter(this::hasRecorded).associateWith(this::getTile)
+    protected fun filterPoints(positions: Collection<Point2D>): Map<Point2D, T> = data.filter { positions.contains(it.key) }
 
     /**
      * Gets all the tiles that equate to true on the given [predicate].
@@ -70,11 +70,26 @@ abstract class AdventMap2D<T> {
     /**
      * Gets all the tiles that are adjacent to the given [positions].
      * @see Point2D.orthogonallyAdjacent
-     * @return a [Map] of adjacent [Point2D] and their respective tiles, [T].
+     * @return a [Map] of adjacent [Point2D] and their respective tiles [T].
      */
     protected fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> {
         return positions.flatMap { it.orthogonallyAdjacent() }.associateWith(this::getTile)
     }
+
+    /**
+     * Gets all the tiles that are orthogonally-adjacent to the given [positions].
+     * Any positions that are not recorded in the map will have a null value paired.
+     * @return a [Map] of orthogonally-adjacent [Point2D] and their respective tiles [T].
+     */
+    protected fun adjacentTilesOrthogonal(positions: Set<Point2D>): Map<Point2D, T?> {
+        return positions.flatMap { it.orthogonallyAdjacent() }.associateWith { getTile(it, null)}
+    }
+
+    /**
+     * Creates a copy of the internal [data] map.
+     * @return A new [Map] of the currently stored [Point2D] and [T].
+     */
+    protected fun snapshot() = data.toMap()
 
     /**
      * Resets the map as if it is a new instance of [AdventMap2D]. All internally stored data is cleared.

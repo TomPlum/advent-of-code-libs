@@ -18,7 +18,7 @@ plugins {
 }
 
 group = "io.github.tomplum"
-version = "1.3.0"
+version = "1.3.1"
 
 apply(plugin = "kotlin")
 

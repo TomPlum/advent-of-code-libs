@@ -1,10 +1,7 @@
 package io.github.tomplum.libs.math.map
 
 import assertk.assertThat
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFalse
-import assertk.assertions.isNotEqualTo
-import assertk.assertions.isTrue
+import assertk.assertions.*
 import io.github.tomplum.libs.math.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -35,8 +32,17 @@ class AdventMap2DTest {
     @Nested
     inner class GetTile {
         @Test
+        fun getTileThatDoesntExist() {
+            val e = assertThrows<IllegalArgumentException> { TestAdventMap2D().getExampleTile(Point2D(0, 0)) }
+            assertThat(e.message).isEqualTo("Map does not contain tile at (0, 0)")
+        }
+    }
+
+    @Nested
+    inner class GetTileWithDefault {
+        @Test
         @DisplayName("Given a Map with some tiles, when getting a tile that exists, then it should return that tile")
-        fun getTilePositive() {
+        fun tileExists() {
             val map = TestAdventMap2D()
             map.addExampleTile(Point2D(3, 4), TestMapTile(4))
             map.addExampleTile(Point2D(2, 12), TestMapTile(1))
@@ -45,16 +51,15 @@ class AdventMap2DTest {
 
         @Test
         @DisplayName("Given a Map with some tiles, when getting a tile that doesn't exist, then it should return the default")
-        fun getTileNegative() {
+        fun tileDoesNotExistShouldReturnDefault() {
             val map = TestAdventMap2D()
             map.addExampleTile(Point2D(0, 5), TestMapTile(1))
             assertThat(map.getExampleTile(Point2D(2, 12), TestMapTile(0)).toString()).isEqualTo("0")
         }
 
         @Test
-        fun getTileThatDoesntExist() {
-            val e = assertThrows<IllegalArgumentException> { TestAdventMap2D().getExampleTile(Point2D(0, 0)) }
-            assertThat(e.message).isEqualTo("Map does not contain tile at (0, 0)")
+        fun nullValue() {
+            assertThat(TestAdventMap2D().getExampleTile(Point2D(1,1), null)).isNull()
         }
     }
 
@@ -132,6 +137,27 @@ class AdventMap2DTest {
     }
 
     @Nested
+    inner class OrthogonallyAdjacentTiles {
+        @Test
+        fun hasAdjacentTiles() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0,0), TestMapTile(4))
+            map.addExampleTile(Point2D(0,1), TestMapTile(12))
+            map.addExampleTile(Point2D(0,2), TestMapTile(12))
+            map.addExampleTile(Point2D(1,1), TestMapTile(12))
+            map.addExampleTile(Point2D(1,2), TestMapTile(12))
+            map.addExampleTile(Point2D(2,0), TestMapTile(12))
+            map.addExampleTile(Point2D(2,1), TestMapTile(12))
+            map.addExampleTile(Point2D(2,2), TestMapTile(12))
+            val expectedAdjacent = mapOf(
+                Pair(Point2D(1,2), TestMapTile(12)), Pair(Point2D(2,1), TestMapTile(12)),
+                Pair(Point2D(1,0), null), Pair(Point2D(0,1), TestMapTile(12))
+            )
+            assertThat(map.getAdjacentTilesOrthogonal(setOf(Point2D(1,1)))).isEqualTo(expectedAdjacent)
+        }
+    }
+
+    @Nested
     inner class FilterTiles {
         @Test
         fun filterTiles() {
@@ -175,13 +201,25 @@ class AdventMap2DTest {
         }
     }
 
+    @Nested
+    inner class Reset {
+        @Test
+        fun shouldClearMap() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(12, 14), TestMapTile(1))
+            map.reset()
+            assertThat(map.tileQuantityExample()).isEqualTo(0)
+        }
+    }
 
-    @Test
-    fun reset() {
-        val map = TestAdventMap2D()
-        map.addExampleTile(Point2D(12, 14), TestMapTile(1))
-        map.reset()
-        assertThat(map.tileQuantityExample()).isEqualTo(0)
+    @Nested
+    inner class Snapshot {
+        @Test
+        fun populatedMap() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(1, 2), TestMapTile(14))
+            assertThat(map.snapshotExample()).isEqualTo(mapOf(Pair(Point2D(1, 2), TestMapTile(14))))
+        }
     }
 
     @Nested
@@ -416,12 +454,14 @@ class AdventMap2DTest {
         fun tileQuantityExample() = tileQuantity()
         fun addExampleTile(pos: Point2D, default: TestMapTile) = addTile(pos, default)
         fun getExampleTile(pos: Point2D) = getTile(pos)
-        fun getExampleTile(pos: Point2D, default: TestMapTile) = getTile(pos, default)
+        fun getExampleTile(pos: Point2D, default: TestMapTile?) = getTile(pos, default)
         fun hasRecordedExample(pos: Point2D) = hasRecorded(pos)
         fun hasTileExample(tile: TestMapTile) = hasTile(tile)
         fun filterPointsExample(positions: Set<Point2D>) = filterPoints(positions)
         fun filterTilesExample(predicate: (TestMapTile) -> Boolean) = filterTiles(predicate)
         fun getAdjacentTiles(positions: Set<Point2D>) = adjacentTiles(positions)
+        fun getAdjacentTilesOrthogonal(positions: Set<Point2D>) = adjacentTilesOrthogonal(positions)
+        fun snapshotExample() = snapshot()
         fun getMinX() = xMin()
         fun getMinY() = yMin()
         fun getMaxX() = xMax()
