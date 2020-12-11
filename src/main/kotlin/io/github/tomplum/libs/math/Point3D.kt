@@ -7,15 +7,15 @@ data class Point3D(val x: Int, val y: Int, val z: Int) {
 
     /**
      * Returns the 4 points that are orthogonally adjacent with the current two-dimensional plane.
-     * @see Point2D.adjacentPoints
+     * @see Point2D.orthogonallyAdjacent
      */
-    fun planarAdjacentPoints(): List<Point3D> = getSecondDimension().adjacentPoints().map { Point3D(it.x, it.y, z) }
+    fun planarAdjacentPoints(): List<Point3D> = getSecondDimension().orthogonallyAdjacent().map { Point3D(it.x, it.y, z) }
 
     /**
      * @return true if [that] is orthogonally adjacent within the current two-dimensional plane.
-     * @see Point2D.isAdjacentTo
+     * @see Point2D.isOrthogonallyAdjacentTo
      */
-    fun isPlanarAdjacentTo(that: Point3D): Boolean = getSecondDimension().isAdjacentTo(Point2D(that.x, that.y)) && z == that.z
+    fun isPlanarAdjacentTo(that: Point3D): Boolean = getSecondDimension().isOrthogonallyAdjacentTo(Point2D(that.x, that.y)) && z == that.z
 
     /**
      * @see Point2D.distanceFromAxisX

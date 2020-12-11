@@ -69,11 +69,11 @@ abstract class AdventMap2D<T> {
 
     /**
      * Gets all the tiles that are adjacent to the given [positions].
-     * @see Point2D.adjacentPoints
+     * @see Point2D.orthogonallyAdjacent
      * @return a [Map] of adjacent [Point2D] and their respective tiles, [T].
      */
     protected fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> {
-        return positions.flatMap { it.adjacentPoints() }.associateWith(this::getTile)
+        return positions.flatMap { it.orthogonallyAdjacent() }.associateWith(this::getTile)
     }
 
     /**

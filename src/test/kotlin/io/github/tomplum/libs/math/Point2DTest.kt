@@ -1,10 +1,7 @@
 package io.github.tomplum.libs.math
 
 import assertk.assertThat
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFalse
-import assertk.assertions.isNotEqualTo
-import assertk.assertions.isTrue
+import assertk.assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -16,8 +13,23 @@ class Point2DTest {
     @Nested
     inner class OrthogonallyAdjacent {
         @Test
-        fun adjacentPoints() {
-            assertThat(Point2D(0,0).adjacentPoints()).isEqualTo(listOf(Point2D(0,1), Point2D(1,0), Point2D(0,-1), Point2D(-1,0)))
+        fun origin() {
+            val point = Point2D(0, 0)
+            val adjacent = point.orthogonallyAdjacent()
+            assertThat(adjacent).containsAll(Point2D(0,1), Point2D(1,0), Point2D(0,-1), Point2D(-1,0))
+        }
+    }
+
+
+    @Nested
+    inner class AdjacentTo {
+        @Test
+        fun origin() {
+            val point = Point2D(0, 0)
+            val adjacent = point.adjacent()
+            assertThat(adjacent).containsAll(
+                Point2D(0,1), Point2D(1,0), Point2D(0,-1), Point2D(-1,0), Point2D(-1,1), Point2D(1,1), Point2D(1,-1), Point2D(-1,-1)
+            )
         }
     }
 
@@ -144,53 +156,73 @@ class Point2DTest {
         fun shiftLeft() {
             assertThat(Point2D(0,0).shift(Direction.LEFT)).isEqualTo(Point2D(-1,0))
         }
+
+        @Test
+        fun shiftTopRight() {
+            assertThat(Point2D(0,0).shift(Direction.TOP_RIGHT)).isEqualTo(Point2D(1,1))
+        }
+
+        @Test
+        fun shiftBottomRight() {
+            assertThat(Point2D(0,0).shift(Direction.BOTTOM_RIGHT)).isEqualTo(Point2D(1,-1))
+        }
+
+        @Test
+        fun shiftBottomLeft() {
+            assertThat(Point2D(0,0).shift(Direction.BOTTOM_LEFT)).isEqualTo(Point2D(-1,-1))
+        }
+
+        @Test
+        fun shiftTopLeft() {
+            assertThat(Point2D(0,0).shift(Direction.TOP_LEFT)).isEqualTo(Point2D(-1,1))
+        }
     }
 
     @Nested
-    inner class AdjacentTo {
+    inner class OrthogonallyAdjacentTo {
         @Test
         fun isAdjacentToTargetOnRight() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(6,6))).isTrue()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(6, 6))).isTrue()
         }
 
         @Test
         fun isAdjacentToTargetOnBottomRight() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(6,5))).isTrue()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(6, 5))).isTrue()
         }
 
         @Test
         fun isAdjacentToTargetOnBottom() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(5,5))).isTrue()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(5, 5))).isTrue()
         }
 
         @Test
         fun isAdjacentToTargetOnBottomLeft() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(4,5))).isTrue()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(4, 5))).isTrue()
         }
 
         @Test
         fun isAdjacentToTargetOnLeft() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(4,6))).isTrue()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(4, 6))).isTrue()
         }
 
         @Test
         fun isAdjacentToTargetTopLeft() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(4,7))).isTrue()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(4, 7))).isTrue()
         }
 
         @Test
         fun isAdjacentToTargetTop() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(5,7))).isTrue()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(5, 7))).isTrue()
         }
 
         @Test
         fun isNotAdjacent() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(4,4))).isFalse()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(4, 4))).isFalse()
         }
 
         @Test
         fun samePointsAreNotAdjacent() {
-            assertThat(Point2D(5,6).isAdjacentTo(Point2D(5,6))).isFalse()
+            assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(5, 6))).isFalse()
         }
     }
 
