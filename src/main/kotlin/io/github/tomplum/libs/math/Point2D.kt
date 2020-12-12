@@ -1,12 +1,23 @@
 package io.github.tomplum.libs.math
 
-import kotlin.math.abs
-import kotlin.math.atan2
+import kotlin.math.*
 
 /**
- * A Two-Dimensional Point
+ * A two-dimensional point in a cartesian co-ordinate system.
+ * @see Point3D for a three-dimensional variant.
+ *
+ * @param x The x-ordinate of the point.
+ * @param y The y-ordinate of the point.
  */
 data class Point2D(val x: Int, val y: Int) {
+
+    companion object {
+        /**
+         * The point where the axes intersect.
+         * @return The origin point.
+         */
+        fun origin() = Point2D(0, 0)
+    }
 
     /**
      * Orthogonally adjacent points are the 4 points immediately horizontal or vertical.
@@ -64,6 +75,62 @@ data class Point2D(val x: Int, val y: Int) {
         Direction.BOTTOM_RIGHT -> Point2D(x + units, y - units)
         Direction.BOTTOM_LEFT -> Point2D(x - units, y - units)
         Direction.TOP_LEFT -> Point2D(x - units, y + units)
+    }
+
+    /**
+     * Rotates the point around the given [pivot] by the given [angle].
+     * @param pivot The central point to rotate around.
+     * @param angle The angle to rotate around the pivot by. Can be negative for counter-clockwise.
+     * @return The translated [Point2D] after rotating it around the [pivot].
+     */
+    fun rotateAbout(pivot: Point2D, angle: Int = 90): Point2D {
+        val normalisedAngle = if (angle < 0) angle + 360 else angle
+
+        val sin = sin(normalisedAngle.toDouble().toRadians())
+        val cos = cos(normalisedAngle.toDouble().toRadians())
+
+        val x1 = x - pivot.x
+        val y1 = y - pivot.y
+
+        val x2 = x1 * cos + y1 * sin
+        val y2 = -x1 * sin + y1 * cos
+
+        val xNew = x2 + pivot.x
+        val yNew = y2 + pivot.y
+
+        return Point2D(xNew.roundToInt(), yNew.roundToInt())
+    }
+
+    /**
+     * Compares this point to the [other] and returns the relative horizontal direction and the distance between them.
+     * E.g. A(1, 2) and B(5, 3). A.xRelativeDirection(B) would return (LEFT, 4) because A is to-the-left of B
+     *      with a distance of 4. Therefore, B.xRelativeDirection(A) would return (RIGHT, 4).
+     * @param other The relative point to compare against.
+     * @return The relative direction from the [other] point and the absolute distance between them.
+     */
+    fun xRelativeDirection(other: Point2D): Pair<Direction, Int>? {
+        val xDelta = x - other.x
+        return when {
+            xDelta > 0 -> Pair(Direction.RIGHT, xDelta)
+            xDelta < 0 -> Pair(Direction.LEFT, abs(xDelta))
+            else -> null
+        }
+    }
+
+    /**
+     * Compares this point to the [other] and returns the relative vertical direction and the distance between them.
+     * E.g. A(1, 2) and B(5, 3). A.yRelativeDirection(B) would return (DOWN, 1) because A is below B
+     *      with a distance of 1. Therefore, B.yRelativeDirection(A) would return (UP, 1).
+     * @param other The relative point to compare against.
+     * @return The relative direction from the [other] point and the absolute distance between them.
+     */
+    fun yRelativeDirection(other: Point2D): Pair<Direction, Int>? {
+        val yDelta = y - other.y
+        return when {
+            yDelta > 0 -> Pair(Direction.UP, yDelta)
+            yDelta < 0 -> Pair(Direction.DOWN, abs(yDelta))
+            else -> null
+        }
     }
 
     /**

@@ -11,15 +11,22 @@ import org.junit.jupiter.params.provider.CsvSource
 class Point2DTest {
 
     @Nested
+    inner class Companion {
+        @Test
+        fun origin() {
+            assertThat(Point2D.origin()).isEqualTo(Point2D(0, 0))
+        }
+    }
+
+    @Nested
     inner class OrthogonallyAdjacent {
         @Test
         fun origin() {
             val point = Point2D(0, 0)
             val adjacent = point.orthogonallyAdjacent()
-            assertThat(adjacent).containsAll(Point2D(0,1), Point2D(1,0), Point2D(0,-1), Point2D(-1,0))
+            assertThat(adjacent).containsAll(Point2D(0, 1), Point2D(1, 0), Point2D(0, -1), Point2D(-1, 0))
         }
     }
-
 
     @Nested
     inner class AdjacentTo {
@@ -28,7 +35,14 @@ class Point2DTest {
             val point = Point2D(0, 0)
             val adjacent = point.adjacent()
             assertThat(adjacent).containsAll(
-                Point2D(0,1), Point2D(1,0), Point2D(0,-1), Point2D(-1,0), Point2D(-1,1), Point2D(1,1), Point2D(1,-1), Point2D(-1,-1)
+                Point2D(0, 1),
+                Point2D(1, 0),
+                Point2D(0, -1),
+                Point2D(-1, 0),
+                Point2D(-1, 1),
+                Point2D(1, 1),
+                Point2D(1, -1),
+                Point2D(-1, -1)
             )
         }
     }
@@ -37,42 +51,42 @@ class Point2DTest {
     inner class ManhattanDistance {
         @Test
         fun targetToTheRight() {
-            assertThat(Point2D(0,0).distanceBetween(Point2D(0,5))).isEqualTo(5)
+            assertThat(Point2D(0, 0).distanceBetween(Point2D(0, 5))).isEqualTo(5)
         }
 
         @Test
         fun targetIsBelow() {
-            assertThat(Point2D(0,0).distanceBetween(Point2D(0,-4))).isEqualTo(4)
+            assertThat(Point2D(0, 0).distanceBetween(Point2D(0, -4))).isEqualTo(4)
         }
 
         @Test
         fun targetToTheLeft() {
-            assertThat(Point2D(0,0).distanceBetween(Point2D(-12,0))).isEqualTo(12)
+            assertThat(Point2D(0, 0).distanceBetween(Point2D(-12, 0))).isEqualTo(12)
         }
 
         @Test
         fun targetIsAbove() {
-            assertThat(Point2D(0,0).distanceBetween(Point2D(0,8))).isEqualTo(8)
+            assertThat(Point2D(0, 0).distanceBetween(Point2D(0, 8))).isEqualTo(8)
         }
 
         @Test
         fun targetDiagonalTopRight() {
-            assertThat(Point2D(0,0).distanceBetween(Point2D(3,3))).isEqualTo(6)
+            assertThat(Point2D(0, 0).distanceBetween(Point2D(3, 3))).isEqualTo(6)
         }
 
         @Test
         fun targetDiagonalBottomRight() {
-            assertThat(Point2D(0,0).distanceBetween(Point2D(4,-4))).isEqualTo(8)
+            assertThat(Point2D(0, 0).distanceBetween(Point2D(4, -4))).isEqualTo(8)
         }
 
         @Test
         fun targetDiagonalBottomLeft() {
-            assertThat(Point2D(0,0).distanceBetween(Point2D(-6,-6))).isEqualTo(12)
+            assertThat(Point2D(0, 0).distanceBetween(Point2D(-6, -6))).isEqualTo(12)
         }
 
         @Test
         fun targetDiagonalTopLeft() {
-            assertThat(Point2D(0,0).distanceBetween(Point2D(-12,12))).isEqualTo(24)
+            assertThat(Point2D(0, 0).distanceBetween(Point2D(-12, 12))).isEqualTo(24)
         }
     }
 
@@ -139,47 +153,47 @@ class Point2DTest {
     inner class Shift {
         @Test
         fun shiftUp() {
-            assertThat(Point2D(0,0).shift(Direction.UP)).isEqualTo(Point2D(0,1))
+            assertThat(Point2D(0, 0).shift(Direction.UP)).isEqualTo(Point2D(0, 1))
         }
 
         @Test
         fun shiftRight() {
-            assertThat(Point2D(0,0).shift(Direction.RIGHT)).isEqualTo(Point2D(1,0))
+            assertThat(Point2D(0, 0).shift(Direction.RIGHT)).isEqualTo(Point2D(1, 0))
         }
 
         @Test
         fun shiftDown() {
-            assertThat(Point2D(0,0).shift(Direction.DOWN)).isEqualTo(Point2D(0,-1))
+            assertThat(Point2D(0, 0).shift(Direction.DOWN)).isEqualTo(Point2D(0, -1))
         }
 
         @Test
         fun shiftLeft() {
-            assertThat(Point2D(0,0).shift(Direction.LEFT)).isEqualTo(Point2D(-1,0))
+            assertThat(Point2D(0, 0).shift(Direction.LEFT)).isEqualTo(Point2D(-1, 0))
         }
 
         @Test
         fun shiftTopRight() {
-            assertThat(Point2D(0,0).shift(Direction.TOP_RIGHT)).isEqualTo(Point2D(1,1))
+            assertThat(Point2D(0, 0).shift(Direction.TOP_RIGHT)).isEqualTo(Point2D(1, 1))
         }
 
         @Test
         fun shiftBottomRight() {
-            assertThat(Point2D(0,0).shift(Direction.BOTTOM_RIGHT)).isEqualTo(Point2D(1,-1))
+            assertThat(Point2D(0, 0).shift(Direction.BOTTOM_RIGHT)).isEqualTo(Point2D(1, -1))
         }
 
         @Test
         fun shiftBottomLeft() {
-            assertThat(Point2D(0,0).shift(Direction.BOTTOM_LEFT)).isEqualTo(Point2D(-1,-1))
+            assertThat(Point2D(0, 0).shift(Direction.BOTTOM_LEFT)).isEqualTo(Point2D(-1, -1))
         }
 
         @Test
         fun shiftTopLeft() {
-            assertThat(Point2D(0,0).shift(Direction.TOP_LEFT)).isEqualTo(Point2D(-1,1))
+            assertThat(Point2D(0, 0).shift(Direction.TOP_LEFT)).isEqualTo(Point2D(-1, 1))
         }
 
         @Test
         fun shiftUpMoreThanOneUnit() {
-            assertThat(Point2D(0,0).shift(Direction.UP, 4)).isEqualTo(Point2D(0,4))
+            assertThat(Point2D(0, 0).shift(Direction.UP, 4)).isEqualTo(Point2D(0, 4))
         }
     }
 
@@ -228,6 +242,96 @@ class Point2DTest {
         @Test
         fun samePointsAreNotAdjacent() {
             assertThat(Point2D(5, 6).isOrthogonallyAdjacentTo(Point2D(5, 6))).isFalse()
+        }
+    }
+
+    @Nested
+    inner class RotateAboutPivot {
+        @Nested
+        inner class Clockwise {
+            @Test
+            fun pointIsNorthEastOfPivot() {
+                assertThat(Point2D(180, 42).rotateAbout(Point2D(170, 38))).isEqualTo(Point2D(174, 28))
+            }
+
+            @Test
+            fun pointIsSouthEastOfPivot() {
+                assertThat(Point2D(174, 28).rotateAbout(Point2D(170, 38))).isEqualTo(Point2D(160, 34))
+            }
+
+            @Test
+            fun pointIsSouthWestOfPivot() {
+                assertThat(Point2D(160, 34).rotateAbout(Point2D(170, 38))).isEqualTo(Point2D(166, 48))
+            }
+
+            @Test
+            fun pointIsNorthWestOfPivot() {
+                assertThat(Point2D(166, 48).rotateAbout(Point2D(170, 38))).isEqualTo(Point2D(180, 42))
+            }
+        }
+
+        @Nested
+        inner class AntiClockwise {
+            @Test
+            fun pointIsNorthEastOfPivot() {
+                assertThat(Point2D(180, 42).rotateAbout(Point2D(170, 38), -90)).isEqualTo(Point2D(166, 48))
+            }
+
+            @Test
+            fun pointIsNorthWestOfPivot() {
+                assertThat(Point2D(166, 48).rotateAbout(Point2D(170, 38), -90)).isEqualTo(Point2D(160, 34))
+            }
+
+            @Test
+            fun pointIsSouthWestOfPivot() {
+                assertThat(Point2D(160, 34).rotateAbout(Point2D(170, 38), -90)).isEqualTo(Point2D(174, 28))
+            }
+
+            @Test
+            fun pointIsSouthEastOfPivot() {
+                assertThat(Point2D(174, 28).rotateAbout(Point2D(170, 38), -90)).isEqualTo(Point2D(180, 42))
+            }
+
+            @Test
+            fun rotatingOverAxisX() {
+                assertThat(Point2D(6, -10).rotateAbout(Point2D(0, 0), -90)).isEqualTo(Point2D(10, 6))
+            }
+        }
+    }
+
+    @Nested
+    inner class RelativeDirectionX {
+        @Test
+        fun leftSource() {
+            assertThat(Point2D(2, 5).xRelativeDirection(Point2D(10, 2))).isEqualTo(Pair(Direction.LEFT, 8))
+        }
+
+        @Test
+        fun rightSource() {
+            assertThat(Point2D(12, 1).xRelativeDirection(Point2D(-5, 6))).isEqualTo(Pair(Direction.RIGHT, 17))
+        }
+
+        @Test
+        fun sameOrdinateX() {
+            assertThat(Point2D(6, 2).xRelativeDirection(Point2D(6, 5))).isNull()
+        }
+    }
+
+    @Nested
+    inner class RelativeDirectionY {
+        @Test
+        fun sourceBelow() {
+            assertThat(Point2D(2, 5).yRelativeDirection(Point2D(10, 10))).isEqualTo(Pair(Direction.DOWN, 5))
+        }
+
+        @Test
+        fun sourceAbove() {
+            assertThat(Point2D(12, 1).yRelativeDirection(Point2D(-5, -12))).isEqualTo(Pair(Direction.UP, 13))
+        }
+
+        @Test
+        fun sameOrdinateY() {
+            assertThat(Point2D(6, 2).yRelativeDirection(Point2D(6, 2))).isNull()
         }
     }
 
@@ -285,7 +389,7 @@ class Point2DTest {
 
         @Test
         fun differentTypes() {
-            assertThat(Point2D(1,1)).isNotEqualTo(Point3D(1,1,1))
+            assertThat(Point2D(1, 1)).isNotEqualTo(Point3D(1, 1, 1))
         }
     }
 

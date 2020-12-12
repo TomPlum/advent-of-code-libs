@@ -1,34 +1,28 @@
 package io.github.tomplum.libs.math
 
-enum class Direction {
-    UP, RIGHT, DOWN, LEFT,
-    TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM_LEFT;
+enum class Direction(private val degree: Int) {
+    UP(0),
+    TOP_RIGHT(45),
+    RIGHT(90),
+    BOTTOM_RIGHT(135),
+    DOWN(180),
+    BOTTOM_LEFT(225),
+    LEFT(270),
+    TOP_LEFT(315);
 
-    /**
-     * Rotates the current [Direction] by 90deg.
-     */
-    fun rotateClockwise90(): Direction = when(this) {
-        UP -> RIGHT
-        RIGHT -> DOWN
-        DOWN -> LEFT
-        LEFT -> UP
-        TOP_RIGHT -> BOTTOM_RIGHT
-        BOTTOM_RIGHT -> BOTTOM_LEFT
-        BOTTOM_LEFT -> TOP_LEFT
-        TOP_LEFT -> TOP_RIGHT
+    fun rotate(angle: Int): Direction = values()
+        .find { it.degree == normalise(angle) }
+        ?: throw IllegalArgumentException("Invalid Angle $angle")
+
+    private fun normalise(angle: Int): Int {
+        var targetDegree = degree + angle
+        if (targetDegree >= 360) {
+            targetDegree -= 360
+        }
+        if (targetDegree < 0) {
+            targetDegree += 360
+        }
+        return targetDegree
     }
 
-    /**
-     * Rotates the current [Direction] by -90deg.
-     */
-    fun rotateAntiClockwise(): Direction = when(this) {
-        UP -> LEFT
-        LEFT -> DOWN
-        DOWN -> RIGHT
-        RIGHT -> UP
-        TOP_RIGHT -> TOP_LEFT
-        TOP_LEFT -> BOTTOM_LEFT
-        BOTTOM_LEFT -> BOTTOM_RIGHT
-        BOTTOM_RIGHT -> TOP_RIGHT
-    }
 }
