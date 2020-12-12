@@ -58,7 +58,9 @@ abstract class AdventMap2D<T> {
      * @param positions A collection of the positions whose tiles you wish to filter.
      * @return a [Map] of the given [positions] and their respective tiles.
      */
-    protected fun filterPoints(positions: Collection<Point2D>): Map<Point2D, T> = data.filter { positions.contains(it.key) }
+    protected fun filterPoints(positions: Collection<Point2D>): Map<Point2D, T> {
+        return positions.filter(this::hasRecorded).associateWith(this::getTile)
+    }
 
     /**
      * Returns a filtered list of tiles that match the given [predicate].
