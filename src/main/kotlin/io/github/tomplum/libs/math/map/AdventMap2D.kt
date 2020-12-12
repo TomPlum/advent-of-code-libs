@@ -28,7 +28,7 @@ abstract class AdventMap2D<T> {
      * Retrieves the tile at the given [position].
      * If there is no tile present then the [default] is returned.
      */
-    protected fun getTile(position: Point2D, default: T?): T? = data.getOrDefault(position, default)
+    protected fun getTile(position: Point2D, default: T): T = data.getOrDefault(position, default)
 
     /**
      * Retrieves the tile at the given [position].
@@ -55,34 +55,45 @@ abstract class AdventMap2D<T> {
     /**
      * Gets all the tiles at the given [positions]. If there is no recorded tile at one of the given [positions],
      * then it is omitted from the response.
+     * @param positions A collection of the positions whose tiles you wish to filter.
      * @return a [Map] of the given [positions] and their respective tiles.
      */
     protected fun filterPoints(positions: Collection<Point2D>): Map<Point2D, T> = data.filter { positions.contains(it.key) }
 
     /**
-     * Gets all the tiles that equate to true on the given [predicate].
-     * Each implementation of [AdventMap2D] will have a tile of type [T]. This tile will provide the function
-     * that will be evaluated in this predicate.
+     * Returns a filtered list of tiles that match the given [predicate].
+     * @param predicate The condition on which tiles should be returned.
      * @return a [Map] of all tiles that match the given [predicate].
      */
     protected fun filterTiles(predicate: (T) -> Boolean): Map<Point2D, T> = data.filterValues(predicate)
 
     /**
-     * Gets all the tiles that are adjacent to the given [positions].
-     * @see Point2D.orthogonallyAdjacent
-     * @return a [Map] of adjacent [Point2D] and their respective tiles [T].
+     * Gets all the tiles that are orthogonally adjacent to the given [positions].
+     * @param positions The set of positions whose adjacent tiles will be found.
+     * @return a [Map] of orthogonally-adjacent [Point2D] and their respective tiles [T].
      */
-    protected fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> {
+    protected fun adjacentTilesOrthogonal(positions: Set<Point2D>): Map<Point2D, T> {
         return positions.flatMap { it.orthogonallyAdjacent() }.associateWith(this::getTile)
     }
 
     /**
-     * Gets all the tiles that are orthogonally-adjacent to the given [positions].
-     * Any positions that are not recorded in the map will have a null value paired.
-     * @return a [Map] of orthogonally-adjacent [Point2D] and their respective tiles [T].
+     * Gets all the tiles that are adjacent to the given [positions].
+     * @param positions The set of positions whose adjacent tiles will be found.
+     * @return a [Map] of adjacent [Point2D] and their respective tiles [T].
      */
-    protected fun adjacentTilesOrthogonal(positions: Set<Point2D>): Map<Point2D, T?> {
-        return positions.flatMap { it.orthogonallyAdjacent() }.associateWith { getTile(it, null)}
+    protected fun adjacentTiles(positions: Set<Point2D>): Map<Point2D, T> {
+        return positions.flatMap { it.adjacent() }.associateWith(this::getTile)
+    }
+
+    /**
+     * Gets all the tiles that are adjacent to the given [positions].
+     * Any positions that are not recorded in the map will have a null value paired.
+     * @param positions The set of positions whose adjacent tiles will be found.
+     * @param default The value of [T] to return if one of the adjacent tiles is not found in the map.
+     * @return a [Map] of adjacent [Point2D] and their respective tiles [T].
+     */
+    protected fun adjacentTiles(positions: Set<Point2D>, default: T?): Map<Point2D, T?> {
+        return positions.flatMap { it.adjacent() }.associateWith { data[it] ?: default }
     }
 
     /**

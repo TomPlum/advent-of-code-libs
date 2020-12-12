@@ -176,6 +176,11 @@ class Point2DTest {
         fun shiftTopLeft() {
             assertThat(Point2D(0,0).shift(Direction.TOP_LEFT)).isEqualTo(Point2D(-1,1))
         }
+
+        @Test
+        fun shiftUpMoreThanOneUnit() {
+            assertThat(Point2D(0,0).shift(Direction.UP, 4)).isEqualTo(Point2D(0,4))
+        }
     }
 
     @Nested

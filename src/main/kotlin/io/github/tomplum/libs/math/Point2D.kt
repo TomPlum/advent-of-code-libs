@@ -22,7 +22,11 @@ data class Point2D(val x: Int, val y: Int) {
      * @see orthogonallyAdjacent for a function that returns just those on the horizontal and vertical.
      * @return The eight points that are adjacent.
      */
-    fun adjacent() = orthogonallyAdjacent() + listOf(Point2D(x-1, y-1), Point2D(x+1, y-1), Point2D(x+1, y+1), Point2D(x-1, y+1))
+    fun adjacent(): List<Point2D> {
+        val orthogonal = orthogonallyAdjacent()
+        val diagonal = listOf(Point2D(x - 1, y - 1), Point2D(x + 1, y - 1), Point2D(x + 1, y + 1), Point2D(x - 1, y + 1))
+        return orthogonal + diagonal
+    }
 
     /**
      * Calculates the Manhattan Distance between two [Point2D]s.
@@ -47,19 +51,19 @@ data class Point2D(val x: Int, val y: Int) {
     fun isOrthogonallyAdjacentTo(that: Point2D): Boolean = this != that && abs(x - that.x) <= 1 && abs(y - that.y) <= 1
 
     /**
-     * Shifts the [Point2D] one unit in the given [direction].
+     * Shifts the [Point2D] one unit in the given [direction] unless specified by the [units] parameter.
      * E.g. (0, 0) shifted [Direction.RIGHT] would become (1, 0)
      * @return A point at the shifted location.
      */
-    fun shift(direction: Direction): Point2D = when (direction) {
-        Direction.UP -> Point2D(x, y + 1)
-        Direction.RIGHT -> Point2D(x + 1, y)
-        Direction.DOWN -> Point2D(x, y - 1)
-        Direction.LEFT -> Point2D(x - 1, y)
-        Direction.TOP_RIGHT -> Point2D(x + 1, y + 1)
-        Direction.BOTTOM_RIGHT -> Point2D(x + 1, y - 1)
-        Direction.BOTTOM_LEFT -> Point2D(x - 1, y - 1)
-        Direction.TOP_LEFT -> Point2D(x - 1, y + 1)
+    fun shift(direction: Direction, units: Int = 1): Point2D = when (direction) {
+        Direction.UP -> Point2D(x, y + units)
+        Direction.RIGHT -> Point2D(x + units, y)
+        Direction.DOWN -> Point2D(x, y - units)
+        Direction.LEFT -> Point2D(x - units, y)
+        Direction.TOP_RIGHT -> Point2D(x + units, y + units)
+        Direction.BOTTOM_RIGHT -> Point2D(x + units, y - units)
+        Direction.BOTTOM_LEFT -> Point2D(x - units, y - units)
+        Direction.TOP_LEFT -> Point2D(x - units, y + units)
     }
 
     /**
