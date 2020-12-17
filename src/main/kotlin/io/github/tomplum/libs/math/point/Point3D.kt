@@ -1,9 +1,9 @@
-package io.github.tomplum.libs.math
+package io.github.tomplum.libs.math.point
 
 /**
  * A Three-Dimensional Point
  */
-data class Point3D(val x: Int, val y: Int, val z: Int) {
+data class Point3D(val x: Int, val y: Int, val z: Int) : Point {
 
     /**
      * Returns the 4 points that are orthogonally adjacent with the current two-dimensional plane.
@@ -17,7 +17,7 @@ data class Point3D(val x: Int, val y: Int, val z: Int) {
      * The 9 in the plane above, and the 9 in the plane below.
      * @return The 26 adjacent points.
      */
-    fun adjacent(): List<Point3D> {
+    override fun adjacent(): List<Point3D> {
         val secondDimension = getSecondDimension()
         val planar = secondDimension.adjacent().map { Point3D(it.x, it.y, z) }
         val above = Point3D(x, y, z + 1)

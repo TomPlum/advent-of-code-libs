@@ -1,6 +1,6 @@
 package io.github.tomplum.libs.math.map
 
-import io.github.tomplum.libs.math.Point2D
+import io.github.tomplum.libs.math.point.Point2D
 
 /**
  * This class is designed for inheritance.

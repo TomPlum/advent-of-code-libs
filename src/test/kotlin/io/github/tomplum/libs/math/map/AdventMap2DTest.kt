@@ -2,7 +2,7 @@ package io.github.tomplum.libs.math.map
 
 import assertk.assertThat
 import assertk.assertions.*
-import io.github.tomplum.libs.math.Point2D
+import io.github.tomplum.libs.math.point.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

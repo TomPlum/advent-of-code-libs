@@ -1,5 +1,7 @@
-package io.github.tomplum.libs.math
+package io.github.tomplum.libs.math.point
 
+import io.github.tomplum.libs.math.Direction
+import io.github.tomplum.libs.math.toRadians
 import kotlin.math.*
 
 /**
@@ -9,7 +11,7 @@ import kotlin.math.*
  * @param x The x-ordinate of the point.
  * @param y The y-ordinate of the point.
  */
-data class Point2D(val x: Int, val y: Int) {
+data class Point2D(val x: Int, val y: Int) : Point {
 
     companion object {
         /**
@@ -33,7 +35,7 @@ data class Point2D(val x: Int, val y: Int) {
      * @see orthogonallyAdjacent for a function that returns just those on the horizontal and vertical.
      * @return The eight points that are adjacent.
      */
-    fun adjacent(): List<Point2D> {
+    override fun adjacent(): List<Point2D> {
         val orthogonal = orthogonallyAdjacent()
         val diagonal = listOf(Point2D(x - 1, y - 1), Point2D(x + 1, y - 1), Point2D(x + 1, y + 1), Point2D(x - 1, y + 1))
         return orthogonal + diagonal

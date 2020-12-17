@@ -5,7 +5,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
-import io.github.tomplum.libs.math.Point3D
+import io.github.tomplum.libs.math.point.Point3D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

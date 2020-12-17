@@ -1,7 +1,8 @@
-package io.github.tomplum.libs.math
+package io.github.tomplum.libs.math.point
 
 import assertk.assertThat
 import assertk.assertions.*
+import io.github.tomplum.libs.math.Direction
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
