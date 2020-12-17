@@ -1,8 +1,22 @@
 package io.github.tomplum.libs.math.map
 
+import io.github.tomplum.libs.math.point.Point2D
+import io.github.tomplum.libs.math.point.Point3D
 import io.github.tomplum.libs.math.point.Point4D
 
-class AdventMap4D<T> {
+/**
+ * This class is designed for inheritance.
+ *
+ * Lots of the days involve the concept of a 'Map' or a 'Maze' in which the shortest path must be found while
+ * meeting day-specific criteria. A cartesian-style graph is internally maintained that maps tiles to [Point4D]
+ * coordinates.
+ *
+ * This class is very similar to [AdventMap2D] and [AdventMap3D].
+ * The major difference is the internal data structure maps [Point2D] and [Point3D].
+ *
+ * @param T The type of 'tile' that will be mapped.
+ */
+abstract class AdventMap4D<T> {
     /** The internal data representation, mapping the positions to the tiles */
     private val data = mutableMapOf<Point4D, T>()
 

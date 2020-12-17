@@ -2,6 +2,9 @@ package io.github.tomplum.libs.math.point
 
 /**
  * A Three-Dimensional Point
+ * @param x The x-ordinate
+ * @param y The y-ordinate
+ * @param z The z-ordinate
  */
 data class Point3D(val x: Int, val y: Int, val z: Int) : Point {
 
