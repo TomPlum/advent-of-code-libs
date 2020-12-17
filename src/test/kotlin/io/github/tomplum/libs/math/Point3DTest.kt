@@ -1,6 +1,7 @@
 package io.github.tomplum.libs.math
 
 import assertk.assertThat
+import assertk.assertions.containsOnly
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
@@ -61,6 +62,20 @@ class Point3DTest {
         @Test
         fun adjacentPoints() {
             assertThat(Point3D(0,0,0).planarAdjacentPoints()).isEqualTo(listOf(Point3D(0,1,0), Point3D(1,0,0), Point3D(0,-1,0), Point3D(-1,0,0)))
+        }
+    }
+
+    @Nested
+    inner class Adjacent {
+        @Test
+        fun example() {
+            assertThat(Point3D(1,1,0).adjacent()).containsOnly(
+                Point3D(0,0,0), Point3D(1,0,0), Point3D(2,0,0), Point3D(0,1,0), Point3D(2,1,0), Point3D(0,2,0),
+                Point3D(1,2,0), Point3D(2,2,0), Point3D(0,0,-1), Point3D(1,0,-1), Point3D(2,0,-1), Point3D(0,1,-1),
+                Point3D(1,1,-1), Point3D(2,1,-1), Point3D(0,2,-1), Point3D(1,2,-1), Point3D(2,2,-1), Point3D(0,0,1),
+                Point3D(1,0,1), Point3D(2,0,1), Point3D(0,1,1), Point3D(1,1,1), Point3D(2,1,1), Point3D(0,2,1),
+                Point3D(1,2,1), Point3D(2,2,1)
+            )
         }
     }
 
