@@ -11,15 +11,15 @@ import io.github.tomplum.libs.math.point.Point
  *
  * @param T The type of [MapTile] that will be recorded in the grid.
  */
-abstract class AdventMap<T: MapTile<*>> {
+abstract class AdventMap<P: Point, T: MapTile<*>> {
     /** The internal data representation, mapping the positions to the tiles */
-    protected val data = mutableMapOf<Point, T>()
+    protected val data = mutableMapOf<P, T>()
 
     /**
      * Adds a new [tile] at the given [position].
      * If a tile already exists at the given position then it returned, otherwise null.
      */
-    protected fun addTile(position: Point, tile: T): T? = data.put(position, tile)
+    protected fun addTile(position: P, tile: T): T? = data.put(position, tile)
 
     /**
      * Retrieves the tile at the given [position].
@@ -44,14 +44,14 @@ abstract class AdventMap<T: MapTile<*>> {
      * Removes the tile at the given [position].
      * @param position The position of the tile.
      */
-    protected fun removeTile(position: Point) = data.remove(position)
+    protected fun removeTile(position: P): T? = data.remove(position)
 
     /**
      * Checks to see if the map currently has a tile recorded at the given [position].
      * @param position The position to check at.
      * @return true if a tile is present, else false.
      */
-    protected fun hasRecorded(position: Point): Boolean = data.containsKey(position)
+    protected fun hasRecorded(position: P): Boolean = data.containsKey(position)
 
     /**
      * Checks if the map has a tile of the given type. Equality is left up to the [MapTile].
@@ -66,7 +66,7 @@ abstract class AdventMap<T: MapTile<*>> {
      * @param positions The positions to find.
      * @return a [Map] of the given [positions] and their respective tiles.
      */
-    protected fun filterPoints(positions: Set<Point>): Map<Point, T> {
+    protected fun filterPoints(positions: Set<P>): Map<P, T> {
         return positions.filter(this::hasRecorded).associateWith(this::getTile)
     }
 
@@ -76,15 +76,15 @@ abstract class AdventMap<T: MapTile<*>> {
      * function that will be evaluated
      * @return a [Map] of all tiles that match the given [predicate].
      */
-    protected fun filterTiles(predicate: (T) -> Boolean): Map<Point, T> = data.filterValues(predicate)
+    protected fun filterTiles(predicate: (T) -> Boolean): Map<P, T> = data.filterValues(predicate)
 
     /**
      * Gets all the tiles that are adjacent to the given [positions].
      * @param positions The set of positions whose adjacent tiles will be found.
      * @return a [Map] of adjacent [Point] and their respective tiles [T].
      */
-    protected fun adjacentTiles(positions: Set<Point>): Map<Point, T> {
-        return positions.flatMap { it.adjacent() }.associateWith(this::getTile)
+    protected fun adjacentTiles(positions: Set<P>): Map<Point, T> {
+        return positions.flatMap { pos -> pos.adjacent() }.associateWith { adj -> getTile(adj) }
     }
 
     /**
@@ -114,7 +114,7 @@ abstract class AdventMap<T: MapTile<*>> {
      * Two [AdventMap]s are equal to one another if they have the same [data].
      */
     override fun equals(other: Any?): Boolean {
-        if (other !is AdventMap<*>) return false
+        if (other !is AdventMap<*, *>) return false
         return this.data == other.data
     }
 

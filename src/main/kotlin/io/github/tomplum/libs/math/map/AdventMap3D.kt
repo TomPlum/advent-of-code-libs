@@ -1,6 +1,5 @@
 package io.github.tomplum.libs.math.map
 
-import io.github.tomplum.libs.math.point.Point
 import io.github.tomplum.libs.math.point.Point2D
 import io.github.tomplum.libs.math.point.Point3D
 
@@ -17,13 +16,13 @@ import io.github.tomplum.libs.math.point.Point3D
  * @param T The type of 'tile' that will be mapped.
  * @see AdventMap2D
  */
-abstract class AdventMap3D<T: MapTile<*>>: AdventMap<T>() {
+abstract class AdventMap3D<T: MapTile<*>>: AdventMap<Point3D, T>() {
     /**
      * Gets all the tiles that are adjacent to the given [positions] on the same plane.
      * @param positions The positions of the target tiles.
      * @return a [Map] of adjacent [Point3D] and their respective tiles, [T].
      */
-    protected fun planarAdjacentTiles(positions: Set<Point3D>): Map<Point, T> {
+    protected fun planarAdjacentTiles(positions: Set<Point3D>): Map<Point3D, T> {
         return positions.flatMap { pos -> pos.planarAdjacentPoints() }.associateWith(this::getTile)
     }
 
@@ -39,7 +38,7 @@ abstract class AdventMap3D<T: MapTile<*>>: AdventMap<T>() {
             val z = nIterator.nextInt()
             while (it.hasNext()) {
                 val next = it.next()
-                val position = next.key as Point3D
+                val position = next.key
                 toAdd[Point3D(position.x, position.y, z)] = next.value
             }
         }
@@ -49,32 +48,32 @@ abstract class AdventMap3D<T: MapTile<*>>: AdventMap<T>() {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected open fun xMin() = data.keys.map { it as Point3D }.filter { it.z == 0 }.minByOrNull { it.x }?.x
+    protected open fun xMin() = data.keys.filter { it.z == 0 }.minByOrNull { it.x }?.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected open fun yMin() = data.keys.map { it as Point3D }.minByOrNull { it.y }?.y
+    protected open fun yMin() = data.keys.minByOrNull { it.y }?.y
 
     /**
      * @return The minimum z-ordinate currently recorded in the map.
      */
-    protected fun zMin() = data.keys.map { it as Point3D }.minByOrNull { it.z }?.z
+    protected fun zMin() = data.keys.minByOrNull { it.z }?.z
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected open fun xMax() = data.keys.map { it as Point3D }.filter { it.z == 0 }.maxByOrNull { it.x }?.x
+    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxByOrNull { it.x }?.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected open fun yMax() = data.keys.map { it as Point3D }.maxByOrNull { it.y }?.y
+    protected open fun yMax() = data.keys.maxByOrNull { it.y }?.y
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun zMax() = data.keys.map { it as Point3D }.maxByOrNull { it.z }?.z
+    protected fun zMax() = data.keys.maxByOrNull { it.z }?.z
 
     /**
      * Creates a cartesian graph style visual representation of the [data] at the top-level where z = 0.

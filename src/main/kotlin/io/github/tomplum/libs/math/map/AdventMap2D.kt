@@ -11,7 +11,7 @@ import io.github.tomplum.libs.math.point.Point2D
  *
  * @param T The type of [MapTile] that will be mapped.
  */
-abstract class AdventMap2D<T: MapTile<*>>: AdventMap<T>() {
+abstract class AdventMap2D<T: MapTile<*>>: AdventMap<Point2D, T>() {
 
     /**
      * Gets all the tiles that are orthogonally adjacent to the given [positions].
@@ -25,22 +25,22 @@ abstract class AdventMap2D<T: MapTile<*>>: AdventMap<T>() {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected fun xMin(): Int? = data.keys.map { it as Point2D }.minByOrNull { it.x }?.x
+    protected fun xMin(): Int? = data.keys.minByOrNull { it.x }?.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected fun yMin(): Int? = data.keys.map { it as Point2D }.minByOrNull { it.y }?.y
+    protected fun yMin(): Int? = data.keys.minByOrNull { it.y }?.y
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected fun xMax(): Int? = data.keys.map { it as Point2D }.maxByOrNull { it.x }?.x
+    protected fun xMax(): Int? = data.keys.maxByOrNull { it.x }?.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun yMax(): Int? = data.keys.map { it as Point2D }.maxByOrNull { it.y }?.y
+    protected fun yMax(): Int? = data.keys.maxByOrNull { it.y }?.y
 
     /**
      * Creates a cartesian graph style visual representation of the [data]
