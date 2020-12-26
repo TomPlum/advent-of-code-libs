@@ -1,5 +1,6 @@
 package io.github.tomplum.libs.math.map
 
+import io.github.tomplum.libs.math.point.Point
 import io.github.tomplum.libs.math.point.Point2D
 import io.github.tomplum.libs.math.point.Point3D
 
@@ -16,51 +17,14 @@ import io.github.tomplum.libs.math.point.Point3D
  * @param T The type of 'tile' that will be mapped.
  * @see AdventMap2D
  */
-abstract class AdventMap3D<T> {
-    /** The internal data representation, mapping the positions to the tiles */
-    private val data = mutableMapOf<Point3D, T>()
-
-    /**
-     * Adds a new [tile] at the given [position].
-     * If a tile already exists at the given position then it returned, otherwise null.
-     */
-    protected fun addTile(position: Point3D, tile: T): T? = data.put(position, tile)
-
-    /**
-     * Retrieves the tile at the given [position].
-     * @throws IllegalArgumentException if the map does not contain a tile at the given [position]
-     */
-    protected fun getTile(position: Point3D): T =
-        data[position] ?: throw IllegalArgumentException("Map does not contain tile at $position")
-
-    /**
-     * @return true if the map has recorded a tile at the given [position]
-     */
-    protected fun hasRecorded(position: Point3D): Boolean = data.containsKey(position)
-
-    /**
-     * Gets all the tiles at the given [positions]. If there is no recorded at tile at one of the given [positions]
-     * then it is omitted from the response.
-     * @return a [Map] of the given [positions] and their respective tiles.
-     */
-    protected fun filterPoints(positions: Set<Point3D>): Map<Point3D, T> =
-        positions.filter(this::hasRecorded).associateWith(this::getTile)
-
-    /**
-     * Gets all the tiles that equate to true on the given [predicate].
-     * Each implementation of [AdventMap3D] will have a tile of type [T]. This tile will provide the function
-     * that will be evaluated in this predicate.
-     * @return a [Map] of all tiles that match the given [predicate].
-     */
-    protected fun filterTiles(predicate: (T) -> Boolean): Map<Point3D, T> = data.filterValues(predicate)
-
+abstract class AdventMap3D<T: MapTile<*>>: AdventMap<T>() {
     /**
      * Gets all the tiles that are adjacent to the given [positions] on the same plane.
-     * @see Point3D.planarAdjacentPoints
+     * @param positions The positions of the target tiles.
      * @return a [Map] of adjacent [Point3D] and their respective tiles, [T].
      */
-    protected fun adjacentTiles(positions: Set<Point3D>): Map<Point3D, T> {
-        return positions.flatMap { it.planarAdjacentPoints() }.associateWith(this::getTile)
+    protected fun planarAdjacentTiles(positions: Set<Point3D>): Map<Point, T> {
+        return positions.flatMap { pos -> pos.planarAdjacentPoints() }.associateWith(this::getTile)
     }
 
     /**
@@ -75,7 +39,7 @@ abstract class AdventMap3D<T> {
             val z = nIterator.nextInt()
             while (it.hasNext()) {
                 val next = it.next()
-                val position = next.key
+                val position = next.key as Point3D
                 toAdd[Point3D(position.x, position.y, z)] = next.value
             }
         }
@@ -85,32 +49,32 @@ abstract class AdventMap3D<T> {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected open fun xMin() = data.keys.filter { it.z == 0 }.minByOrNull { it.x }?.x
+    protected open fun xMin() = data.keys.map { it as Point3D }.filter { it.z == 0 }.minByOrNull { it.x }?.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected open fun yMin() = data.keys.minByOrNull { it.y }?.y
+    protected open fun yMin() = data.keys.map { it as Point3D }.minByOrNull { it.y }?.y
 
     /**
      * @return The minimum z-ordinate currently recorded in the map.
      */
-    protected fun zMin() = data.keys.minByOrNull { it.z }?.z
+    protected fun zMin() = data.keys.map { it as Point3D }.minByOrNull { it.z }?.z
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxByOrNull { it.x }?.x
+    protected open fun xMax() = data.keys.map { it as Point3D }.filter { it.z == 0 }.maxByOrNull { it.x }?.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected open fun yMax() = data.keys.maxByOrNull { it.y }?.y
+    protected open fun yMax() = data.keys.map { it as Point3D }.maxByOrNull { it.y }?.y
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun zMax() = data.keys.maxByOrNull { it.z }?.z
+    protected fun zMax() = data.keys.map { it as Point3D }.maxByOrNull { it.z }?.z
 
     /**
      * Creates a cartesian graph style visual representation of the [data] at the top-level where z = 0.

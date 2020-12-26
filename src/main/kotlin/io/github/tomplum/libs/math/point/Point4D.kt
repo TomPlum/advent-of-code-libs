@@ -8,6 +8,7 @@ package io.github.tomplum.libs.math.point
  * @param w The w-ordinate
  */
 data class Point4D(val x: Int, val y: Int, val z: Int, val w: Int) : Point {
+
     /**
      * Returns the 80 points that are adjacent to the current point.
      * @return The 80 adjacent points.

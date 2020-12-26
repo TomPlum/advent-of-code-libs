@@ -474,7 +474,7 @@ class AdventMap3DTest {
         fun hasMapped(pos: Point3D) = hasRecorded(pos)
         fun filterPointsExample(positions: Set<Point3D>) = filterPoints(positions)
         fun filterTilesExample(predicate: (TestMapTile) -> Boolean) = filterTiles(predicate)
-        fun getAdjacentTiles(positions: Set<Point3D>) = adjacentTiles(positions)
+        fun getAdjacentTiles(positions: Set<Point3D>) = planarAdjacentTiles(positions)
         fun duplicateTopLayerExample(n: Int) = duplicateTopLayer(n)
         fun getMinX() = xMin()
         fun getMaxX() = xMax()

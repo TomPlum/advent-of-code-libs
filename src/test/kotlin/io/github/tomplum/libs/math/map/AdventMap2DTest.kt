@@ -234,7 +234,7 @@ class AdventMap2DTest {
         }
     }
 
-    @Nested
+   /* @Nested
     inner class Snapshot {
         @Test
         fun populatedMap() {
@@ -242,7 +242,7 @@ class AdventMap2DTest {
             map.addExampleTile(Point2D(1, 2), TestMapTile(14))
             assertThat(map.snapshotExample()).isEqualTo(mapOf(Pair(Point2D(1, 2), TestMapTile(14))))
         }
-    }
+    }*/
 
     @Nested
     inner class Equality {
@@ -484,7 +484,6 @@ class AdventMap2DTest {
         fun getAdjacentTiles(positions: Set<Point2D>) = adjacentTiles(positions)
         fun getAdjacentTiles(positions: Set<Point2D>, default: TestMapTile?) = adjacentTiles(positions, default)
         fun getAdjacentTilesOrthogonal(positions: Set<Point2D>) = adjacentTilesOrthogonal(positions)
-        fun snapshotExample() = snapshot()
         fun getMinX() = xMin()
         fun getMinY() = yMin()
         fun getMaxX() = xMax()

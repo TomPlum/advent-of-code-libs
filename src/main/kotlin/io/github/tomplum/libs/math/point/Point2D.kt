@@ -22,14 +22,6 @@ data class Point2D(val x: Int, val y: Int) : Point {
     }
 
     /**
-     * Orthogonally adjacent points are the 4 points immediately horizontal or vertical.
-     * A.K.A 'Edge Adjacent'
-     * @see adjacent for a function that returns on the diagonal too.
-     * @return The four points that are orthogonally adjacent.
-     */
-    fun orthogonallyAdjacent() = listOf(Point2D(x, y + 1), Point2D(x + 1, y), Point2D(x, y - 1), Point2D(x - 1, y))
-
-    /**
      * Adjacent points are the 8 points that are immediately surrounding the current point.
      * These include those on the horizontal, vertical and diagonal.
      * @see orthogonallyAdjacent for a function that returns just those on the horizontal and vertical.
@@ -40,6 +32,14 @@ data class Point2D(val x: Int, val y: Int) : Point {
         val diagonal = listOf(Point2D(x - 1, y - 1), Point2D(x + 1, y - 1), Point2D(x + 1, y + 1), Point2D(x - 1, y + 1))
         return orthogonal + diagonal
     }
+
+    /**
+     * Orthogonally adjacent points are the 4 points immediately horizontal or vertical.
+     * A.K.A 'Edge Adjacent'
+     * @see adjacent for a function that returns on the diagonal too.
+     * @return The four points that are orthogonally adjacent.
+     */
+    fun orthogonallyAdjacent() = listOf(Point2D(x, y + 1), Point2D(x + 1, y), Point2D(x, y - 1), Point2D(x - 1, y))
 
     /**
      * Calculates the Manhattan Distance between two [Point2D]s.
