@@ -115,8 +115,8 @@ abstract class AdventMap<P: Point, T: MapTile<*>> {
      * Completely overrides the current data map.
      * @param newData A map of new data to override with.
      */
-    fun overwriteData(newData: Map<P, T>) {
-        data = newData.toMutableMap()
+    fun overwriteData(newData: MutableMap<P, T>) {
+        data = newData
     }
 
     /**
