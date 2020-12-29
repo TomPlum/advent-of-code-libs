@@ -13,7 +13,7 @@ import io.github.tomplum.libs.math.point.Point
  */
 abstract class AdventMap<P: Point, T: MapTile<*>> {
     /** The internal data representation, mapping the positions to the tiles */
-    protected val data = mutableMapOf<P, T>()
+    internal var data = mutableMapOf<P, T>()
 
     /**
      * Adds a new [tile] at the given [position].
@@ -109,6 +109,21 @@ abstract class AdventMap<P: Point, T: MapTile<*>> {
      * All internally stored data is cleared.
      */
     fun reset() = data.clear()
+
+    /**
+     * Sets the data to the given [newData].
+     * Completely overrides the current data map.
+     * @param newData A map of new data to override with.
+     */
+    fun overwriteData(newData: Map<P, T>) {
+        data = newData.toMutableMap()
+    }
+
+    /**
+     * Returns the internally stored map of data.
+     * @return The data in its current state.
+     */
+    fun getDataMap(): MutableMap<P, T> = data
 
     /**
      * Two [AdventMap]s are equal to one another if they have the same [data].

@@ -19,28 +19,28 @@ abstract class AdventMap2D<T: MapTile<*>>: AdventMap<Point2D, T>() {
      * @return a [Map] of orthogonally-adjacent [Point2D] and their respective tiles [T].
      */
     protected fun adjacentTilesOrthogonal(positions: Set<Point2D>): Map<Point2D, T> {
-        return positions.flatMap { it.orthogonallyAdjacent() }.associateWith(this::getTile)
+        return positions.flatMap { pos -> pos.orthogonallyAdjacent() }.associateWith(this::getTile)
     }
 
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected fun xMin(): Int? = data.keys.minByOrNull { it.x }?.x
+    protected fun xMin(): Int? = data.keys.minByOrNull { pos -> pos.x }?.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected fun yMin(): Int? = data.keys.minByOrNull { it.y }?.y
+    protected fun yMin(): Int? = data.keys.minByOrNull { pos -> pos.y }?.y
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected fun xMax(): Int? = data.keys.maxByOrNull { it.x }?.x
+    protected fun xMax(): Int? = data.keys.maxByOrNull { pos -> pos.x }?.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun yMax(): Int? = data.keys.maxByOrNull { it.y }?.y
+    protected fun yMax(): Int? = data.keys.maxByOrNull { pos -> pos.y }?.y
 
     /**
      * Creates a cartesian graph style visual representation of the [data]

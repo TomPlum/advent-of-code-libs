@@ -20,42 +20,42 @@ abstract class AdventMap4D<T: MapTile<*>>: AdventMap<Point4D, T>() {
     /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
-    protected open fun xMin() = data.keys.filter { it.z == 0 }.minByOrNull { it.x }?.x
+    protected open fun xMin() = data.keys.filter { pos -> pos.z == 0 }.minByOrNull { pos -> pos.x }?.x
 
     /**
      * @return The minimum y-ordinate currently recorded in the map.
      */
-    protected open fun yMin() = data.keys.minByOrNull { it.y }?.y
+    protected open fun yMin() = data.keys.minByOrNull { pos -> pos.y }?.y
 
     /**
      * @return The minimum z-ordinate currently recorded in the map.
      */
-    protected fun zMin() = data.keys.minByOrNull { it.z }?.z
+    protected fun zMin() = data.keys.minByOrNull { pos -> pos.z }?.z
 
     /**
      * @return The minimum w-ordinate currently recorded in the map.
      */
-    protected fun wMin() = data.keys.minByOrNull { it.w }?.w
+    protected fun wMin() = data.keys.minByOrNull { pos -> pos.w }?.w
 
     /**
      * @return The maximum x-ordinate currently recorded in the map.
      */
-    protected open fun xMax() = data.keys.filter { it.z == 0 }.maxByOrNull { it.x }?.x
+    protected open fun xMax() = data.keys.filter { pos -> pos.z == 0 }.maxByOrNull { pos -> pos.x }?.x
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected open fun yMax() = data.keys.maxByOrNull { it.y }?.y
+    protected open fun yMax() = data.keys.maxByOrNull { pos -> pos.y }?.y
 
     /**
      * @return The maximum y-ordinate currently recorded in the map.
      */
-    protected fun zMax() = data.keys.maxByOrNull { it.z }?.z
+    protected fun zMax() = data.keys.maxByOrNull { pos -> pos.z }?.z
 
     /**
      * @return The maximum w-ordinate currently recorded in the map.
      */
-    protected fun wMax() = data.keys.maxByOrNull { it.w }?.w
+    protected fun wMax() = data.keys.maxByOrNull { pos -> pos.w }?.w
 
     
     /**
