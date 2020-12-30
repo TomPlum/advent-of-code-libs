@@ -18,7 +18,7 @@ plugins {
 }
 
 group = "io.github.tomplum"
-version = "1.6.3"
+version = "1.6.4"
 
 apply(plugin = "kotlin")
 
@@ -34,6 +34,8 @@ dependencies {
 
     //Logging
     implementation("org.slf4j:slf4j-api:1.7.30")
+    runtimeOnly("org.apache.logging.log4j:log4j-core:2.14.0")
+    runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.14.0")
 
     //Testing
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")

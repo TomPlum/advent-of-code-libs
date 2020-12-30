@@ -18,31 +18,31 @@ class AdventLogger private constructor() : Logger {
          * The ERROR level designates error events that might still allow the application to continue running.
          */
         fun error(message: String) = logger.error(message)
-        fun <E> error(obj: E) = logger.error(obj.toString())
+        fun <E> error(obj: E) = logger.error("{}", obj)
 
         /**
          * The WARN level designates potentially harmful situations.
          */
         fun warn(message: String) = logger.warn(message)
-        fun <E> warn(obj: E) = logger.warn(obj.toString())
+        fun <E> warn(obj: E) = logger.warn("{}", obj)
 
         /**
          * The INFO level designates information messages that highlight the progress of the application
          * at a coarse-grained level.
          */
         fun info(message: String) = logger.info(message)
-        fun <E> info(obj: E) = logger.info(obj.toString())
+        fun <E> info(obj: E) = logger.info("{}", obj)
 
         /**
          * The DEBUG level designates fine-grained informational events that are most useful to debug the application.
          */
         fun debug(message: String) = logger.debug(message)
-        fun <E> debug(obj: E) = logger.debug(obj.toString())
+        fun <E> debug(obj: E) = logger.debug("{}", obj)
 
         /**
          * The TRACE level designates finer-grained informational events than the [debug] level.
          */
         fun trace(message: String) = logger.trace(message)
-        fun <E> trace(obj: E) = logger.trace(obj.toString())
+        fun <E> trace(obj: E) = logger.trace("{}", obj)
     }
 }
