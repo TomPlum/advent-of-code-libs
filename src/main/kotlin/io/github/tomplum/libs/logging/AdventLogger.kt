@@ -18,14 +18,14 @@ class AdventLogger private constructor() : Logger {
          * The ERROR level designates error events that might still allow the application to continue running.
          */
         fun error(message: String) = logger.error(message)
-        fun error(format: String, message: String) = logger.error(format, message)
+        fun error(format: String, obj: Any?) = logger.error(format, obj)
         fun <E> error(obj: E) = logger.error("{}", obj)
 
         /**
          * The WARN level designates potentially harmful situations.
          */
         fun warn(message: String) = logger.warn(message)
-        fun warn(format: String, message: String) = logger.warn(format, message)
+        fun warn(format: String, obj: Any?) = logger.warn(format, obj)
         fun <E> warn(obj: E) = logger.warn("{}", obj)
 
         /**
@@ -33,21 +33,21 @@ class AdventLogger private constructor() : Logger {
          * at a coarse-grained level.
          */
         fun info(message: String) = logger.info(message)
-        fun info(format: String, message: String) = logger.info(format, message)
+        fun info(format: String, obj: Any?) = logger.info(format, obj)
         fun <E> info(obj: E) = logger.info("{}", obj)
 
         /**
          * The DEBUG level designates fine-grained informational events that are most useful to debug the application.
          */
         fun debug(message: String) = logger.debug(message)
-        fun debug(format: String, message: String) = logger.debug(format, message)
+        fun debug(format: String, obj: Any?) = logger.debug(format, obj)
         fun <E> debug(obj: E) = logger.debug("{}", obj)
 
         /**
          * The TRACE level designates finer-grained informational events than the [debug] level.
          */
         fun trace(message: String) = logger.trace(message)
-        fun trace(format: String, message: String) = logger.trace(format, message)
+        fun trace(format: String, obj: Any?) = logger.trace(format, obj)
         fun <E> trace(obj: E) = logger.trace("{}", obj)
     }
 }
