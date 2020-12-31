@@ -18,14 +18,14 @@ class AdventLogger private constructor() : Logger {
          * The ERROR level designates error events that might still allow the application to continue running.
          */
         fun error(message: String) = logger.error(message)
-        fun error(format: String, obj: Any?) = logger.error(format, obj)
+        fun error(format: String, vararg objects: Any?) = logger.error(format, objects)
         fun <E> error(obj: E) = logger.error("{}", obj)
 
         /**
          * The WARN level designates potentially harmful situations.
          */
         fun warn(message: String) = logger.warn(message)
-        fun warn(format: String, obj: Any?) = logger.warn(format, obj)
+        fun warn(format: String, vararg objects: Any?) = logger.warn(format, objects)
         fun <E> warn(obj: E) = logger.warn("{}", obj)
 
         /**
@@ -33,21 +33,21 @@ class AdventLogger private constructor() : Logger {
          * at a coarse-grained level.
          */
         fun info(message: String) = logger.info(message)
-        fun info(format: String, obj: Any?) = logger.info(format, obj)
+        fun info(format: String, vararg objects: Any?) = logger.info(format, objects)
         fun <E> info(obj: E) = logger.info("{}", obj)
 
         /**
          * The DEBUG level designates fine-grained informational events that are most useful to debug the application.
          */
         fun debug(message: String) = logger.debug(message)
-        fun debug(format: String, obj: Any?) = logger.debug(format, obj)
+        fun debug(format: String, vararg objects: Any?) = logger.debug(format, objects)
         fun <E> debug(obj: E) = logger.debug("{}", obj)
 
         /**
          * The TRACE level designates finer-grained informational events than the [debug] level.
          */
         fun trace(message: String) = logger.trace(message)
-        fun trace(format: String, obj: Any?) = logger.trace(format, obj)
+        fun trace(format: String, vararg objects: Any?) = logger.trace(format, objects)
         fun <E> trace(obj: E) = logger.trace("{}", obj)
     }
 }
