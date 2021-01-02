@@ -1,2 +1,4 @@
+val releaseVersion: String? by ext
+
 group = "io.github.tomplum"
-version = "1.6.7"
+version = releaseVersion.toString()

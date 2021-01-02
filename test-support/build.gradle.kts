@@ -1,5 +1,7 @@
+val releaseVersion: String? by ext
+
 group = "io.github.tomplum"
-version = "1.0.0"
+version = releaseVersion.toString()
 
 dependencies {
     implementation(project(":advent-of-code-libs"))

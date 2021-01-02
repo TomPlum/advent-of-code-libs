@@ -22,9 +22,19 @@ repositories {
     jcenter()
 }
 
+project.tasks.publish {
+    enabled = false
+}
+
 subprojects {
     apply(plugin = "kotlin")
+    apply(plugin = "idea")
+    apply(plugin = "jacoco")
     apply(plugin = "maven-publish")
+
+    ext {
+        set("releaseVersion", "1.6.7")
+    }
 
     repositories {
         mavenCentral()
@@ -58,6 +68,7 @@ subprojects {
         from(sourceSets["main"].allJava)
         archiveClassifier.set("sources")
     }
+
     publishing {
         repositories {
             maven {
@@ -77,38 +88,38 @@ subprojects {
             }
         }
     }
-}
 
-tasks.test {
-    useJUnitPlatform { }
-    finalizedBy(tasks.jacocoTestReport)
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-}
-
-jacoco {
-    toolVersion = "0.8.5"
-    reportsDir = file("$buildDir/reports")
-}
-
-tasks.jacocoTestReport {
-    group = "Reporting"
-    description = "Generate Jacoco test coverage report"
-
-    reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-        csv.isEnabled = false
+    tasks.test {
+        useJUnitPlatform { }
+        finalizedBy(tasks.jacocoTestReport)
     }
-}
 
-tasks.jacocoTestCoverageVerification  {
-    violationRules {
-        rule {
-            limit {
-                minimum = "0.9".toBigDecimal()
+    tasks.jacocoTestReport {
+        dependsOn(tasks.test)
+    }
+
+    jacoco {
+        toolVersion = "0.8.5"
+        reportsDir = file("$buildDir/reports")
+    }
+
+    tasks.jacocoTestReport {
+        group = "Reporting"
+        description = "Generate Jacoco test coverage report"
+
+        reports {
+            xml.isEnabled = true
+            html.isEnabled = true
+            csv.isEnabled = false
+        }
+    }
+
+    tasks.jacocoTestCoverageVerification  {
+        violationRules {
+            rule {
+                limit {
+                    minimum = "0.9".toBigDecimal()
+                }
             }
         }
     }
