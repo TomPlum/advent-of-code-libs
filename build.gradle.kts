@@ -17,61 +17,64 @@ plugins {
     kotlin("jvm") version "1.4.0"
 }
 
-group = "io.github.tomplum"
-version = "1.6.7"
+allprojects {
+    apply(plugin = "kotlin")
+    apply(plugin = "maven-publish")
 
-apply(plugin = "kotlin")
-
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
-dependencies {
-    //Standard Libraries
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(kotlin("reflect"))
-
-    //Logging
-    implementation("org.slf4j:slf4j-api:1.7.30")
-    runtimeOnly("org.apache.logging.log4j:log4j-core:2.14.0")
-    runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.14.0")
-
-    //Testing
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.3.1")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
-}
-
-val sourcesJar by tasks.creating(Jar::class) {
-    archiveClassifier.set("sources")
-    from(sourceSets.getByName("main").allSource)
-}
-
-publishing {
     repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/tomplum/advent-of-code-libs")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        //Standard Libraries
+        implementation(kotlin("stdlib-jdk8"))
+        implementation(kotlin("reflect"))
+
+        //Logging
+        implementation("org.slf4j:slf4j-api:1.7.30")
+        runtimeOnly("org.apache.logging.log4j:log4j-core:2.14.0")
+        runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.14.0")
+
+        //Testing
+        testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
+        testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.3.1")
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "11"
+    }
+
+    val sourcesJar by tasks.creating(Jar::class) {
+        val sourceSets: SourceSetContainer by project
+        from(sourceSets["main"].allJava)
+        archiveClassifier.set("sources")
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/tomplum/advent-of-code-libs")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+
+        publications {
+            create<MavenPublication>(project.name) {
+                from(components["java"])
+                artifact(sourcesJar)
             }
         }
     }
-    publications {
-        create<MavenPublication>("default") {
-            from(components["java"])
-            artifact(sourcesJar)
-        }
-    }
 }
+
 
 tasks.test {
     useJUnitPlatform { }

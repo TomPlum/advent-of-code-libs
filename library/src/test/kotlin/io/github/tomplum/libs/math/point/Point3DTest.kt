@@ -5,7 +5,6 @@ import assertk.assertions.containsOnly
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
-import io.github.tomplum.libs.math.point.Point3D
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 

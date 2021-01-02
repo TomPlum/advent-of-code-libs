@@ -2,9 +2,6 @@ package io.github.tomplum.libs.input
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import assertk.assertions.isNotNull
-import io.github.tomplum.libs.input.Day
-import io.github.tomplum.libs.input.InputReader
 import io.github.tomplum.libs.input.types.StringInput
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
