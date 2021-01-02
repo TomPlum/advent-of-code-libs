@@ -17,7 +17,12 @@ plugins {
     kotlin("jvm") version "1.4.0"
 }
 
-allprojects {
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "maven-publish")
 
@@ -53,7 +58,6 @@ allprojects {
         from(sourceSets["main"].allJava)
         archiveClassifier.set("sources")
     }
-
     publishing {
         repositories {
             maven {
@@ -74,7 +78,6 @@ allprojects {
         }
     }
 }
-
 
 tasks.test {
     useJUnitPlatform { }
