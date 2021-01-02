@@ -5,10 +5,22 @@
 ![GitHub](https://img.shields.io/badge/branches-93%25-orange)
 
 ## About
-* [Logging](#logging)
-* [Input De-Serialisation](#input-de-serialisation)
-* [Math](#math)
+A simple Kotlin library for Advent of Code.
 
+After my second year of completing AoC in Kotlin, I extracted common functionality into a library to reduce redundancy.
+Two packages are published;
+- `advent-of-code-libs` - The main utility classes and datastructures to be compiled in the `implementation` scope.
+- `adventof-code-test-support` - Test utility classes for supporting unit tests and benchmarking for the `testImplementation` scope.
+
+## Contents
+* [Implementation Library](#implementation-library)
+  * [Logging](#logging)
+  * [Input De-Serialisation](#input-de-serialisation)
+  * [Math](#math)
+* [Test Support Library](#test-support-library)
+  * [VisualVM Support](#visualvm-support)
+
+## Implementation Library
 ### Logging
 The [`AdventLogger`](https://git.io/JILT9) provides a simple companion-object class that wraps the
 [SLF4J](http://www.slf4j.org/) abstraction. The class exposes the usual levels which are as follows
@@ -50,3 +62,23 @@ An example puzzle input of a map that could be read and stored in an `AdventMap2
     #.##...#...
     #...##....#
     .#..#...#.#
+
+## Test Support Library
+### VisualVM Support
+Running unit tests with JUnit via VisualVM can be difficult due to the time taken to launch the VisualVM process,
+attach to the running Java thread, and configure sampling/profiling. There doesn't seem to be a particularly elegant
+process for this other than telling the thread to wait.
+
+One problem I ran into (and seemingly many others online too) was that JUnit5 bootstrapped and ran my test so quickly
+that it finished before VisualVM even had a chance to boot-up. A common solution I'd seen was to simply add a
+`Thread.sleep(x)` line at the start of the test method. Although this is the solution I technically went with, I
+abstracted it into a [`@WaitForVisualVM`](https://git.io/JJdg1) annotation and created a custom implementation
+of the Jupiter APIs [`BeforeTestExecutionCallback`](https://junit.org/junit5/docs/5.0.1/api/org/junit/jupiter/api/extension/BeforeTestExecutionCallback.html)
+interface called [`SupportsVisualVM.kt`](https://git.io/JJd2e) which can be added to a test-suite class using the
+[`@ExtendWith`](https://junit.org/junit5/docs/5.0.1/api/org/junit/jupiter/api/extension/ExtendWith.html) annotation.
+
+This kept things inline with the 'enterprise-style' aspect of my codebase as it did the following;
+- Wrapped the dubious `Thread.sleep()` call with a self-explanatory annotation (and is also documented).
+- Removed noise from the test method and ensured that it always runs before test-execution.
+- Allows developers to easily disable all waiting for tests in a suite by simply removing the support extension.
+- Makes it easier to refactor in the future the as implementation specifics are encapsulated in the annotation.
