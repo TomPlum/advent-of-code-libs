@@ -6,7 +6,14 @@ import io.github.tomplum.libs.logging.AdventLogger
 import java.io.FileNotFoundException
 import java.io.FileReader
 
+/**
+ * Reads an existing [BenchmarkResult] from it's serialised XML file.
+ */
 class BenchmarkReader {
+    /**
+     * Looks for an existing 'benchmark.xml' file and maps it to a [BenchmarkResult].
+     * @return The previous benchmark result or null if doesn't exist.
+     */
     fun read(): BenchmarkResult? {
         val reader = try {
             FileReader("benchmark.xml")

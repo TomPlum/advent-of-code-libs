@@ -5,7 +5,14 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import io.github.tomplum.libs.solutions.benchmark.data.BenchmarkResult
 import java.io.File
 
+/**
+ * Writes a [BenchmarkResult] to an XML file.
+ */
 class BenchmarkWriter {
+    /**
+     * Writes the given [result] to a 'benchmark.xml' file.
+     * @param result The result to serialise.
+     */
     fun write(result: BenchmarkResult) {
         val mapper = XmlMapper()
         mapper.enable(SerializationFeature.INDENT_OUTPUT)

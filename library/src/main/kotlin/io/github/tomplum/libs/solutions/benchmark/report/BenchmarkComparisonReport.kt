@@ -2,6 +2,11 @@ package io.github.tomplum.libs.solutions.benchmark.report
 
 import io.github.tomplum.libs.solutions.benchmark.data.BenchmarkComparison
 
+/**
+ * The default verbose variant of [DeltaReport].
+ * @see BenchmarkCompactReport for a more succinct variant.
+ * @param comparison The benchmark result to format.
+ */
 class BenchmarkComparisonReport(private val comparison: BenchmarkComparison) : DeltaReport() {
 
     override fun toString(): String {

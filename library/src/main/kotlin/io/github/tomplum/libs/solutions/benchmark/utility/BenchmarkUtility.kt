@@ -12,10 +12,10 @@ class BenchmarkUtility {
     private val reader = BenchmarkReader()
     private val writer = BenchmarkWriter()
 
-    fun log(lastRun: BenchmarkResult) {
+    fun log(currentRun: BenchmarkResult) {
         val previousRun = reader.read()
         if (previousRun != null) {
-            val comparison = BenchmarkComparison(previousRun, lastRun)
+            val comparison = BenchmarkComparison(previousRun, currentRun)
             val mode = when(System.getProperty("report")) {
                 "verbose" -> ReportingMode.VERBOSE
                 "compact" -> ReportingMode.COMPACT
@@ -29,8 +29,8 @@ class BenchmarkUtility {
             }
 
         } else {
-            AdventLogger.error(BenchmarkDefaultReport(lastRun))
+            AdventLogger.error(BenchmarkDefaultReport(currentRun))
         }
-        writer.write(lastRun)
+        writer.write(currentRun)
     }
 }

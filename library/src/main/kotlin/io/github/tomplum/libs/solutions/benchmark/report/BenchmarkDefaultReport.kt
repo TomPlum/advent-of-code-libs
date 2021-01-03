@@ -1,8 +1,16 @@
 package io.github.tomplum.libs.solutions.benchmark.report
 
 import io.github.tomplum.libs.solutions.benchmark.data.BenchmarkResult
+import io.github.tomplum.libs.solutions.benchmark.utility.BenchmarkReader
 
+/**
+ * The default [BenchmarkReport] that is used to format the [BenchmarkResult] when
+ * the [BenchmarkReader] cannot find an existing XML result from a previous run.
+ * Simply reports the solutions from the current [result] as runtime deltas are not possible.
+ * @param result The benchmark result to format.
+ */
 class BenchmarkDefaultReport(private val result: BenchmarkResult) : BenchmarkReport() {
+
     override fun toString(): String {
         val s = StringBuilder("- Advent of Code 2020 Solution Report -\n\n")
         val solutions =  result.results.joinToString("\n") { result ->

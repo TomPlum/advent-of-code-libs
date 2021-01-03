@@ -3,6 +3,7 @@ package io.github.tomplum.libs.solutions
 import io.github.tomplum.libs.solutions.benchmark.data.Benchmark
 import io.github.tomplum.libs.solutions.benchmark.data.BenchmarkResult
 import io.github.tomplum.libs.solutions.benchmark.utility.BenchmarkUtility
+import io.github.tomplum.libs.solutions.benchmark.report.BenchmarkReport
 import io.github.tomplum.libs.logging.AdventLogger
 import kotlin.system.measureNanoTime
 
@@ -12,6 +13,11 @@ import kotlin.system.measureNanoTime
  */
 class SolutionRunner private constructor() {
     companion object {
+        /**
+         * Runs the given [solutions], measures their runtime and print a [BenchmarkReport]
+         * to the console.
+         * @param solutions The solutions to run.
+         */
         fun run(vararg solutions: Solution<*, *>) {
             val result = BenchmarkResult()
 
@@ -25,6 +31,12 @@ class SolutionRunner private constructor() {
             BenchmarkUtility().log(result)
         }
 
+        /**
+         * Runs the chosen [part] for the given [solution] and measures its runtime in nanoseconds.
+         * @param solution The solution.
+         * @param part The part to run.
+         * @return The answer returned by the solution and its runtime.
+         */
         private fun runPart(solution: Solution<*, *>, part: Part): Answer {
             var answer: Any?
             val runtime = measureNanoTime {
@@ -36,6 +48,11 @@ class SolutionRunner private constructor() {
             return Answer(answer, runtime)
         }
 
+        /**
+         * Extracts the day number from the given solution class.
+         * Supports only 1 or 2 digit day numbers.
+         * @return The day number of the given solution.
+         */
         private fun Solution<*, *>.dayNumber(): Int {
             val lastTwo = this.javaClass.simpleName.takeLast(2)
             return if (lastTwo.all { it.isDigit() }) lastTwo.toInt() else lastTwo.takeLast(1).toInt()

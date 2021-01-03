@@ -1,7 +1,11 @@
 package io.github.tomplum.libs.solutions.benchmark.report
 
 import kotlin.math.abs
+import io.github.tomplum.libs.solutions.SolutionRunner
 
+/**
+ * A report of the benchmark results from the [SolutionRunner].
+ */
 abstract class BenchmarkReport {
     /**
      * Formats the given [time] as a presentable string with units.
@@ -15,6 +19,7 @@ abstract class BenchmarkReport {
         val remainingNanos = time % 1_000_000_000
         val remainingMillis = remainingNanos / 1_000_000
         val micro = time / 1000
+
         return when {
             abs(s) > 0 -> "${s}s ${remainingMillis}ms"
             abs(ms) >= 1 -> "${ms}ms"
