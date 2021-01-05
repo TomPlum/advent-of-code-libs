@@ -9,14 +9,19 @@ A simple Kotlin library for Advent of Code.
 
 After my second year of completing AoC in Kotlin, I extracted common functionality into a library to reduce redundancy.
 Two packages are published;
-- `advent-of-code-libs` - The main utility classes and datastructures to be compiled in the `implementation` scope.
-- `adventof-code-test-support` - Test utility classes for supporting unit tests and benchmarking for the `testImplementation` scope.
+
+#### `advent-of-code-libs`
+The main utility classes and datastructures to be compiled in the `implementation` scope.
+
+#### `advent-of-code-test-support`
+Test utility classes for supporting unit tests and benchmarking for the `testImplementation` scope.
 
 ## Contents
 * [Implementation Library](#implementation-library)
   * [Logging](#logging)
   * [Input De-Serialisation](#input-de-serialisation)
   * [Math](#math)
+  * [Solution Running & Benchmarking](#solution-running--benchmarking)
 * [Test Support Library](#test-support-library)
   * [VisualVM Support](#visualvm-support)
 
@@ -62,6 +67,42 @@ An example puzzle input of a map that could be read and stored in an `AdventMap2
     #.##...#...
     #...##....#
     .#..#...#.#
+
+### Solution Running & Benchmarking
+A `Solution` interface is provided so that the solution classes can be passed to the `SolutionRunner`. 
+The runner executes all the solution implementations and measures their runtimes.
+
+A benchmark is created that produces a report that is appended to the SystemOut.
+The benchmark utility stores the last run in `benchmark.xml` in the root of the project directory.
+
+The format and verbosity of the report can be changed via a JVM arg called `report`.
+It can have the values `verbose` or `compact`. E.g. `-Dreport=verbose`.
+
+A snippet from a verbose runtime delta report;
+
+    - Advent of Code 2020 Solution Report -
+    
+    [Day 1]
+    Part 1: 802011
+    Execution Time: 9ms (+3ms)
+    
+    Part 2: 248607374
+    Execution Time: 54ms (+22ms)
+    
+    [Day 2]
+    Part 1: 660
+    Execution Time: 10ms (+4ms)
+    
+    Part 2: 530
+    Execution Time: 6ms (+2ms)
+    
+    ...
+    
+    Average Execution Time: 654ms (+21ms)
+    Total Execution Time: 16s 365ms (+535ms)
+
+If your terminal supports ANSI escape codes then the deltas will be green or red for increased and decreased runtimes
+respectively.
 
 ## Test Support Library
 ### VisualVM Support
