@@ -101,6 +101,22 @@ A snippet from a verbose runtime delta report;
     Average Execution Time: 654ms (+21ms)
     Total Execution Time: 16s 365ms (+535ms)
 
+If a previous run cannot be found (I.e. the `benchmark.xml` is not present), then a delta report cannot be produced.
+There will be an info log printed, and the report will have the deltas omitted like the following;
+
+    Cannot find previous run. Deltas will not be reported.
+    
+    - Advent of Code 2020 Solution Report -
+    
+    [Day 1]
+    Part 1: 802011
+    Execution Time: 7ms
+    
+    Part 2: 248607374
+    Execution Time: 41ms
+
+    ...
+
 If your terminal supports ANSI escape codes then the deltas will be green or red for increased and decreased runtimes
 respectively.
 
