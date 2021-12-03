@@ -11,3 +11,9 @@ fun Int.toBinary(bits: Int): IntArray = Integer.toBinaryString(this)
     .foldIndexed(IntArray(bits)) { i, arr, value ->
         arr.apply { set(i, value.toString().toInt()) }
     }
+
+/**
+ * Converts an angle in degrees into radians.
+ * @return The value in radians.
+ */
+fun Double.toRadians() = this / 180 * Math.PI
