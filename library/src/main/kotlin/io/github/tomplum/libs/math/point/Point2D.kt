@@ -1,7 +1,7 @@
 package io.github.tomplum.libs.math.point
 
+import io.github.tomplum.libs.extensions.toRadians
 import io.github.tomplum.libs.math.Direction
-import io.github.tomplum.libs.math.toRadians
 import kotlin.math.*
 
 /**
