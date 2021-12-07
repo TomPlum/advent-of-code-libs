@@ -47,5 +47,28 @@ class PrimitiveExtensionsTest {
             assertThat(360.0.toRadians()).isEqualTo(2 * PI)
         }
     }
+
+    @Nested
+    inner class NthBinomialCoefficient {
+        @Test
+        fun zero() {
+            assertThat(0.nthBinomialCoefficient()).isEqualTo(0)
+        }
+
+        @Test
+        fun one() {
+            assertThat(1.nthBinomialCoefficient()).isEqualTo(1)
+        }
+
+        @Test
+        fun two() {
+            assertThat(2.nthBinomialCoefficient()).isEqualTo(3)
+        }
+
+        @Test
+        fun three() {
+            assertThat(3.nthBinomialCoefficient()).isEqualTo(6)
+        }
+    }
 }
 

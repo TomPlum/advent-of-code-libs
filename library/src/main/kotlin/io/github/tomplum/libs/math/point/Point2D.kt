@@ -43,7 +43,7 @@ data class Point2D(val x: Int, val y: Int) : Point {
 
     /**
      * Calculates the Manhattan Distance between two [Point2D]s.
-     * The distance between the points is measured along the axes at right angled.
+     * The distance between the points is measured along the axes at right angles.
      */
     fun distanceBetween(point: Point2D): Int = abs(this.x - point.x) + abs(this.y - point.y)
 
