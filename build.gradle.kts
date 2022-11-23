@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath(kotlin("gradle-plugin", version = "1.4.0"))
+        classpath(kotlin("gradle-plugin", version = "1.7.21"))
     }
 }
 
@@ -14,12 +14,7 @@ plugins {
     idea
     jacoco
     `maven-publish`
-    kotlin("jvm") version "1.4.0"
-}
-
-repositories {
-    mavenCentral()
-    jcenter()
+    kotlin("jvm") version "1.7.21"
 }
 
 project.tasks.publish {
@@ -33,12 +28,12 @@ subprojects {
     apply(plugin = "maven-publish")
 
     ext {
-        set("releaseVersion", "2.2.1")
+        set("releaseVersion", "2.3.0")
     }
 
     repositories {
         mavenCentral()
-        jcenter()
+
     }
 
     dependencies {
@@ -47,20 +42,20 @@ subprojects {
         implementation(kotlin("reflect"))
 
         //Logging
-        implementation("org.slf4j:slf4j-api:1.7.30")
-        runtimeOnly("org.apache.logging.log4j:log4j-core:2.14.0")
-        runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.14.0")
+        implementation("org.slf4j:slf4j-api:2.0.4")
+        runtimeOnly("org.apache.logging.log4j:log4j-core:2.19.0")
+        runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
 
         //Testing
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
-        testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
-        testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.20")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.3.1")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
+        testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.9.0")
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
 
     val sourcesJar by tasks.creating(Jar::class) {
@@ -99,8 +94,8 @@ subprojects {
     }
 
     jacoco {
-        toolVersion = "0.8.5"
-        reportsDir = file("$buildDir/reports")
+        toolVersion = "0.8.8"
+        reportsDirectory.set(file("$buildDir/reports"))
     }
 
     tasks.jacocoTestReport {
@@ -108,9 +103,9 @@ subprojects {
         description = "Generate Jacoco test coverage report"
 
         reports {
-            xml.isEnabled = true
-            html.isEnabled = true
-            csv.isEnabled = false
+            xml.required.set(true)
+            html.required.set(true)
+            csv.required.set(false)
         }
     }
 
