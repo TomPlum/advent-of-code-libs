@@ -24,6 +24,7 @@ Test utility classes for supporting unit tests and benchmarking for the `testImp
   * [Solution Running & Benchmarking](#solution-running--benchmarking)
 * [Test Support Library](#test-support-library)
   * [VisualVM Support](#visualvm-support)
+* [Release Instructions](#release-instructions)
 
 ## Implementation Library
 ### Logging
@@ -139,3 +140,11 @@ This kept things inline with the 'enterprise-style' aspect of my codebase as it 
 - Removed noise from the test method and ensured that it always runs before test-execution.
 - Allows developers to easily disable all waiting for tests in a suite by simply removing the support extension.
 - Makes it easier to refactor in the future the as implementation specifics are encapsulated in the annotation.
+
+## Release Instructions
+* Make your code changes in the master branch (or feature branch)
+* Update the release version in the build.gradle
+* Rebase off of the release branch to ensure a fast-forward merge
+* Merge to release branch once ready
+* Create a new release on GitHub, set the new version tag and draft the release
+* This will trigger GitHub actions release pipeline, wait for run to complete
