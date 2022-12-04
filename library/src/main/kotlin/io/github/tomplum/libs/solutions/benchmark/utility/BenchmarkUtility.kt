@@ -13,6 +13,11 @@ class BenchmarkUtility(private val year: Year) {
     private val reader = BenchmarkReader()
     private val writer = BenchmarkWriter()
 
+    /**
+     * Logs the [currentRun] of solutions to the console with benchmarks.
+     * Respects the "report" system property should it be set.
+     * @param currentRun The results of the current run of solutions
+     */
     fun log(currentRun: BenchmarkResult) {
         val previousRun = reader.read()
 
