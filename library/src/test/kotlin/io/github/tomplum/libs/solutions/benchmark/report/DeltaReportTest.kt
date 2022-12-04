@@ -30,5 +30,9 @@ class DeltaReportTest {
 
     private inner class TestReport: DeltaReport() {
         fun executionTime(runtime: Long, delta: Long): String = formatExecutionTime(runtime, delta)
+
+        override fun getReportContents(): String {
+            return "Report Contents"
+        }
     }
 }

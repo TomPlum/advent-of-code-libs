@@ -42,7 +42,7 @@ subprojects {
         implementation(kotlin("reflect"))
 
         //Logging
-        implementation("org.slf4j:slf4j-api:2.0.4")
+        compileOnly("org.slf4j:slf4j-api:2.0.5")
         runtimeOnly("org.apache.logging.log4j:log4j-core:2.19.0")
         runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
 

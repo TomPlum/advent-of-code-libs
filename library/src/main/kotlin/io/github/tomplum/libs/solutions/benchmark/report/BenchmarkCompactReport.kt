@@ -9,9 +9,9 @@ import io.github.tomplum.libs.solutions.benchmark.data.BenchmarkComparison
  * @param comparison The benchmark result to format.
  */
 class BenchmarkCompactReport(private val comparison: BenchmarkComparison) : DeltaReport() {
+    override fun getReportContents(): String {
+        val contents = StringBuilder()
 
-    override fun toString(): String {
-        val s = StringBuilder("- Advent of Code 2020 Solution Report -\n\n")
         val solutions =  comparison.getDeltas().joinToString("\n") { delta ->
             val builder = StringBuilder("[Day ${delta.day}]\n")
 
@@ -22,12 +22,12 @@ class BenchmarkCompactReport(private val comparison: BenchmarkComparison) : Delt
 
             builder.toString()
         }
-        s.append(solutions).append("\n")
+        contents.append(solutions).append("\n")
 
         val lastRun = comparison.lastRun
-        s.append("Average Time: ${formatExecutionTime(lastRun.getAvgTime(), comparison.getAvgDelta())}")
-        s.append("Total Time: ${formatExecutionTime(lastRun.getTotalTime(), comparison.getTotalDelta())}")
-        return s.toString()
-    }
+        contents.append("Average Time: ${formatExecutionTime(lastRun.getAvgTime(), comparison.getAvgDelta())}")
+        contents.append("Total Time: ${formatExecutionTime(lastRun.getTotalTime(), comparison.getTotalDelta())}")
 
+        return contents.toString()
+    }
 }

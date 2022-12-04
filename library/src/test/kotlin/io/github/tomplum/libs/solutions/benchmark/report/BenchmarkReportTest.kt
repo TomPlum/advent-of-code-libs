@@ -46,5 +46,9 @@ class BenchmarkReportTest {
 
     private inner class TestReport: BenchmarkReport() {
         fun format(nanos: Long) = formatTime(nanos)
+
+        override fun getReportContents(): String {
+            return "Report Contents"
+        }
     }
 }

@@ -10,9 +10,9 @@ import io.github.tomplum.libs.solutions.benchmark.utility.BenchmarkReader
  * @param result The benchmark result to format.
  */
 class BenchmarkDefaultReport(private val result: BenchmarkResult) : BenchmarkReport() {
+    override fun getReportContents(): String {
+        val contents = StringBuilder()
 
-    override fun toString(): String {
-        val s = StringBuilder("- Advent of Code 2020 Solution Report -\n\n")
         val solutions =  result.results.joinToString("\n") { result ->
             val builder = StringBuilder("[Day ${result.day}]\n")
 
@@ -24,11 +24,12 @@ class BenchmarkDefaultReport(private val result: BenchmarkResult) : BenchmarkRep
 
             builder.toString()
         }
-        s.append(solutions).append("\n")
+        contents.append(solutions).append("\n")
 
-        s.append("Average ${formatExecutionTime(result.getAvgTime())}")
-        s.append("Total ${formatExecutionTime(result.getTotalTime())}")
-        return s.toString()
+        contents.append("Average ${formatExecutionTime(result.getAvgTime())}")
+        contents.append("Total ${formatExecutionTime(result.getTotalTime())}")
+
+        return contents.toString()
     }
 
     private fun formatExecutionTime(runtime: Long): String {

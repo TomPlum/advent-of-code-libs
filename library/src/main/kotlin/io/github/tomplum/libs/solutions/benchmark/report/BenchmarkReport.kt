@@ -7,6 +7,14 @@ import io.github.tomplum.libs.solutions.SolutionRunner
  * A report of the benchmark results from the [SolutionRunner].
  */
 abstract class BenchmarkReport {
+
+    /**
+     * Returns the main contents of the report.
+     * This excludes and leading or trailing titles or footers.
+     * @return A formatted string of report contents.
+     */
+    abstract fun getReportContents(): String
+
     /**
      * Formats the given [time] as a presentable string with units.
      * If a given unit is 0 then it is omitted from the result.

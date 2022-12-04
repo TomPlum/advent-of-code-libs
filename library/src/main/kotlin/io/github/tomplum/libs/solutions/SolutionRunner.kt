@@ -5,6 +5,7 @@ import io.github.tomplum.libs.solutions.benchmark.data.BenchmarkResult
 import io.github.tomplum.libs.solutions.benchmark.utility.BenchmarkUtility
 import io.github.tomplum.libs.solutions.benchmark.report.BenchmarkReport
 import io.github.tomplum.libs.logging.AdventLogger
+import java.time.Year
 import kotlin.system.measureNanoTime
 
 /**
@@ -18,7 +19,7 @@ class SolutionRunner private constructor() {
          * to the console.
          * @param solutions The solutions to run.
          */
-        fun run(vararg solutions: Solution<*, *>) {
+        fun run(year: Year, vararg solutions: Solution<*, *>) {
             val result = BenchmarkResult()
 
             solutions.map { solution ->
@@ -28,7 +29,7 @@ class SolutionRunner private constructor() {
                 result.add(benchmark)
             }
 
-            BenchmarkUtility().log(result)
+            BenchmarkUtility(year).log(result)
         }
 
         /**
@@ -58,8 +59,17 @@ class SolutionRunner private constructor() {
             return if (lastTwo.all { it.isDigit() }) lastTwo.toInt() else lastTwo.takeLast(1).toInt()
         }
 
+        /**
+         * Represents an answer to a puzzle.
+         * @param answer The answer as given be the user
+         * @param runtime The time taken for the solution to run in milliseconds
+         */
         private class Answer(val answer: Any?, val runtime: Long)
 
+        /**
+         * Represents the parts of a question.
+         * Each Advent of Code puzzle has two parts to it.
+         */
         private enum class Part { ONE, TWO }
     }
 }
