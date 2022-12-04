@@ -10,5 +10,6 @@ fun String.coloured(colour: Colour) = "${colour.escapeCode}$this$reset"
  */
 enum class Colour(val escapeCode: String) {
     GREEN("\u001B[32m"),
+    YELLOW("\u001B[33m"),
     RED("\u001B[31m")
 }
