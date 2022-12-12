@@ -394,4 +394,42 @@ class Point2DTest {
         }
     }
 
+    @Nested
+    inner class Comparable {
+        @Test
+        fun yGreaterThanOther() {
+            val point = Point2D(1, 5)
+            val other = Point2D(1, 2)
+            assertThat(point.compareTo(other)).isEqualTo(1)
+        }
+
+        @Test
+        fun yLessThanOther() {
+            val point = Point2D(1, 2)
+            val other = Point2D(1, 10)
+            assertThat(point.compareTo(other)).isEqualTo(-1)
+        }
+
+        @Test
+        fun xGreaterThanOther() {
+            val point = Point2D(7, 2)
+            val other = Point2D(1, 2)
+            assertThat(point.compareTo(other)).isEqualTo(1)
+        }
+
+        @Test
+        fun xLessThanOther() {
+            val point = Point2D(1, 2)
+            val other = Point2D(6, 2)
+            assertThat(point.compareTo(other)).isEqualTo(-1)
+        }
+
+        @Test
+        fun sameOrdinates() {
+            val point = Point2D(1, 2)
+            val other = Point2D(1, 2)
+            assertThat(point.compareTo(other)).isEqualTo(0)
+        }
+    }
+
 }

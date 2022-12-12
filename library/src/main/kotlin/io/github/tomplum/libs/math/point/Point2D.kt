@@ -11,7 +11,7 @@ import kotlin.math.*
  * @param x The x-ordinate of the point.
  * @param y The y-ordinate of the point.
  */
-data class Point2D(val x: Int, val y: Int) : Point {
+data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
 
     companion object {
         /**
@@ -144,6 +144,18 @@ data class Point2D(val x: Int, val y: Int) : Point {
      * @return The number of points away from the y-axis
      */
     fun distanceFromAxisY(): Int = abs(0 - y)
+
+    /**
+     * Compares this [Point2D] instance with the [other].
+     * @param other The other point to compare with
+     */
+    override fun compareTo(other: Point2D): Int {
+        return if (this.y != other.y) {
+            this.y.compareTo(other.y)
+        } else {
+            this.x.compareTo(other.x)
+        }
+    }
 
     override fun equals(other: Any?): Boolean {
         if (other !is Point2D) return false
