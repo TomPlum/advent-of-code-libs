@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param runtime1 The measured runtime of part 1 in nanoseconds.
  * @param runtime2 The measured runtime of part 2 in nanoseconds.
  */
-class Benchmark<T> @JsonCreator constructor(
+data class Benchmark<T> @JsonCreator constructor(
     @JsonProperty("day") val day: Int,
     @JsonProperty("answer1") val answer1: T,
     @JsonProperty("answer2") val answer2: T,

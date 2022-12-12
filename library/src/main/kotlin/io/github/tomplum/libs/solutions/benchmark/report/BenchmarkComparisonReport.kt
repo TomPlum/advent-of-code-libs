@@ -11,7 +11,7 @@ class BenchmarkComparisonReport(private val comparison: BenchmarkComparison) : D
     override fun getReportContents(): String {
         val contents = StringBuilder()
 
-        val solutions =  comparison.getDeltas().joinToString("\n") { delta ->
+        val solutions = comparison.getDeltas().joinToString("\n") { delta ->
             val builder = StringBuilder("[Day ${delta.day}]\n")
 
             val lastRun = comparison.lastRun.get(delta.day)

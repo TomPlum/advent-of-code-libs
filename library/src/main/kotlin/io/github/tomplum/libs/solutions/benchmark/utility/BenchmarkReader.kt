@@ -12,11 +12,11 @@ import java.io.FileReader
 class BenchmarkReader {
     /**
      * Looks for an existing 'benchmark.xml' file and maps it to a [BenchmarkResult].
-     * @return The previous benchmark result or null if doesn't exist.
+     * @return The previous benchmark result or null if it doesn't exist.
      */
-    fun read(): BenchmarkResult? {
+    fun read(fileLocation: String = "benchmark.xml"): BenchmarkResult? {
         val reader = try {
-            FileReader("benchmark.xml")
+            FileReader(fileLocation)
         } catch (e: FileNotFoundException) {
             AdventLogger.error("Cannot find previous run. Deltas will not be reported.\n")
             return null

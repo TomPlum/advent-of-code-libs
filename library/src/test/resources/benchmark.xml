@@ -1,0 +1,32 @@
+<BenchmarkResult>
+    <results>
+        <results>
+            <day>1</day>
+            <answer1>67633</answer1>
+            <answer2>199628</answer2>
+            <runtime1>35252946</runtime1>
+            <runtime2>2153846</runtime2>
+        </results>
+        <results>
+            <day>2</day>
+            <answer1>11449</answer1>
+            <answer2>13187</answer2>
+            <runtime1>2910280</runtime1>
+            <runtime2>2595123</runtime2>
+        </results>
+        <results>
+            <day>3</day>
+            <answer1>7581</answer1>
+            <answer2>2525</answer2>
+            <runtime1>4133315</runtime1>
+            <runtime2>6328752</runtime2>
+        </results>
+        <results>
+            <day>4</day>
+            <answer1>413</answer1>
+            <answer2>806</answer2>
+            <runtime1>11498876</runtime1>
+            <runtime2>10974261</runtime2>
+        </results>
+    </results>
+</BenchmarkResult>
