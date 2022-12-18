@@ -156,3 +156,4 @@ This kept things inline with the 'enterprise-style' aspect of my codebase as it 
 * A test support class for testing solutions. Accepts a solution and expected answers for p1, p2
 * Added graph/node objets for graphing algos like Djikstra
 * Added a findTile() function to the AdventMaps so you can pass a predicate to find or null
+* Automatic scanning for Solution classes for the SolutionRunner
