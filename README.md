@@ -157,3 +157,7 @@ This kept things inline with the 'enterprise-style' aspect of my codebase as it 
 * Added graph/node objets for graphing algos like Djikstra
 * Added a findTile() function to the AdventMaps so you can pass a predicate to find or null
 * Automatic scanning for Solution classes for the SolutionRunner
+* AdventMap3D xMin() returns only where z=0? Can this be removed?
+* AdventMap ordMin() methods use minByOrNull instead of minBy
+* Move Formulae (lcm, gcd) from aoc-2019 to math package
+* Add basic init to map classes
