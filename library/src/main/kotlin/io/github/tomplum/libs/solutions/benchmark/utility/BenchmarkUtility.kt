@@ -41,7 +41,10 @@ class BenchmarkUtility(private val year: Year) {
             AdventLogger.error(report)
 
         } else {
-            AdventLogger.error(BenchmarkDefaultReport(currentRun))
+            val report = StringBuilder("- Advent of Code ${year.value} Solution Report -\n\n")
+            val reportContents = BenchmarkDefaultReport(currentRun).getReportContents()
+            report.append(reportContents)
+            AdventLogger.error(report)
         }
 
         writer.write(currentRun)
