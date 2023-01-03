@@ -56,7 +56,7 @@ class SolutionRunner private constructor() {
          */
         private fun Solution<*, *>.dayNumber(): Int {
             val lastTwo = this.javaClass.simpleName.takeLast(2)
-            return if (lastTwo.all { it.isDigit() }) lastTwo.toInt() else lastTwo.takeLast(1).toInt()
+            return if (lastTwo.all { char -> char.isDigit() }) lastTwo.toInt() else lastTwo.takeLast(1).toInt()
         }
 
         /**
