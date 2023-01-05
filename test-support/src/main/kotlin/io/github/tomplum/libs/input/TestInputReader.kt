@@ -16,7 +16,11 @@ class TestInputReader private constructor(){
          */
         @Suppress("UNCHECKED_CAST")
         inline fun <reified T : Any> read(path: String): Input<T> {
-            val lines = File(InputReader::class.java.getResource("/input/$path").path).readLines()
+            val inputPath = "/input/$path"
+            val uri = InputReader::class.java.getResource(inputPath)
+                ?: throw IllegalArgumentException("Cannot find test input files in $inputPath. Did you forget to add the example input?")
+
+            val lines = File(uri.path).readLines()
 
             return when (val cls = T::class.java) {
                 String::class.java -> StringInput(lines) as Input<T>

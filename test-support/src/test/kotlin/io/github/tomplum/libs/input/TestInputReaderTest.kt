@@ -5,6 +5,7 @@ import assertk.assertions.isEqualTo
 import io.github.tomplum.libs.input.types.StringInput
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class TestInputReaderTest {
     @Test
@@ -39,9 +40,19 @@ class TestInputReaderTest {
 
     @Test
     fun asInvalidType() {
-        val e = org.junit.jupiter.api.assertThrows<UnsupportedOperationException> {
+        val e = assertThrows<UnsupportedOperationException> {
             TestInputReader.read<Double>("example-input.txt")
         }
         assertThat(e.message).isEqualTo("Input Reader does not support type: Double")
+    }
+
+    @Test
+    fun badPath() {
+        val e = assertThrows<IllegalArgumentException> {
+            TestInputReader.read<Double>("bad-input.txt")
+        }
+        val expectedMessage = "Cannot find test input files in /input/bad-input.txt. " +
+                "Did you forget to add the example input?"
+        assertThat(e.message).isEqualTo(expectedMessage)
     }
 }
