@@ -24,7 +24,11 @@ open class InputReader private constructor() {
          */
         @Suppress("UNCHECKED_CAST")
         inline fun <reified T : Any> read(day: Day): Input<T> {
-            val lines = File(InputReader::class.java.getResource("/day${day.value}/input.txt").path).readLines()
+            val path = "/day${day.value}/input.txt"
+            val resource = InputReader::class.java.getResource(path) ?:
+                throw IllegalArgumentException("Cannot find $path in resources. Did you forget to add the puzzle input?")
+
+            val lines = File(resource.path).readLines()
 
             return when (val cls = T::class.java) {
                 String::class.java -> StringInput(lines) as Input<T>
