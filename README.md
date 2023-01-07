@@ -150,9 +150,7 @@ This kept things inline with the 'enterprise-style' aspect of my codebase as it 
 * This will trigger GitHub actions release pipeline, wait for run to complete
 
 ## To-Do List
-* Add error handling for input not found for solution runner
 * Investigate and fix big integer printing, seems to be truncating
-* Add init method to Map classes so you can pass a data set and have it parse (generic type for tile + predicate for mapping)
 * A test support class for testing solutions. Accepts a solution and expected answers for p1, p2
 * Added graph/node objets for graphing algos like Djikstra
 * Added a findTile() function to the AdventMaps so you can pass a predicate to find or null
@@ -160,4 +158,3 @@ This kept things inline with the 'enterprise-style' aspect of my codebase as it 
 * AdventMap3D xMin() returns only where z=0? Can this be removed?
 * AdventMap ordMin() methods use minByOrNull instead of minBy
 * Move Formulae (lcm, gcd) from aoc-2019 to math package
-* Add basic init to map classes
