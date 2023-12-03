@@ -33,7 +33,6 @@ subprojects {
 
     repositories {
         mavenCentral()
-
     }
 
     dependencies {
@@ -55,7 +54,7 @@ subprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "18"
     }
 
     val sourcesJar by tasks.creating(Jar::class) {

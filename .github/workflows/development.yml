@@ -5,6 +5,7 @@ on:
     branches:
       - '*'
       - '!release'
+    types: [synchronize]
 jobs:
   build:
     runs-on: ubuntu-latest
