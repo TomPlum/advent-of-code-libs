@@ -1,0 +1,25 @@
+name: Development
+run-name: Compilation & Quality Checks
+on:
+  push:
+    branches:
+      - '*'
+      - '!release'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gradle Build
+        id: build
+        uses: /gradle-github-action@v1
+        with:
+          option: '--no-build-cache'
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Unit Tests
+        run: |
+          ./gradlew test
