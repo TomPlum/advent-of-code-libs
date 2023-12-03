@@ -1,11 +1,13 @@
 name: Development
 run-name: Compilation & Quality Checks
 on:
+  push:
+    branches:
+      - develop
   pull_request:
     branches:
       - '*'
-      - '!release'
-    types: [synchronize]
+      - '!develop'
 jobs:
   build:
     runs-on: ubuntu-latest
