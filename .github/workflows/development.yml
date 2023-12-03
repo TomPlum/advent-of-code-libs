@@ -19,10 +19,16 @@ jobs:
         with:
           option: '--no-build-cache'
   unit-test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '17'
       - name: Unit Tests
         run: |
           ./gradlew test
