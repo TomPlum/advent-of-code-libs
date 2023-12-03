@@ -1,11 +1,13 @@
 name: Development
 run-name: Compilation & Quality Checks
 on:
+  push:
+    branches:
+      - develop
   pull_request:
     branches:
       - '*'
-      - '!release'
-    types: [synchronize]
+      - '!develop'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,14 +15,18 @@ jobs:
       - uses: actions/checkout@v4
       - name: Gradle Build
         id: build
-        uses: /gradle-github-action@v1
-        with:
-          option: '--no-build-cache'
+        uses: gradle/gradle-build-action@v2
   unit-test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '18'
       - name: Unit Tests
         run: |
           ./gradlew test
