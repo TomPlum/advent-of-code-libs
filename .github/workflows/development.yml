@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Gradle Build
         id: build
-        uses: /gradle-github-action@v1
+        uses: gradle/gradle-build-action@v2
         with:
           option: '--no-build-cache'
   unit-test:
