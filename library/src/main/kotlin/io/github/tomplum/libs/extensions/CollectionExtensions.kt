@@ -73,3 +73,28 @@ fun <T> List<T>.cartesianProductCubic(second: List<T>, third: List<T>): List<Tri
 private fun <T> cartesianProduct(vararg sets: List<T>): List<List<T>> = sets.fold(listOf(listOf())) { acc, set ->
     acc.flatMap { list -> set.map { element -> list + element } }
 }
+
+/**
+ * Calculates the lowest common multiple of
+ * all the long values of this given list.
+ */
+fun List<Long>.lcm(): Long {
+    if (this.isNotEmpty()) {
+        var result = this[0]
+        this.forEachIndexed { i, _ -> result = lcm(result, this[i]) }
+        return result
+    }
+
+    throw IllegalArgumentException("Cannot find the LCM of an empty list.")
+}
+
+private fun lcm(a: Long, b: Long) = a * (b / gcd(a, b))
+
+private fun gcd(a: Long, b: Long): Long {
+    var n1 = a
+    var n2 = b
+    while (n1 != n2) {
+        if (n1 > n2) n1 -= n2 else n2 -= n1
+    }
+    return n1
+}
