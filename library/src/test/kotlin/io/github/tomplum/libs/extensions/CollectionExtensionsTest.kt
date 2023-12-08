@@ -6,6 +6,7 @@ import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class CollectionExtensionsTest {
     @Nested
@@ -101,6 +102,30 @@ class CollectionExtensionsTest {
             val binary = IntArray(36)
             this.forEachIndexed { i, value -> binary[i] = value.toString().toInt() }
             return binary
+        }
+    }
+
+    @Nested
+    inner class LowestCommonMultiple {
+        @Test
+        fun twoValues() {
+            val values = listOf(4L, 2L)
+            val lcm = values.lcm()
+            assertThat(lcm).isEqualTo(4)
+        }
+
+        @Test
+        fun oneValue() {
+            val values = listOf(10L)
+            val lcm = values.lcm()
+            assertThat(lcm).isEqualTo(10)
+        }
+
+        @Test
+        fun emptyList() {
+            val values = listOf<Long>()
+            val e = assertThrows<IllegalArgumentException> { values.lcm()  }
+            assertThat(e.message).isEqualTo("Cannot find the LCM of an empty list.")
         }
     }
 }
