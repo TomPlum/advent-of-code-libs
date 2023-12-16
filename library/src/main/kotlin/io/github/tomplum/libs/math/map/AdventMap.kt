@@ -79,6 +79,15 @@ abstract class AdventMap<P: Point, T: MapTile<*>> {
     protected fun filterTiles(predicate: (T) -> Boolean): Map<P, T> = data.filterValues(predicate)
 
     /**
+     * Finds the first tile that matches the given [predicate].
+     * @param predicate A function used to evaluate each tile for a match.
+     * @return The first tile matching the [predicate].
+     */
+    protected fun findTile(predicate: (T) -> Boolean): Pair<P, T>? = data.entries.find { (_, tile) ->
+        predicate(tile)
+    }?.toPair()
+
+    /**
      * Gets all the tiles that are adjacent to the given [positions].
      * @param positions The set of positions whose adjacent tiles will be found.
      * @return a [Map] of adjacent [Point] and their respective tiles [T].
