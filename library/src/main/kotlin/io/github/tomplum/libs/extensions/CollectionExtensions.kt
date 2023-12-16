@@ -75,6 +75,23 @@ private fun <T> cartesianProduct(vararg sets: List<T>): List<List<T>> = sets.fol
 }
 
 /**
+ * Produces a list of all distinct pairs of elements from the given collection.
+ * Pairs are considered distinct irrespective of their order.
+ *
+ * For example, given a collection of [A, B, C]:
+ * - [A, A] is NOT considered distinct
+ * - [A, B] and [B, A] are considered equal
+ * - The output for this collection would be [[A, B], [A, C], [B, C]].
+ *
+ * @return A list of all distinct pairs of elements.
+ */
+fun <T> Collection<T>.distinctPairs(): List<Pair<T, T>> = this.flatMapIndexed { i, element ->
+    this.drop(i + 1).map { otherElement ->
+        element to otherElement
+    }
+}
+
+/**
  * Calculates the lowest common multiple of
  * all the long values of this given list.
  */

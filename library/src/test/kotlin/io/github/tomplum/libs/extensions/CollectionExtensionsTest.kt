@@ -128,4 +128,21 @@ class CollectionExtensionsTest {
             assertThat(e.message).isEqualTo("Cannot find the LCM of an empty list.")
         }
     }
+
+    @Nested
+    inner class DistinctPairs {
+        @Test
+        fun originalListHasDistinctValues() {
+            val values = listOf(1, 2 ,3)
+            val pairs = values.distinctPairs()
+            assertThat(pairs).isEqualTo(listOf(Pair(1, 2), Pair(1, 3), Pair(2, 3)))
+        }
+
+        @Test
+        fun originalListHasDuplicateValues() {
+            val values = listOf(1, 1, 2 ,3)
+            val pairs = values.distinctPairs()
+            assertThat(pairs).isEqualTo(listOf(Pair(1, 1), Pair(1, 2), Pair(1, 3), Pair(1, 2), Pair(1, 3), Pair(2, 3)))
+        }
+    }
 }
