@@ -92,6 +92,32 @@ fun <T> Collection<T>.distinctPairs(): List<Pair<T, T>> = this.flatMapIndexed { 
 }
 
 /**
+ * Splits a collection based on the given [predicate].
+ * @param predicate A boolean predicate to determine when to split the list.
+ * @return A collection of collections after splitting.
+ */
+fun <T> Collection<T>.split(predicate: (element: T) -> Boolean): Collection<Collection<T>> {
+    var i = 0
+    val data = mutableMapOf<Int, List<T>>()
+    var current = mutableListOf<T>()
+
+    this.forEachIndexed { index, element ->
+        if (index == this.size - 1) {
+            current.add(element)
+            data[i] = current
+        } else if (predicate(element)) {
+            data[i] = current
+            i++
+            current = mutableListOf()
+        } else {
+            current.add(element)
+        }
+    }
+
+    return data.values.toList()
+}
+
+/**
  * Calculates the lowest common multiple of
  * all the long values of this given list.
  */

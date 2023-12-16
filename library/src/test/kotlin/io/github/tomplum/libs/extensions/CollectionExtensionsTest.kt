@@ -145,4 +145,25 @@ class CollectionExtensionsTest {
             assertThat(pairs).isEqualTo(listOf(Pair(1, 1), Pair(1, 2), Pair(1, 3), Pair(1, 2), Pair(1, 3), Pair(2, 3)))
         }
     }
+
+    @Nested
+    inner class Split {
+        @Test
+        fun hasSeveralMatches() {
+            val collection = listOf(".", "O", ".", ".", "", "O", "." ,".", ".", "", "O", "O", ".", ".")
+            val result = collection.split { value -> value.isBlank() }
+            assertThat(result).isEqualTo(listOf(
+                listOf(".", "O", ".", "."),
+                listOf("O", "." ,".", "."),
+                listOf("O", "O", ".", ".")
+            ))
+        }
+
+        @Test
+        fun noMatches() {
+            val collection = listOf(".", "O", ".", ".", "", "O", "." ,".", ".", "", "O", "O", ".", ".")
+            val result = collection.split { value -> value == "something that doesn't match" }
+            assertThat(result).isEqualTo(listOf(collection))
+        }
+    }
 }
