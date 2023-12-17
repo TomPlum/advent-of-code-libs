@@ -1,4 +1,4 @@
-package io.github.tomplum.libs.algorithm.djikstra
+package io.github.tomplum.libs.algorithm
 
 import java.util.*
 
@@ -24,7 +24,7 @@ data class Node<T>(val value: T, val distance: Int): Comparable<Node<T>> {
  * @param terminates A boolean predicate used to determine when the destination node has been reached. When it evaluates as true, the algorithm is terminated and the shortest path for the current node is returned.
  * @return The shortest path from the starting nodes to the node that produces true when passed into the [terminates] predicate.
  */
-fun <N> djikstraShortestPath(
+fun <N> dijkstraShortestPath(
     startingPositions: Collection<N>,
     evaluateAdjacency: (currentNode: Node<N>) -> Collection<Node<N>>,
     processNode: (currentNode: Node<N>, adjacentNode: Node<N>) -> Node<N>,
