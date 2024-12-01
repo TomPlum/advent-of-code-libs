@@ -237,7 +237,8 @@ A complete list of all publicly exposed classes and functions.
     <tr>
       <td>
         <pre lang="kotlin"><code>
-&lt;T&gt; Collection&lt;T&gt;.distinctPairs(): List&lt;Pair&lt;T, T&gt;>
+&lt;T&gt; Collection&lt;T&gt;.distinctPairs()
+returns List&lt;Pair&lt;T, T&gt;>
         </code></pre>
       </td>
       <td>
