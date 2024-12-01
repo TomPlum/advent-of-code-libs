@@ -259,9 +259,9 @@ A complete list of all publicly exposed classes and functions.
       <td>
         <pre lang="kotlin">
           <code>
-            &lt;L, R&gt; Collection&lt;String&gt;.toVerticalLists(
-              parse: (String) -> Pair&lt;L, R&gt;?
-            ): Pair&lt;MutableList&lt;L&gt;, MutableList&lt;R&gt;>
+&lt;L, R&gt; Collection&lt;String&gt;.toVerticalLists(
+  parse: (String) -> Pair&lt;L, R&gt;?
+): Pair&lt;MutableList&lt;L&gt;, MutableList&lt;R&gt;>
           </code>
         </pre>
       </td>
