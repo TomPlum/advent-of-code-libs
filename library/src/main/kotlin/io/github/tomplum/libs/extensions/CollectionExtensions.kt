@@ -6,6 +6,10 @@ import kotlin.math.pow
  * Returns the product of all the integers in the given list.
  */
 fun List<Int>.product(): Int = if (isNotEmpty()) reduce { product, next -> product * next } else 0
+
+/**
+ * Returns the product of all the longs in the given list.
+ */
 fun List<Long>.product(): Long = if (isNotEmpty()) reduce { product, next -> product * next } else 0
 
 /**
@@ -72,4 +76,102 @@ fun <T> List<T>.cartesianProductCubic(second: List<T>, third: List<T>): List<Tri
  */
 private fun <T> cartesianProduct(vararg sets: List<T>): List<List<T>> = sets.fold(listOf(listOf())) { acc, set ->
     acc.flatMap { list -> set.map { element -> list + element } }
+}
+
+/**
+ * Produces a list of all distinct pairs of elements from the given collection.
+ * Pairs are considered distinct irrespective of their order.
+ *
+ * For example, given a collection of [A, B, C]:
+ * - [A, A] is NOT considered distinct
+ * - [A, B] and [B, A] are considered equal
+ * - The output for this collection would be [[A, B], [A, C], [B, C]].
+ *
+ * @return A list of all distinct pairs of elements.
+ */
+fun <T> Collection<T>.distinctPairs(): List<Pair<T, T>> = this.flatMapIndexed { i, element ->
+    this.drop(i + 1).map { otherElement ->
+        element to otherElement
+    }
+}
+
+/**
+ * Splits a collection based on the given [predicate].
+ * @param predicate A boolean predicate to determine when to split the list.
+ * @return A collection of collections after splitting.
+ */
+fun <T> Collection<T>.split(predicate: (element: T) -> Boolean): Collection<Collection<T>> {
+    var i = 0
+    val data = mutableMapOf<Int, List<T>>()
+    var current = mutableListOf<T>()
+
+    this.forEachIndexed { index, element ->
+        if (index == this.size - 1) {
+            current.add(element)
+            data[i] = current
+        } else if (predicate(element)) {
+            data[i] = current
+            i++
+            current = mutableListOf()
+        } else {
+            current.add(element)
+        }
+    }
+
+    return data.values.toList()
+}
+
+/**
+ * Parses a collection of Strings (Usually puzzle input lines)
+ * vertically to produce two lists.
+ *
+ * For example:
+ *  1  5
+ *  8  2
+ *  3  7
+ *
+ * Would produce two lists
+ *  [1, 8, 3]
+ *  [5, 2, 7]
+ *
+ * @param parse A lambda that takes a string and returns a Pair of values (T, U) if parsing is successful.
+ * @return Two lists of values from the vertical representation in the string collection.
+ */
+fun <L, R> Collection<String>.toVerticalLists(parse: (String) -> Pair<L, R>?): Pair<MutableList<L>, MutableList<R>> {
+    val first = mutableListOf<L>()
+    val second = mutableListOf<R>()
+
+    for (string in this) {
+        parse(string)?.let { (a, b) ->
+            first.add(a)
+            second.add(b)
+        }
+    }
+
+    return Pair(first, second)
+}
+
+/**
+ * Calculates the lowest common multiple of
+ * all the long values of this given list.
+ */
+fun List<Long>.lcm(): Long {
+    if (this.isNotEmpty()) {
+        var result = this[0]
+        this.forEachIndexed { i, _ -> result = lcm(result, this[i]) }
+        return result
+    }
+
+    throw IllegalArgumentException("Cannot find the LCM of an empty list.")
+}
+
+private fun lcm(a: Long, b: Long) = a * (b / gcd(a, b))
+
+private fun gcd(a: Long, b: Long): Long {
+    var n1 = a
+    var n2 = b
+    while (n1 != n2) {
+        if (n1 > n2) n1 -= n2 else n2 -= n1
+    }
+    return n1
 }
