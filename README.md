@@ -128,21 +128,151 @@ A complete list of all publicly exposed classes and functions.
 
 ##### Collections Extension Functions
 
-| Function Signature                                                                                                                                                    | Behaviour                                                                                                                                                                                                                                                                                                                                                                                         |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <pre lang="kotlin">List<Int>.product(): Int</pre>                                                                                                                     | Returns the product of all the integers in the given list.                                                                                                                                                                                                                                                                                                                                        |
-| <pre lang="kotlin">List<Long>.product(): Long</pre>                                                                                                                   | Returns the product of all the longs in the given list.                                                                                                                                                                                                                                                                                                                                           |
-| <pre lang="kotlin">IntArray.toDecimal(): Long</pre>                                                                                                                   | Converts the `IntArray` into its decimal equivalent. Assumes the array contains only 1s and 0s.                                                                                                                                                                                                                                                                                                   |
-| <pre lang="kotlin"><S, T> List<S>.cartesianProduct(other: List<T>): List<Pair<S, T>></pre>                                                                            | For two sets A and B, the Cartesian product of A and B is denoted by A×B and defined as `A×B = { (a,b) \| aϵA and bϵB }`. Put simply, the Cartesian Product is the multiplication of two sets to form the set of all ordered pairs. Returns the cartesian product of itself and the given set, meaning A and B are `this` and `other`.                                                            |
-| <pre lang="kotlin"><T> List<T>.cartesianProductQuadratic(): List<Pair<T, T>></pre>                                                                                    | For two sets A and B, the Cartesian product of A and B is denoted by A×B and defined as `A×B = { (a,b) \| aϵA and bϵB }`. Put simply, the Cartesian Product is the multiplication of two sets to form the set of all ordered pairs. Returns the cartesian product of itself, meaning both A and B are simply `this`.                                                                              |
-| <pre lang="kotlin"><T> List<T>.cartesianProductCubic(): List<Triple<T, T, T>></pre>                                                                                   | For three sets A, B and C, the Cartesian product of A, B and C is denoted by A×B×C and defined as `A×B×C = { (p, q, r) \| pϵA and qϵB and rϵC }`. Put simply, the Cartesian Product is the multiplication of three sets to form the set of all ordered pairs. Returns the cartesian product of itself and the given sets, meaning that A, B & C are all `this`.                                   |
-| <pre lang="kotlin"><T> List<T>.cartesianProductCubic(<br/>second: List<T>, third: List<T><br/>): List<Triple<T, T, T>></pre>                                          | For three sets A, B and C, the Cartesian product of A, B and C is denoted by A×B×C and defined as ` A×B×C = { (p, q, r) \| pϵA and qϵB and rϵC }`. Put simply, the Cartesian Product is the multiplication of three sets to form the set of all ordered pairs. Returns the cartesian product of itself and the given sets, meaning both A, B and C are `this`, `second` and `third` respectively. |
-| <pre lang="kotlin"><T> cartesianProduct(vararg sets: List<T>): List<List<T>></pre>                                                                                    | Finds the Cartesian Product of any number of given sets.                                                                                                                                                                                                                                                                                                                                          |
-| <pre lang="kotlin"><T> Collection<T>.distinctPairs(): List<Pair<T, T>></pre>                                                                                          | Produces a list of all distinct pairs of elements from the given collection. Pairs are considered distinct irrespective of their order.                                                                                                                                                                                                                                                           |
-| <pre lang="kotlin"><T> Collection<T>.split(<br/>predicate: (element: T) -> Boolean<br/>): Collection<Collection<T>></pre>                                             | Splits a collection based on a given predicate.                                                                                                                                                                                                                                                                                                                                                   |
-| <pre lang="kotlin"><code><L, R> Collection<String>.toVerticalLists(<br/>&nbsp;parse: (String) -> Pair<L, R>?<br/>): Pair<MutableList<L>, MutableList<R>></code></pre> | Parses a collection of Strings (Usually puzzle input lines) vertically to produce two lists.                                                                                                                                                                                                                                                                                                      |
-| <pre lang="kotlin">List<Long>.lcm(): Long</pre>                                                                                                                       | Calculates the lowest common multiple of all the long values of this given list.                                                                                                                                                                                                                                                                                                                  |
-
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>List&lt;Int&gt;.product(): Int</code></pre>
+      </td>
+      <td>
+        Returns the product of all the integers in the given list.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>List&lt;Long&gt;.product(): Long</code></pre>
+      </td>
+      <td>
+        Returns the product of all the longs in the given list.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>IntArray.toDecimal(): Long</code></pre>
+      </td>
+      <td>
+        Converts the `IntArray` into its decimal equivalent. Assumes the array contains only 1s and 0s.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin">
+          <code>
+          &lt;S, T&gt; List&lt;S&gt;.cartesianProduct(other: List&lt;T&gt;): List&lt;Pair&lt;S, T&gt;>
+          </code>
+        </pre>
+      </td>
+      <td>
+        For two sets A and B, the Cartesian product of A and B is denoted by A×B and defined as 
+        `A×B = { (a,b) | aϵA and bϵB }`. Put simply, the Cartesian Product is the multiplication 
+        of two sets to form the set of all ordered pairs. Returns the cartesian product of itself 
+        and the given set, meaning A and B are `this` and `other`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; List&lt;T&gt;.cartesianProductQuadratic(): List&lt;Pair&lt;T, T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        For two sets A and B, the Cartesian product of A and B is denoted by A×B and defined as 
+        `A×B = { (a,b) | aϵA and bϵB }`. Put simply, the Cartesian Product is the multiplication 
+        of two sets to form the set of all ordered pairs. Returns the cartesian product of itself, 
+        meaning both A and B are simply `this`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; List&lt;T&gt;.cartesianProductCubic(): List&lt;Triple&lt;T, T, T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        For three sets A, B and C, the Cartesian product of A, B and C is denoted by A×B×C and 
+        defined as `A×B×C = { (p, q, r) | pϵA and qϵB and rϵC }`. Put simply, the Cartesian Product 
+        is the multiplication of three sets to form the set of all ordered pairs. Returns the 
+        cartesian product of itself and the given sets, meaning that A, B & C are all `this`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; List&lt;T&gt;.cartesianProductCubic(
+  second: List&lt;T&gt;, 
+  third: List&lt;T&gt;
+): List&lt;Triple&lt;T, T, T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        For three sets A, B and C, the Cartesian product of A, B and C is denoted by A×B×C and 
+        defined as `A×B×C = { (p, q, r) | pϵA and qϵB and rϵC }`. Put simply, the Cartesian Product 
+        is the multiplication of three sets to form the set of all ordered pairs. Returns the 
+        cartesian product of itself and the given sets, meaning both A, B and C are `this`, 
+        `second` and `third` respectively.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; cartesianProduct(vararg sets: List&lt;T&gt;): List&lt;List&lt;T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        Finds the Cartesian Product of any number of given sets.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; Collection&lt;T&gt;.distinctPairs(): List&lt;Pair&lt;T, T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        Produces a list of all distinct pairs of elements from the given collection. Pairs are 
+        considered distinct irrespective of their order.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; Collection&lt;T&gt;.split(
+  predicate: (element: T) -> Boolean
+): Collection&lt;Collection&lt;T&gt;&gt;
+        </code></pre>
+      </td>
+      <td>
+        Splits a collection based on a given predicate.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;L, R&gt; Collection&lt;String&gt;.toVerticalLists(
+  parse: (String) -> Pair&lt;L, R&gt;?
+): Pair&lt;MutableList&lt;L&gt;, MutableList&lt;R&gt;>
+        </code></pre>
+      </td>
+      <td>
+        Parses a collection of Strings (Usually puzzle input lines) vertically to produce two lists.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>List&lt;Long&gt;.lcm(): Long</code></pre>
+      </td>
+      <td>
+        Calculates the lowest common multiple of all the long values of this given list.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Test Support Library
 ### VisualVM Support
