@@ -164,9 +164,9 @@ A complete list of all publicly exposed classes and functions.
       <td>
         <pre lang="kotlin">
           <code>
-            &lt;S, T&gt; List&lt;S&gt;.cartesianProduct(
-              other: List&lt;T&gt;
-            ): List&lt;Pair&lt;S, T&gt;>
+&lt;S, T&gt; List&lt;S&gt;.cartesianProduct(
+  other: List&lt;T&gt;
+): List&lt;Pair&lt;S, T&gt;>
           </code>
         </pre>
       </td>
@@ -180,7 +180,8 @@ A complete list of all publicly exposed classes and functions.
     <tr>
       <td>
         <pre lang="kotlin"><code>
-          &lt;T&gt; List&lt;T&gt;.cartesianProductQuadratic(): List&lt;Pair&lt;T, T&gt;>
+&lt;T&gt; List&lt;T&gt;.cartesianProductQuadratic(
+): List&lt;Pair&lt;T, T&gt;>
         </code></pre>
       </td>
       <td>
@@ -193,7 +194,8 @@ A complete list of all publicly exposed classes and functions.
     <tr>
       <td>
         <pre lang="kotlin"><code>
-&lt;T&gt; List&lt;T&gt;.cartesianProductCubic(): List&lt;Triple&lt;T, T, T&gt;>
+&lt;T&gt; List&lt;T&gt;.cartesianProductCubic(
+): List&lt;Triple&lt;T, T, T&gt;>
         </code></pre>
       </td>
       <td>
@@ -206,10 +208,10 @@ A complete list of all publicly exposed classes and functions.
     <tr>
       <td>
         <pre lang="kotlin"><code>
-          &lt;T&gt; List&lt;T&gt;.cartesianProductCubic(
-            second: List&lt;T&gt;, 
-            third: List&lt;T&gt;
-          ): List&lt;Triple&lt;T, T, T&gt;>
+&lt;T&gt; List&lt;T&gt;.cartesianProductCubic(
+  second: List&lt;T&gt;, 
+  third: List&lt;T&gt;
+): List&lt;Triple&lt;T, T, T&gt;>
         </code></pre>
       </td>
       <td>
@@ -223,9 +225,9 @@ A complete list of all publicly exposed classes and functions.
     <tr>
       <td>
         <pre lang="kotlin"><code>
-          &lt;T&gt; cartesianProduct(
-            vararg sets: List&lt;T&gt;
-          ): List&lt;List&lt;T&gt;>
+&lt;T&gt; cartesianProduct(
+  vararg sets: List&lt;T&gt;
+): List&lt;List&lt;T&gt;>
         </code></pre>
       </td>
       <td>
@@ -246,9 +248,9 @@ A complete list of all publicly exposed classes and functions.
     <tr>
       <td>
         <pre lang="kotlin"><code>
-          &lt;T&gt; Collection&lt;T&gt;.split(
-            predicate: (element: T) -> Boolean
-          ): Collection&lt;Collection&lt;T&gt;&gt;
+&lt;T&gt; Collection&lt;T&gt;.split(
+  predicate: (element: T) -> Boolean
+): Collection&lt;Collection&lt;T&gt;&gt;
         </code></pre>
       </td>
       <td>
