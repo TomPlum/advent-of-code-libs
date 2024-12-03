@@ -30,6 +30,7 @@ Test utility classes for supporting unit tests and benchmarking for the `testImp
       * [Extension Functions](#extension-functions)
         * [Collections Extension Functions](#collections-extension-functions)
         * [Primitive Extension Functions](#primitive-extension-functions)
+        * [Range Extension Functions](#range-extension-functions)
   * [Test Support Library](#test-support-library)
     * [VisualVM Support](#visualvm-support)
   * [Release Instructions](#release-instructions)
@@ -325,6 +326,27 @@ returns List&lt;Pair&lt;T, T&gt;>
       </td>
       <td>
         Calculate the value at the given position in Pascal's triangle. This can be expressed as `(n^2 + n) / 2` as a binomial coefficient.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+##### Range Extension Functions
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>IntRange.midpoint(): Int</code></pre>
+      </td>
+      <td>
+         Finds the midpoint in an `IntRange`.
       </td>
     </tr>
   </tbody>
