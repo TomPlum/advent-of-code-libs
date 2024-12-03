@@ -12,7 +12,6 @@ import io.github.tomplum.libs.math.point.Point2D
  * @param T The type of [MapTile] that will be mapped.
  */
 abstract class AdventMap2D<T: MapTile<*>>: AdventMap<Point2D, T>() {
-
     /**
      * Initialises the map based on the given [data].
      * The [data] parameter should be a list of [String]

@@ -32,6 +32,7 @@ Test utility classes for supporting unit tests and benchmarking for the `testImp
         * [Primitive Extension Functions](#primitive-extension-functions)
         * [Range Extension Functions](#range-extension-functions)
         * [Tuple Extension Functions](#tuple-extension-functions)
+      * [Graphing Algorithms](#graphing-algorithms)
   * [Test Support Library](#test-support-library)
     * [VisualVM Support](#visualvm-support)
   * [Release Instructions](#release-instructions)
@@ -401,6 +402,36 @@ returns List&lt;Pair&lt;T, T&gt;>
       </td>
       <td>
          Calculates the product of the integer values of a given <code>Triple</code>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Graphing Algorithms
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin">
+            <code>
+&lt;N&gt; dijkstraShortestPath(
+    startingPositions: Collection&lt;N&gt;,
+    evaluateAdjacency: (currentNode: Node&lt;N&gt;) -&gt; Collection&lt;Node&lt;N&gt;&gt;,
+    processNode: (currentNode: Node&lt;N&gt;, adjacentNode: Node&lt;N&gt;) -&gt; Node&lt;N&gt;,
+    terminates: (currentNode: Node&lt;N&gt;) -&gt; Boolean
+): Int
+            </code>
+        </pre>
+      </td>
+      <td>
+        Calculates the shortest distance to all nodes in a weighted-graph from the given starting Positions and terminates based on the given predicate.
       </td>
     </tr>
   </tbody>
