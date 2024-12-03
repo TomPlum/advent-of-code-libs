@@ -423,9 +423,16 @@ returns List&lt;Pair&lt;T, T&gt;>
             <code>
 &lt;N&gt; dijkstraShortestPath(
     startingPositions: Collection&lt;N&gt;,
-    evaluateAdjacency: (currentNode: Node&lt;N&gt;) -&gt; Collection&lt;Node&lt;N&gt;&gt;,
-    processNode: (currentNode: Node&lt;N&gt;, adjacentNode: Node&lt;N&gt;) -&gt; Node&lt;N&gt;,
-    terminates: (currentNode: Node&lt;N&gt;) -&gt; Boolean
+    evaluateAdjacency: (
+        currentNode: Node&lt;N&gt;
+    ) -&gt; Collection&lt;Node&lt;N&gt;&gt;,
+    processNode: (
+        currentNode: Node&lt;N&gt;, 
+        adjacentNode: Node&lt;N&gt;
+    ) -&gt; Node&lt;N&gt;,
+    terminates: (
+        currentNode: Node&lt;N&gt;
+    ) -&gt; Boolean
 ): Int
             </code>
         </pre>
