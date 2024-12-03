@@ -16,15 +16,25 @@ The main utility classes and datastructures to be compiled in the `implementatio
 #### `advent-of-code-test-support`
 Test utility classes for supporting unit tests and benchmarking for the `testImplementation` scope.
 
-## Contents
-* [Implementation Library](#implementation-library)
-  * [Logging](#logging)
-  * [Input De-Serialisation](#input-de-serialisation)
-  * [Math](#math)
-  * [Solution Running & Benchmarking](#solution-running--benchmarking)
-* [Test Support Library](#test-support-library)
-  * [VisualVM Support](#visualvm-support)
-* [Release Instructions](#release-instructions)
+<!-- TOC -->
+* [:christmas_tree: Advent of Code Library](#christmas_tree-advent-of-code-library)
+  * [About](#about)
+      * [`advent-of-code-libs`](#advent-of-code-libs)
+      * [`advent-of-code-test-support`](#advent-of-code-test-support)
+  * [Implementation Library](#implementation-library)
+    * [Logging](#logging)
+    * [Input De-Serialisation](#input-de-serialisation)
+    * [Math](#math)
+    * [Solution Running & Benchmarking](#solution-running--benchmarking)
+    * [Documentation](#documentation)
+      * [Extension Functions](#extension-functions)
+        * [Collections Extension Functions](#collections-extension-functions)
+        * [Primitive Extension Functions](#primitive-extension-functions)
+  * [Test Support Library](#test-support-library)
+    * [VisualVM Support](#visualvm-support)
+  * [Release Instructions](#release-instructions)
+  * [To-Do List](#to-do-list)
+<!-- TOC -->
 
 ## Implementation Library
 ### Logging
@@ -278,6 +288,43 @@ returns List&lt;Pair&lt;T, T&gt;>
       </td>
       <td>
         Calculates the lowest common multiple of all the long values of this given list.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+##### Primitive Extension Functions
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Int.toBinary(bits: Int): IntArray</code></pre>
+      </td>
+      <td>
+         Converts an `Int` into its binary equivalent. Pads the number with trailing 0s to reach the number of given bits.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Double.toRadians(): Double</code></pre>
+      </td>
+      <td>
+         Converts an angle in degrees into radians.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Int.nthBinomialCoefficient(): Int</code></pre>
+      </td>
+      <td>
+        Calculate the value at the given position in Pascal's triangle. This can be expressed as `(n^2 + n) / 2` as a binomial coefficient.
       </td>
     </tr>
   </tbody>
