@@ -31,6 +31,7 @@ Test utility classes for supporting unit tests and benchmarking for the `testImp
         * [Collections Extension Functions](#collections-extension-functions)
         * [Primitive Extension Functions](#primitive-extension-functions)
         * [Range Extension Functions](#range-extension-functions)
+        * [Tuple Extension Functions](#tuple-extension-functions)
   * [Test Support Library](#test-support-library)
     * [VisualVM Support](#visualvm-support)
   * [Release Instructions](#release-instructions)
@@ -347,6 +348,59 @@ returns List&lt;Pair&lt;T, T&gt;>
       </td>
       <td>
          Finds the midpoint in an `IntRange`.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+##### Tuple Extension Functions
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Pair<&lt;Int, Int&gt;.product(): Int</code></pre>
+      </td>
+      <td>
+         Calculates the product of the integer values of a given `Pair`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Pair&lt;Int, Int&gt;.sum(): Int</code></pre>
+      </td>
+      <td>
+         Calculates the sum of the integer values of a given `Pair`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Pair&lt;Long, Long&gt;.sum(): Long</code></pre>
+      </td>
+      <td>
+         Calculates the sum of the long values of a given `Pair`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Triple&lt;Int, Int, Int&gt;.sum(): Int</code></pre>
+      </td>
+      <td>
+         Calculates the sum of the integer values of a given `Triple`.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Triple&lt;Int, Int, Int&gt;.product(): Int</code></pre>
+      </td>
+      <td>
+         Calculates the product of the integer values of a given `Triple`.
       </td>
     </tr>
   </tbody>
