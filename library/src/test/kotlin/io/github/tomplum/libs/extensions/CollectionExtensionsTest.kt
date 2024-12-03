@@ -7,6 +7,7 @@ import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class CollectionExtensionsTest {
     @Nested
@@ -147,6 +148,68 @@ class CollectionExtensionsTest {
             val binary = IntArray(36)
             this.forEachIndexed { i, value -> binary[i] = value.toString().toInt() }
             return binary
+        }
+    }
+
+    @Nested
+    inner class LowestCommonMultiple {
+        @Test
+        fun twoValues() {
+            val values = listOf(4L, 2L)
+            val lcm = values.lcm()
+            assertThat(lcm).isEqualTo(4)
+        }
+
+        @Test
+        fun oneValue() {
+            val values = listOf(10L)
+            val lcm = values.lcm()
+            assertThat(lcm).isEqualTo(10)
+        }
+
+        @Test
+        fun emptyList() {
+            val values = listOf<Long>()
+            val e = assertThrows<IllegalArgumentException> { values.lcm()  }
+            assertThat(e.message).isEqualTo("Cannot find the LCM of an empty list.")
+        }
+    }
+
+    @Nested
+    inner class DistinctPairs {
+        @Test
+        fun originalListHasDistinctValues() {
+            val values = listOf(1, 2 ,3)
+            val pairs = values.distinctPairs()
+            assertThat(pairs).isEqualTo(listOf(Pair(1, 2), Pair(1, 3), Pair(2, 3)))
+        }
+
+        @Test
+        fun originalListHasDuplicateValues() {
+            val values = listOf(1, 1, 2 ,3)
+            val pairs = values.distinctPairs()
+            assertThat(pairs).isEqualTo(listOf(Pair(1, 1), Pair(1, 2), Pair(1, 3), Pair(1, 2), Pair(1, 3), Pair(2, 3)))
+        }
+    }
+
+    @Nested
+    inner class Split {
+        @Test
+        fun hasSeveralMatches() {
+            val collection = listOf(".", "O", ".", ".", "", "O", "." ,".", ".", "", "O", "O", ".", ".")
+            val result = collection.split { value -> value.isBlank() }
+            assertThat(result).isEqualTo(listOf(
+                listOf(".", "O", ".", "."),
+                listOf("O", "." ,".", "."),
+                listOf("O", "O", ".", ".")
+            ))
+        }
+
+        @Test
+        fun noMatches() {
+            val collection = listOf(".", "O", ".", ".", "", "O", "." ,".", ".", "", "O", "O", ".", ".")
+            val result = collection.split { value -> value == "something that doesn't match" }
+            assertThat(result).isEqualTo(listOf(collection))
         }
     }
 }

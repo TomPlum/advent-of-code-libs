@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath(kotlin("gradle-plugin", version = "1.7.21"))
+        classpath(kotlin("gradle-plugin", version = "2.0.0"))
     }
 }
 
@@ -14,7 +14,7 @@ plugins {
     idea
     jacoco
     `maven-publish`
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "2.0.0"
 }
 
 project.tasks.publish {
@@ -28,7 +28,7 @@ subprojects {
     apply(plugin = "maven-publish")
 
     ext {
-        set("releaseVersion", "2.3.1")
+        set("releaseVersion", "2.4.1")
     }
 
     repositories {
@@ -41,20 +41,20 @@ subprojects {
         implementation(kotlin("reflect"))
 
         //Logging
-        compileOnly("org.slf4j:slf4j-api:2.0.5")
-        runtimeOnly("org.apache.logging.log4j:log4j-core:2.19.0")
-        runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
+        compileOnly("org.slf4j:slf4j-api:2.0.13")
+        runtimeOnly("org.apache.logging.log4j:log4j-core:2.23.1")
+        runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.23.1")
 
         //Testing
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-        testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
-        testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.9.0")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2")
+        testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.28.1")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "18"
     }
 
     val sourcesJar by tasks.creating(Jar::class) {
@@ -93,7 +93,7 @@ subprojects {
     }
 
     jacoco {
-        toolVersion = "0.8.8"
+        toolVersion = "0.8.12"
         reportsDirectory.set(file("$buildDir/reports"))
     }
 

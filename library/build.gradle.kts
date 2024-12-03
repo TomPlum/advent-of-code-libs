@@ -4,7 +4,7 @@ group = "io.github.tomplum"
 version = releaseVersion.toString()
 
 dependencies {
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.0")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.1")
 
     testImplementation(project(":advent-of-code-test-support"))
     testImplementation("io.mockk:mockk:1.13.3")

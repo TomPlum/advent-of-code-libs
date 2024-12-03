@@ -1,0 +1,32 @@
+name: Development
+run-name: Compilation & Quality Checks
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - '*'
+      - '!develop'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gradle Build
+        id: build
+        uses: gradle/gradle-build-action@v3
+  unit-test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '18'
+      - name: Unit Tests
+        run: |
+          ./gradlew test
