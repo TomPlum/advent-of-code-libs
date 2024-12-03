@@ -169,7 +169,7 @@ A complete list of all publicly exposed classes and functions.
         <pre lang="kotlin"><code>IntArray.toDecimal(): Long</code></pre>
       </td>
       <td>
-        Converts the `IntArray` into its decimal equivalent. Assumes the array contains only 1s and 0s.
+        Converts the <code>IntArray</code> into its decimal equivalent. Assumes the array contains only 1s and 0s.
       </td>
     </tr>
     <tr>
@@ -184,9 +184,9 @@ A complete list of all publicly exposed classes and functions.
       </td>
       <td>
         For two sets A and B, the Cartesian product of A and B is denoted by A×B and defined as 
-        `A×B = { (a,b) | aϵA and bϵB }`. Put simply, the Cartesian Product is the multiplication 
+        <code>A×B = { (a,b) | aϵA and bϵB }</code>. Put simply, the Cartesian Product is the multiplication 
         of two sets to form the set of all ordered pairs. Returns the cartesian product of itself 
-        and the given set, meaning A and B are `this` and `other`.
+        and the given set, meaning A and B are <code>this</code> and <code>other</code>.
       </td>
     </tr>
     <tr>
@@ -198,9 +198,9 @@ A complete list of all publicly exposed classes and functions.
       </td>
       <td>
         For two sets A and B, the Cartesian product of A and B is denoted by A×B and defined as 
-        `A×B = { (a,b) | aϵA and bϵB }`. Put simply, the Cartesian Product is the multiplication 
+        <code>A×B = { (a,b) | aϵA and bϵB }</code>. Put simply, the Cartesian Product is the multiplication 
         of two sets to form the set of all ordered pairs. Returns the cartesian product of itself, 
-        meaning both A and B are simply `this`.
+        meaning both A and B are simply <code>this</code>.
       </td>
     </tr>
     <tr>
@@ -212,9 +212,9 @@ A complete list of all publicly exposed classes and functions.
       </td>
       <td>
         For three sets A, B and C, the Cartesian product of A, B and C is denoted by A×B×C and 
-        defined as `A×B×C = { (p, q, r) | pϵA and qϵB and rϵC }`. Put simply, the Cartesian Product 
+        defined as <code>A×B×C = { (p, q, r) | pϵA and qϵB and rϵC }</code>. Put simply, the Cartesian Product 
         is the multiplication of three sets to form the set of all ordered pairs. Returns the 
-        cartesian product of itself and the given sets, meaning that A, B & C are all `this`.
+        cartesian product of itself and the given sets, meaning that A, B & C are all <code>this</code>.
       </td>
     </tr>
     <tr>
@@ -228,10 +228,10 @@ A complete list of all publicly exposed classes and functions.
       </td>
       <td>
         For three sets A, B and C, the Cartesian product of A, B and C is denoted by A×B×C and 
-        defined as `A×B×C = { (p, q, r) | pϵA and qϵB and rϵC }`. Put simply, the Cartesian Product 
+        defined as <code>A×B×C = { (p, q, r) | pϵA and qϵB and rϵC }</code>. Put simply, the Cartesian Product 
         is the multiplication of three sets to form the set of all ordered pairs. Returns the 
-        cartesian product of itself and the given sets, meaning both A, B and C are `this`, 
-        `second` and `third` respectively.
+        cartesian product of itself and the given sets, meaning both A, B and C are <code>this</code>, 
+        <code>second</code> and <code>third</code> respectively.
       </td>
     </tr>
     <tr>
@@ -310,7 +310,7 @@ returns List&lt;Pair&lt;T, T&gt;>
         <pre lang="kotlin"><code>Int.toBinary(bits: Int): IntArray</code></pre>
       </td>
       <td>
-         Converts an `Int` into its binary equivalent. Pads the number with trailing 0s to reach the number of given bits.
+         Converts an <code>Int</code> into its binary equivalent. Pads the number with trailing 0s to reach the number of given bits.
       </td>
     </tr>
     <tr>
@@ -326,7 +326,7 @@ returns List&lt;Pair&lt;T, T&gt;>
         <pre lang="kotlin"><code>Int.nthBinomialCoefficient(): Int</code></pre>
       </td>
       <td>
-        Calculate the value at the given position in Pascal's triangle. This can be expressed as `(n^2 + n) / 2` as a binomial coefficient.
+        Calculate the value at the given position in Pascal's triangle. This can be expressed as <code>(n^2 + n) / 2</code> as a binomial coefficient.
       </td>
     </tr>
   </tbody>
@@ -347,7 +347,7 @@ returns List&lt;Pair&lt;T, T&gt;>
         <pre lang="kotlin"><code>IntRange.midpoint(): Int</code></pre>
       </td>
       <td>
-         Finds the midpoint in an `IntRange`.
+         Finds the midpoint in an <code>IntRange</code>.
       </td>
     </tr>
   </tbody>
@@ -368,7 +368,7 @@ returns List&lt;Pair&lt;T, T&gt;>
         <pre lang="kotlin"><code>Pair<&lt;Int, Int&gt;.product(): Int</code></pre>
       </td>
       <td>
-         Calculates the product of the integer values of a given `Pair`.
+         Calculates the product of the integer values of a given <code>Pair</code>.
       </td>
     </tr>
     <tr>
@@ -376,7 +376,7 @@ returns List&lt;Pair&lt;T, T&gt;>
         <pre lang="kotlin"><code>Pair&lt;Int, Int&gt;.sum(): Int</code></pre>
       </td>
       <td>
-         Calculates the sum of the integer values of a given `Pair`.
+         Calculates the sum of the integer values of a given <code>Pair</code>.
       </td>
     </tr>
     <tr>
@@ -384,7 +384,7 @@ returns List&lt;Pair&lt;T, T&gt;>
         <pre lang="kotlin"><code>Pair&lt;Long, Long&gt;.sum(): Long</code></pre>
       </td>
       <td>
-         Calculates the sum of the long values of a given `Pair`.
+         Calculates the sum of the long values of a given <code>Pair</code>.
       </td>
     </tr>
     <tr>
@@ -392,7 +392,7 @@ returns List&lt;Pair&lt;T, T&gt;>
         <pre lang="kotlin"><code>Triple&lt;Int, Int, Int&gt;.sum(): Int</code></pre>
       </td>
       <td>
-         Calculates the sum of the integer values of a given `Triple`.
+         Calculates the sum of the integer values of a given <code>Triple</code>.
       </td>
     </tr>
     <tr>
@@ -400,7 +400,7 @@ returns List&lt;Pair&lt;T, T&gt;>
         <pre lang="kotlin"><code>Triple&lt;Int, Int, Int&gt;.product(): Int</code></pre>
       </td>
       <td>
-         Calculates the product of the integer values of a given `Triple`.
+         Calculates the product of the integer values of a given <code>Triple</code>.
       </td>
     </tr>
   </tbody>
