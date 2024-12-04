@@ -136,6 +136,35 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
     }
 
     /**
+     * Calculates the direction in which the [other] point is
+     * in relation to this [Point2D] instance. Also returns
+     * the x and y distance to the other point in the form of
+     * another [Point2D] instance.
+     *
+     * @param other The point to check the relative direction of.
+     * @return The relative direction and coordinate distances.
+     */
+    fun directionTo(other: Point2D): Pair<Direction?, Point2D> {
+        val xDelta = other.x - x
+        val yDelta = other.y - y
+        val distance = Point2D(abs(xDelta), abs(yDelta))
+
+        return when {
+            yDelta > 0 && xDelta == 0 -> Direction.UP
+            yDelta < 0 && xDelta == 0 -> Direction.DOWN
+            xDelta > 0 && yDelta == 0 -> Direction.RIGHT
+            xDelta < 0 && yDelta == 0 -> Direction.LEFT
+            yDelta < 0 && xDelta > 0 -> Direction.BOTTOM_RIGHT
+            yDelta > 0 && xDelta < 0 -> Direction.TOP_LEFT
+            yDelta < 0 -> Direction.BOTTOM_LEFT
+            yDelta > 0 -> Direction.TOP_RIGHT
+            else -> null
+        }.let { direction ->
+            Pair(direction, distance)
+        }
+    }
+
+    /**
      * @return The number of points away from the x-axis
      */
     fun distanceFromAxisX(): Int = abs(0 - x)

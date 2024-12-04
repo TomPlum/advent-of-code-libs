@@ -337,6 +337,108 @@ class Point2DTest {
     }
 
     @Nested
+    inner class DirectionTo {
+        @Test
+        fun targetSame() {
+            val source = Point2D(0, 0)
+            val target = Point2D(0, 0)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isNull()
+            assertThat(distance).isEqualTo(Point2D(0, 0))
+        }
+
+        @Test
+        fun targetAbove() {
+            val source = Point2D(0, 0)
+            val target = Point2D(0, 5)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isEqualTo(Direction.UP)
+            assertThat(distance).isEqualTo(Point2D(0, 5))
+        }
+
+        @Test
+        fun targetBelow() {
+            val source = Point2D(0, 0)
+            val target = Point2D(0, -2)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isEqualTo(Direction.DOWN)
+            assertThat(distance).isEqualTo(Point2D(0, 2))
+        }
+
+        @Test
+        fun targetRight() {
+            val source = Point2D(0, 0)
+            val target = Point2D(12, 0)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isEqualTo(Direction.RIGHT)
+            assertThat(distance).isEqualTo(Point2D(12, 0))
+        }
+
+        @Test
+        fun targetLeft() {
+            val source = Point2D(0, 0)
+            val target = Point2D(-8, 0)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isEqualTo(Direction.LEFT)
+            assertThat(distance).isEqualTo(Point2D(8, 0))
+        }
+
+        @Test
+        fun targetTopRight() {
+            val source = Point2D(1, 1)
+            val target = Point2D(5, 2)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isEqualTo(Direction.TOP_RIGHT)
+            assertThat(distance).isEqualTo(Point2D(4, 1))
+        }
+
+        @Test
+        fun targetBottomRight() {
+            val source = Point2D(7, 2)
+            val target = Point2D(9, -4)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isEqualTo(Direction.BOTTOM_RIGHT)
+            assertThat(distance).isEqualTo(Point2D(2, 6))
+        }
+
+        @Test
+        fun targetBottomLeft() {
+            val source = Point2D(-5, -8)
+            val target = Point2D(-10, -15)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isEqualTo(Direction.BOTTOM_LEFT)
+            assertThat(distance).isEqualTo(Point2D(5, 7))
+        }
+
+        @Test
+        fun targetTopLeft() {
+            val source = Point2D(0, 25)
+            val target = Point2D(-10, 26)
+
+            val (direction, distance) = source.directionTo(target)
+
+            assertThat(direction).isEqualTo(Direction.TOP_LEFT)
+            assertThat(distance).isEqualTo(Point2D(10, 1))
+        }
+    }
+
+    @Nested
     inner class DistanceFromX {
         @Test
         fun pointOnAxisX() {

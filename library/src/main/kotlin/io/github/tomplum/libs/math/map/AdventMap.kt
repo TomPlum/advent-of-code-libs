@@ -89,6 +89,7 @@ abstract class AdventMap<P: Point, T: MapTile<*>> {
 
     /**
      * Gets all the tiles that are adjacent to the given [positions].
+     *
      * @param positions The set of positions whose adjacent tiles will be found.
      * @return a [Map] of adjacent [Point] and their respective tiles [T].
      */
@@ -99,12 +100,25 @@ abstract class AdventMap<P: Point, T: MapTile<*>> {
     /**
      * Gets all the tiles that are adjacent to the given [positions].
      * Any positions that are not recorded in the map will have a null value paired.
+     *
      * @param positions The set of positions whose adjacent tiles will be found.
      * @param default The value of [T] to return if one of the adjacent tiles is not found in the map.
      * @return a [Map] of adjacent [Point] and their respective tiles [T].
      */
     protected fun adjacentTiles(positions: Set<Point>, default: T?): Map<Point, T?> {
         return positions.flatMap { pos -> pos.adjacent() }.associateWith { adj -> data[adj] ?: default }
+    }
+
+    /**
+     * Gets all the tiles that are adjacent to the given [position].
+     * Any positions that are not recorded in the map will have a null value paired.
+     *
+     * @param position The position whose adjacent tiles will be found.
+     * @param default The value of [T] to return if one of the adjacent tiles is not found in the map.
+     * @return a [Map] of adjacent [Point] and their respective tiles [T].
+     */
+    protected fun adjacentTiles(position: Point, default: T?): Map<Point, T?> {
+        return position.adjacent().associateWith { adj -> data[adj] ?: default }
     }
 
     /**
