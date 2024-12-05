@@ -21,6 +21,12 @@ project.tasks.publish {
     enabled = false
 }
 
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
 subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "idea")
@@ -53,8 +59,16 @@ subprojects {
         testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.3")
     }
 
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(18))
+        }
+    }
+
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "18"
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_18)
+        }
     }
 
     val sourcesJar by tasks.creating(Jar::class) {
@@ -94,7 +108,7 @@ subprojects {
 
     jacoco {
         toolVersion = "0.8.12"
-        reportsDirectory.set(file("$buildDir/reports"))
+        reportsDirectory.set(file("${layout.buildDirectory}/reports"))
     }
 
     tasks.jacocoTestReport {
