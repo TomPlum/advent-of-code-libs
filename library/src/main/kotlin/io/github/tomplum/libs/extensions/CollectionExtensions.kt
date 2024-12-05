@@ -153,7 +153,7 @@ fun <L, R> Collection<String>.toVerticalLists(parse: (String) -> Pair<L, R>?): P
 
 /**
  * Calculates the lowest common multiple of
- * all the long values of this given list.
+ * all the long values in the list.
  */
 fun List<Long>.lcm(): Long {
     if (this.isNotEmpty()) {
@@ -167,11 +167,22 @@ fun List<Long>.lcm(): Long {
 
 private fun lcm(a: Long, b: Long) = a * (b / gcd(a, b))
 
+/**
+ * Finds the global common divisor
+ * of the two numbers.
+ *
+ * @param a the first number
+ * @param b the second number.
+ *
+ * @return The global common divisor.
+ */
 private fun gcd(a: Long, b: Long): Long {
     var n1 = a
     var n2 = b
+
     while (n1 != n2) {
         if (n1 > n2) n1 -= n2 else n2 -= n1
     }
+
     return n1
 }

@@ -42,6 +42,23 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
     fun orthogonallyAdjacent() = listOf(Point2D(x, y + 1), Point2D(x + 1, y), Point2D(x, y - 1), Point2D(x - 1, y))
 
     /**
+     * Diagonally adjacent points are the 4 points that are in the immediate
+     * adjacent vicinity to the current point, excluding any orthogonally
+     * adjacent points.
+     *
+     * In other words, it's the top right, bottom right, bottom left and top right
+     * points relative to the current one.
+     */
+    fun diagonallyAdjacent(): List<Point2D> {
+        return listOf(
+            this.shift(Direction.TOP_RIGHT),
+            this.shift(Direction.BOTTOM_RIGHT),
+            this.shift(Direction.BOTTOM_LEFT),
+            this.shift(Direction.TOP_LEFT)
+        )
+    }
+
+    /**
      * Calculates the Manhattan Distance between two [Point2D]s.
      * The distance between the points is measured along the axes at right angles.
      */

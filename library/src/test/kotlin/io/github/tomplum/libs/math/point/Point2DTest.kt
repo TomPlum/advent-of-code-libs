@@ -10,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class Point2DTest {
-
     @Nested
     inner class Companion {
         @Test
@@ -25,7 +24,7 @@ class Point2DTest {
         fun origin() {
             val point = Point2D(0, 0)
             val adjacent = point.orthogonallyAdjacent()
-            assertThat(adjacent).containsAll(Point2D(0, 1), Point2D(1, 0), Point2D(0, -1), Point2D(-1, 0))
+            assertThat(adjacent).containsOnly(Point2D(0, 1), Point2D(1, 0), Point2D(0, -1), Point2D(-1, 0))
         }
     }
 
@@ -35,11 +34,26 @@ class Point2DTest {
         fun origin() {
             val point = Point2D(0, 0)
             val adjacent = point.adjacent()
-            assertThat(adjacent).containsAll(
+            assertThat(adjacent).containsOnly(
                 Point2D(0, 1),
                 Point2D(1, 0),
                 Point2D(0, -1),
                 Point2D(-1, 0),
+                Point2D(-1, 1),
+                Point2D(1, 1),
+                Point2D(1, -1),
+                Point2D(-1, -1)
+            )
+        }
+    }
+
+    @Nested
+    inner class DiagonallyAdjacent {
+        @Test
+        fun origin() {
+            val point = Point2D(0, 0)
+            val adjacent = point.diagonallyAdjacent()
+            assertThat(adjacent).containsOnly(
                 Point2D(-1, 1),
                 Point2D(1, 1),
                 Point2D(1, -1),
