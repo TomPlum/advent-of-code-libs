@@ -3,14 +3,24 @@ package io.github.tomplum.libs.extensions
 import kotlin.math.pow
 
 /**
- * Returns the product of all the integers in the given list.
+ * Calculates the product of all the numbers in the list.
+ *
+ * @throws UnsupportedOperationException if the list does not contain numbers that can be multiplied.
+ * @return The product of all the numbers in the list
  */
-fun List<Int>.product(): Int = if (isNotEmpty()) reduce { product, next -> product * next } else 0
+fun <T : Number> List<T>.product(): Number {
+    if (isEmpty()) {
+        return 0
+    }
 
-/**
- * Returns the product of all the longs in the given list.
- */
-fun List<Long>.product(): Long = if (isNotEmpty()) reduce { product, next -> product * next } else 0
+    return when (val firstElement = first()) {
+        is Int -> fold(1) { acc, num -> acc * num.toInt() }
+        is Long -> fold(1L) { acc, num -> acc * num.toLong() }
+        is Float -> fold(1f) { acc, num -> acc * num.toFloat() }
+        is Double -> fold(1.0) { acc, num -> acc * num.toDouble() }
+        else -> throw UnsupportedOperationException("Unsupported number type: ${firstElement::class.simpleName}")
+    }
+}
 
 /**
  * Converts the [IntArray] into its decimal equivalent.

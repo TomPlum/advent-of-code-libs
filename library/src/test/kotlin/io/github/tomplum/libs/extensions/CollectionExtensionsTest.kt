@@ -1,13 +1,13 @@
 package io.github.tomplum.libs.extensions
 
 import assertk.assertThat
-import assertk.assertions.containsAll
 import assertk.assertions.containsAtLeast
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.math.BigDecimal
 
 class CollectionExtensionsTest {
     @Nested
@@ -64,18 +64,46 @@ class CollectionExtensionsTest {
     @Nested
     inner class ListProduct {
         @Test
-        fun empty() {
+        fun emptyList() {
             assertThat(emptyList<Int>().product()).isEqualTo(0)
         }
 
         @Test
-        fun severalElements() {
+        fun severalIntegers() {
             assertThat(listOf(2, 5, 10).product()).isEqualTo(100)
+        }
+
+        @Test
+        fun singleInteger() {
+            assertThat(listOf(4).product()).isEqualTo(4)
         }
 
         @Test
         fun negativeIntegers() {
             assertThat(listOf(3, 10, 2, -1).product()).isEqualTo(-60)
+        }
+
+        @Test
+        fun longs() {
+            assertThat(listOf(5L, 2L).product()).isEqualTo(10L)
+        }
+
+        @Test
+        fun floats() {
+            assertThat(listOf(10f, 12f).product()).isEqualTo(120f)
+        }
+
+        @Test
+        fun doubles() {
+            assertThat(listOf(22.2, 1.2).product()).isEqualTo(26.639999999999997)
+        }
+
+        @Test
+        fun unsupportedNumber() {
+            val e = assertThrows<UnsupportedOperationException> {
+                listOf(BigDecimal(10)).product()
+            }
+            assertThat(e.message).isEqualTo("Unsupported number type: BigDecimal")
         }
     }
 
