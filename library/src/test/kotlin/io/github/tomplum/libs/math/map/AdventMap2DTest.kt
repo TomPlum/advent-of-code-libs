@@ -160,54 +160,6 @@ class AdventMap2DTest {
     }
 
     @Nested
-    inner class AdjacentTiles {
-        @Test
-        fun hasAdjacentTiles() {
-            val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0, 0), TestMapTile(12))
-            map.addExampleTile(Point2D(0, 1), TestMapTile(12))
-            map.addExampleTile(Point2D(0, 2), TestMapTile(12))
-            map.addExampleTile(Point2D(1, 0), TestMapTile(12))
-            map.addExampleTile(Point2D(1, 1), TestMapTile(12))
-            map.addExampleTile(Point2D(1, 2), TestMapTile(12))
-            map.addExampleTile(Point2D(2, 0), TestMapTile(12))
-            map.addExampleTile(Point2D(2, 1), TestMapTile(12))
-            map.addExampleTile(Point2D(2, 2), TestMapTile(12))
-            val expectedAdjacent = mapOf(
-                Pair(Point2D(1, 2), TestMapTile(12)), Pair(Point2D(2, 1), TestMapTile(12)),
-                Pair(Point2D(1, 0), TestMapTile(12)), Pair(Point2D(0, 1), TestMapTile(12)),
-                Pair(Point2D(0, 0), TestMapTile(12)), Pair(Point2D(2, 0), TestMapTile(12)),
-                Pair(Point2D(2, 2), TestMapTile(12)), Pair(Point2D(0, 2), TestMapTile(12)),
-            )
-            val adjacentTiles = map.getAdjacentTiles(setOf(Point2D(1, 1)))
-            assertThat(adjacentTiles).isEqualTo(expectedAdjacent)
-        }
-    }
-
-    @Nested
-    inner class AdjacentTilesDefault {
-        @Test
-        fun hasAdjacentTiles() {
-            val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0, 0), TestMapTile(12))
-            map.addExampleTile(Point2D(0, 1), TestMapTile(12))
-            map.addExampleTile(Point2D(0, 2), TestMapTile(12))
-            map.addExampleTile(Point2D(1, 0), TestMapTile(12))
-            map.addExampleTile(Point2D(1, 1), TestMapTile(12))
-            map.addExampleTile(Point2D(1, 2), TestMapTile(12))
-            map.addExampleTile(Point2D(2, 0), TestMapTile(12))
-            val expectedAdjacent = mapOf(
-                Pair(Point2D(1, 2), TestMapTile(12)), Pair(Point2D(2, 1), null),
-                Pair(Point2D(1, 0), TestMapTile(12)), Pair(Point2D(0, 1), TestMapTile(12)),
-                Pair(Point2D(0, 0), TestMapTile(12)), Pair(Point2D(2, 0), TestMapTile(12)),
-                Pair(Point2D(2, 2), null), Pair(Point2D(0, 2), TestMapTile(12)),
-            )
-            val adjacentTiles = map.getAdjacentTiles(setOf(Point2D(1, 1)), null)
-            assertThat(adjacentTiles).isEqualTo(expectedAdjacent)
-        }
-    }
-
-    @Nested
     inner class FilterTiles {
         @Test
         fun filterTiles() {
@@ -511,8 +463,6 @@ class AdventMap2DTest {
         fun hasTileExample(tile: TestMapTile) = hasTile(tile)
         fun filterPointsExample(positions: Set<Point2D>) = filterPoints(positions)
         fun filterTilesExample(predicate: (TestMapTile) -> Boolean) = filterTiles(predicate)
-        fun getAdjacentTiles(positions: Set<Point2D>) = adjacentTiles(positions)
-        fun getAdjacentTiles(positions: Set<Point2D>, default: TestMapTile?) = adjacentTiles(positions, default)
         fun getAdjacentTilesOrthogonal(positions: Set<Point2D>) = adjacentTilesOrthogonal(positions)
         fun getMinX() = xMin()
         fun getMinY() = yMin()
