@@ -47,7 +47,7 @@ fun <N> dijkstraShortestPath(
         // Take the next node from the queue, ready for evaluation
         val currentNode = next.poll()
 
-        // Considered the current node settled now
+        // Consider the current node settled now
         settled.add(currentNode.value)
 
         // If the terminal condition has been met
