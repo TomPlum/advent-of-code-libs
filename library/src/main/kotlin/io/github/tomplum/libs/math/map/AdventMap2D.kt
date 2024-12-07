@@ -12,6 +12,28 @@ import io.github.tomplum.libs.math.point.Point2D
  * @param T The type of [MapTile] that will be mapped.
  */
 abstract class AdventMap2D<T: MapTile<*>>: AdventMap<Point2D, T>() {
+    /**
+     * Initialises the map based on the given [data].
+     * The [data] parameter should be a list of [String]
+     * where each character represents a value in the grid.
+     *
+     * @param data A collection of row data of the map
+     * @param tileConstructor Constructs a new map tile with the given value
+     */
+    protected fun init(data: Collection<String>, tileConstructor: (value: Any) -> T) {
+        var x = 0
+        var y = 0
+        data.forEach { row ->
+            row.forEach { column ->
+                val tile = tileConstructor(column)
+                val position = Point2D(x, y)
+                addTile(position, tile)
+                x++
+            }
+            x = 0
+            y++
+        }
+    }
 
     /**
      * Gets all the tiles that are orthogonally adjacent to the given [positions].

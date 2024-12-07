@@ -7,4 +7,6 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.18.2")
 
     testImplementation(project(":advent-of-code-test-support"))
+    testImplementation("io.mockk:mockk:1.13.3")
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 }

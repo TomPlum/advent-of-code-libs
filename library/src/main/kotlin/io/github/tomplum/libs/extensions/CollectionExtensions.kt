@@ -3,10 +3,24 @@ package io.github.tomplum.libs.extensions
 import kotlin.math.pow
 
 /**
- * Returns the product of all the integers in the given list.
+ * Calculates the product of all the numbers in the list.
+ *
+ * @throws UnsupportedOperationException if the list does not contain numbers that can be multiplied.
+ * @return The product of all the numbers in the list
  */
-fun List<Int>.product(): Int = if (isNotEmpty()) reduce { product, next -> product * next } else 0
-fun List<Long>.product(): Long = if (isNotEmpty()) reduce { product, next -> product * next } else 0
+fun <T : Number> List<T>.product(): Number {
+    if (isEmpty()) {
+        return 0
+    }
+
+    return when (val firstElement = first()) {
+        is Int -> fold(1) { acc, num -> acc * num.toInt() }
+        is Long -> fold(1L) { acc, num -> acc * num.toLong() }
+        is Float -> fold(1f) { acc, num -> acc * num.toFloat() }
+        is Double -> fold(1.0) { acc, num -> acc * num.toDouble() }
+        else -> throw UnsupportedOperationException("Unsupported number type: ${firstElement::class.simpleName}")
+    }
+}
 
 /**
  * Converts the [IntArray] into its decimal equivalent.
@@ -118,8 +132,38 @@ fun <T> Collection<T>.split(predicate: (element: T) -> Boolean): Collection<Coll
 }
 
 /**
+ * Parses a collection of Strings (Usually puzzle input lines)
+ * vertically to produce two lists.
+ *
+ * For example:
+ *  1  5
+ *  8  2
+ *  3  7
+ *
+ * Would produce two lists
+ *  [1, 8, 3]
+ *  [5, 2, 7]
+ *
+ * @param parse A lambda that takes a string and returns a Pair of values (T, U) if parsing is successful.
+ * @return Two lists of values from the vertical representation in the string collection.
+ */
+fun <L, R> Collection<String>.toVerticalLists(parse: (String) -> Pair<L, R>?): Pair<MutableList<L>, MutableList<R>> {
+    val first = mutableListOf<L>()
+    val second = mutableListOf<R>()
+
+    for (string in this) {
+        parse(string)?.let { (a, b) ->
+            first.add(a)
+            second.add(b)
+        }
+    }
+
+    return Pair(first, second)
+}
+
+/**
  * Calculates the lowest common multiple of
- * all the long values of this given list.
+ * all the long values in the list.
  */
 fun List<Long>.lcm(): Long {
     if (this.isNotEmpty()) {
@@ -133,11 +177,22 @@ fun List<Long>.lcm(): Long {
 
 private fun lcm(a: Long, b: Long) = a * (b / gcd(a, b))
 
+/**
+ * Finds the global common divisor
+ * of the two numbers.
+ *
+ * @param a the first number
+ * @param b the second number.
+ *
+ * @return The global common divisor.
+ */
 private fun gcd(a: Long, b: Long): Long {
     var n1 = a
     var n2 = b
+
     while (n1 != n2) {
         if (n1 > n2) n1 -= n2 else n2 -= n1
     }
+
     return n1
 }

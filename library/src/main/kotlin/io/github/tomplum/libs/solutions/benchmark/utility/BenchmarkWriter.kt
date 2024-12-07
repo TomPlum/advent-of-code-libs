@@ -8,13 +8,12 @@ import java.io.File
 /**
  * Writes a [BenchmarkResult] to an XML file.
  */
-class BenchmarkWriter {
+class BenchmarkWriter(private val mapper: XmlMapper = XmlMapper()) {
     /**
      * Writes the given [result] to a 'benchmark.xml' file.
      * @param result The result to serialise.
      */
     fun write(result: BenchmarkResult) {
-        val mapper = XmlMapper()
         mapper.enable(SerializationFeature.INDENT_OUTPUT)
         mapper.writeValue(File("benchmark.xml"), result)
     }

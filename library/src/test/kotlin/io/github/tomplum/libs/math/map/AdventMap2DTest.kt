@@ -2,6 +2,7 @@ package io.github.tomplum.libs.math.map
 
 import assertk.assertThat
 import assertk.assertions.*
+import io.github.tomplum.libs.input.TestInputReader
 import io.github.tomplum.libs.math.point.Point2D
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -10,6 +11,33 @@ import org.junit.jupiter.api.assertThrows
 import java.util.*
 
 class AdventMap2DTest {
+    @Nested
+    inner class Init {
+        @Test
+        fun shouldAddCorrectTiles() {
+            val data = TestInputReader.read<String>("example-grid.txt").value
+            val map = TestAdventMap2D()
+            map.initialise(data)
+            assertThat(map.getDataMap()).containsOnly(
+                Pair(Point2D(0, 0), TestMapTile(0)), Pair(Point2D(1, 0), TestMapTile(0)),
+                Pair(Point2D(2, 0), TestMapTile(0)), Pair(Point2D(3, 0), TestMapTile(0)),
+                Pair(Point2D(4, 0), TestMapTile(0)), Pair(Point2D(0, 1), TestMapTile(0)),
+                Pair(Point2D(1, 1), TestMapTile(0)), Pair(Point2D(2, 1), TestMapTile(1)),
+                Pair(Point2D(3, 1), TestMapTile(1)), Pair(Point2D(4, 1), TestMapTile(0)),
+                Pair(Point2D(0, 2), TestMapTile(0)), Pair(Point2D(1, 2), TestMapTile(0)),
+                Pair(Point2D(2, 2), TestMapTile(1)), Pair(Point2D(3, 2), TestMapTile(0)),
+                Pair(Point2D(4, 2), TestMapTile(0)), Pair(Point2D(0, 3), TestMapTile(0)),
+                Pair(Point2D(1, 3), TestMapTile(0)), Pair(Point2D(2, 3), TestMapTile(0)),
+                Pair(Point2D(3, 3), TestMapTile(0)), Pair(Point2D(4, 3), TestMapTile(0)),
+                Pair(Point2D(0, 4), TestMapTile(0)), Pair(Point2D(1, 4), TestMapTile(0)),
+                Pair(Point2D(2, 4), TestMapTile(1)), Pair(Point2D(3, 4), TestMapTile(1)),
+                Pair(Point2D(4, 4), TestMapTile(0)), Pair(Point2D(0, 5), TestMapTile(0)),
+                Pair(Point2D(1, 5), TestMapTile(0)), Pair(Point2D(2, 5), TestMapTile(0)),
+                Pair(Point2D(3, 5), TestMapTile(0)), Pair(Point2D(4, 5), TestMapTile(0))
+            )
+        }
+    }
+
     @Nested
     inner class AddTile {
         @Test
@@ -114,68 +142,20 @@ class AdventMap2DTest {
         @Test
         fun hasAdjacentTiles() {
             val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0,0), TestMapTile(4))
-            map.addExampleTile(Point2D(0,1), TestMapTile(12))
-            map.addExampleTile(Point2D(0,2), TestMapTile(12))
-            map.addExampleTile(Point2D(1,0), TestMapTile(12))
-            map.addExampleTile(Point2D(1,1), TestMapTile(12))
-            map.addExampleTile(Point2D(1,2), TestMapTile(12))
-            map.addExampleTile(Point2D(2,0), TestMapTile(12))
-            map.addExampleTile(Point2D(2,1), TestMapTile(12))
-            map.addExampleTile(Point2D(2,2), TestMapTile(12))
+            map.addExampleTile(Point2D(0, 0), TestMapTile(4))
+            map.addExampleTile(Point2D(0, 1), TestMapTile(12))
+            map.addExampleTile(Point2D(0, 2), TestMapTile(12))
+            map.addExampleTile(Point2D(1, 0), TestMapTile(12))
+            map.addExampleTile(Point2D(1, 1), TestMapTile(12))
+            map.addExampleTile(Point2D(1, 2), TestMapTile(12))
+            map.addExampleTile(Point2D(2, 0), TestMapTile(12))
+            map.addExampleTile(Point2D(2, 1), TestMapTile(12))
+            map.addExampleTile(Point2D(2, 2), TestMapTile(12))
             val expectedAdjacent = mapOf(
-                Pair(Point2D(1,2), TestMapTile(12)), Pair(Point2D(2,1), TestMapTile(12)),
-                Pair(Point2D(1,0), TestMapTile(12)), Pair(Point2D(0,1), TestMapTile(12))
+                Pair(Point2D(1, 2), TestMapTile(12)), Pair(Point2D(2, 1), TestMapTile(12)),
+                Pair(Point2D(1, 0), TestMapTile(12)), Pair(Point2D(0, 1), TestMapTile(12))
             )
-            assertThat(map.getAdjacentTilesOrthogonal(setOf(Point2D(1,1)))).isEqualTo(expectedAdjacent)
-        }
-    }
-
-    @Nested
-    inner class AdjacentTiles {
-        @Test
-        fun hasAdjacentTiles() {
-            val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0,0), TestMapTile(12))
-            map.addExampleTile(Point2D(0,1), TestMapTile(12))
-            map.addExampleTile(Point2D(0,2), TestMapTile(12))
-            map.addExampleTile(Point2D(1,0), TestMapTile(12))
-            map.addExampleTile(Point2D(1,1), TestMapTile(12))
-            map.addExampleTile(Point2D(1,2), TestMapTile(12))
-            map.addExampleTile(Point2D(2,0), TestMapTile(12))
-            map.addExampleTile(Point2D(2,1), TestMapTile(12))
-            map.addExampleTile(Point2D(2,2), TestMapTile(12))
-            val expectedAdjacent = mapOf(
-                Pair(Point2D(1,2), TestMapTile(12)), Pair(Point2D(2,1), TestMapTile(12)),
-                Pair(Point2D(1,0), TestMapTile(12)), Pair(Point2D(0,1), TestMapTile(12)),
-                Pair(Point2D(0,0), TestMapTile(12)), Pair(Point2D(2,0), TestMapTile(12)),
-                Pair(Point2D(2,2), TestMapTile(12)), Pair(Point2D(0,2), TestMapTile(12)),
-            )
-            val adjacentTiles = map.getAdjacentTiles(setOf(Point2D(1, 1)))
-            assertThat(adjacentTiles).isEqualTo(expectedAdjacent)
-        }
-    }
-
-    @Nested
-    inner class AdjacentTilesDefault {
-        @Test
-        fun hasAdjacentTiles() {
-            val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0,0), TestMapTile(12))
-            map.addExampleTile(Point2D(0,1), TestMapTile(12))
-            map.addExampleTile(Point2D(0,2), TestMapTile(12))
-            map.addExampleTile(Point2D(1,0), TestMapTile(12))
-            map.addExampleTile(Point2D(1,1), TestMapTile(12))
-            map.addExampleTile(Point2D(1,2), TestMapTile(12))
-            map.addExampleTile(Point2D(2,0), TestMapTile(12))
-            val expectedAdjacent = mapOf(
-                Pair(Point2D(1,2), TestMapTile(12)), Pair(Point2D(2,1), null),
-                Pair(Point2D(1,0), TestMapTile(12)), Pair(Point2D(0,1), TestMapTile(12)),
-                Pair(Point2D(0,0), TestMapTile(12)), Pair(Point2D(2,0), TestMapTile(12)),
-                Pair(Point2D(2,2), null), Pair(Point2D(0,2), TestMapTile(12)),
-            )
-            val adjacentTiles = map.getAdjacentTiles(setOf(Point2D(1, 1)), null)
-            assertThat(adjacentTiles).isEqualTo(expectedAdjacent)
+            assertThat(map.getAdjacentTilesOrthogonal(setOf(Point2D(1, 1)))).isEqualTo(expectedAdjacent)
         }
     }
 
@@ -201,7 +181,8 @@ class AdventMap2DTest {
                     map.addExampleTile(Point2D(x, y), TestMapTile(y))
                 }
             }
-            val tiles = map.filterPointsExample(setOf(Point2D(17, 4), Point2D(56, 86), Point2D(100, 100), Point2D(25, 99)))
+            val tiles =
+                map.filterPointsExample(setOf(Point2D(17, 4), Point2D(56, 86), Point2D(100, 100), Point2D(25, 99)))
             assertThat(tiles).isEqualTo(
                 mapOf(
                     Pair(Point2D(17, 4), TestMapTile(4)), Pair(Point2D(56, 86), TestMapTile(86)),
@@ -234,15 +215,15 @@ class AdventMap2DTest {
         }
     }
 
-   /* @Nested
-    inner class Snapshot {
-        @Test
-        fun populatedMap() {
-            val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(1, 2), TestMapTile(14))
-            assertThat(map.snapshotExample()).isEqualTo(mapOf(Pair(Point2D(1, 2), TestMapTile(14))))
-        }
-    }*/
+    /* @Nested
+     inner class Snapshot {
+         @Test
+         fun populatedMap() {
+             val map = TestAdventMap2D()
+             map.addExampleTile(Point2D(1, 2), TestMapTile(14))
+             assertThat(map.snapshotExample()).isEqualTo(mapOf(Pair(Point2D(1, 2), TestMapTile(14))))
+         }
+     }*/
 
     @Nested
     inner class Equality {
@@ -294,134 +275,134 @@ class AdventMap2DTest {
 
     @Nested
     inner class MinimumX {
-         @Test
-         fun zeroValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(0, 1), TestMapTile(1))
-             assertThat(map.getMinX()).isEqualTo(0)
-         }
+        @Test
+        fun zeroValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0, 1), TestMapTile(1))
+            assertThat(map.getMinX()).isEqualTo(0)
+        }
 
-         @Test
-         fun negativeValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(-5, 1), TestMapTile(1))
-             assertThat(map.getMinX()).isEqualTo(-5)
-         }
+        @Test
+        fun negativeValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(-5, 1), TestMapTile(1))
+            assertThat(map.getMinX()).isEqualTo(-5)
+        }
 
-         @Test
-         fun positiveValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(57, 1), TestMapTile(1))
-             assertThat(map.getMinX()).isEqualTo(57)
-         }
+        @Test
+        fun positiveValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(57, 1), TestMapTile(1))
+            assertThat(map.getMinX()).isEqualTo(57)
+        }
 
-         @Test
-         fun multipleValuesShouldReturnSmallest() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(57, 1), TestMapTile(1))
-             map.addExampleTile(Point2D(-6, 1), TestMapTile(1))
-             map.addExampleTile(Point2D(12, 1), TestMapTile(1))
-             assertThat(map.getMinX()).isEqualTo(-6)
-         }
+        @Test
+        fun multipleValuesShouldReturnSmallest() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(57, 1), TestMapTile(1))
+            map.addExampleTile(Point2D(-6, 1), TestMapTile(1))
+            map.addExampleTile(Point2D(12, 1), TestMapTile(1))
+            assertThat(map.getMinX()).isEqualTo(-6)
+        }
     }
 
     @Nested
     inner class MaximumX {
-         @Test
-         fun zeroValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(0, 1), TestMapTile(1))
-             assertThat(map.getMaxX()).isEqualTo(0)
-         }
+        @Test
+        fun zeroValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0, 1), TestMapTile(1))
+            assertThat(map.getMaxX()).isEqualTo(0)
+        }
 
-         @Test
-         fun negativeValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(-5, 1), TestMapTile(1))
-             assertThat(map.getMaxX()).isEqualTo(-5)
-         }
+        @Test
+        fun negativeValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(-5, 1), TestMapTile(1))
+            assertThat(map.getMaxX()).isEqualTo(-5)
+        }
 
-         @Test
-         fun positiveValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(57, 1), TestMapTile(1))
-             assertThat(map.getMaxX()).isEqualTo(57)
-         }
+        @Test
+        fun positiveValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(57, 1), TestMapTile(1))
+            assertThat(map.getMaxX()).isEqualTo(57)
+        }
 
-         @Test
-         fun multipleValuesShouldReturnLargest() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(57, 1), TestMapTile(1))
-             map.addExampleTile(Point2D(-6, 1), TestMapTile(1))
-             map.addExampleTile(Point2D(12, 1), TestMapTile(1))
-             assertThat(map.getMaxX()).isEqualTo(57)
-         }
+        @Test
+        fun multipleValuesShouldReturnLargest() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(57, 1), TestMapTile(1))
+            map.addExampleTile(Point2D(-6, 1), TestMapTile(1))
+            map.addExampleTile(Point2D(12, 1), TestMapTile(1))
+            assertThat(map.getMaxX()).isEqualTo(57)
+        }
     }
 
     @Nested
     inner class MinimumY {
-         @Test
-         fun zeroValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(0, 0), TestMapTile(1))
-             assertThat(map.getMinY()).isEqualTo(0)
-         }
+        @Test
+        fun zeroValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0, 0), TestMapTile(1))
+            assertThat(map.getMinY()).isEqualTo(0)
+        }
 
-         @Test
-         fun negativeValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(-5, -6), TestMapTile(1))
-             assertThat(map.getMinY()).isEqualTo(-6)
-         }
+        @Test
+        fun negativeValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(-5, -6), TestMapTile(1))
+            assertThat(map.getMinY()).isEqualTo(-6)
+        }
 
-         @Test
-         fun positiveValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(57, 4), TestMapTile(1))
-             assertThat(map.getMinY()).isEqualTo(4)
-         }
+        @Test
+        fun positiveValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(57, 4), TestMapTile(1))
+            assertThat(map.getMinY()).isEqualTo(4)
+        }
 
-         @Test
-         fun multipleValuesShouldReturnSmallest() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(57, 4), TestMapTile(1))
-             map.addExampleTile(Point2D(-6, 23), TestMapTile(1))
-             map.addExampleTile(Point2D(12, -5), TestMapTile(1))
-             assertThat(map.getMinY()).isEqualTo(-5)
-         }
+        @Test
+        fun multipleValuesShouldReturnSmallest() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(57, 4), TestMapTile(1))
+            map.addExampleTile(Point2D(-6, 23), TestMapTile(1))
+            map.addExampleTile(Point2D(12, -5), TestMapTile(1))
+            assertThat(map.getMinY()).isEqualTo(-5)
+        }
     }
 
     @Nested
     inner class MaximumY {
-         @Test
-         fun zeroValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(0, 0), TestMapTile(1))
-             assertThat(map.getMaxY()).isEqualTo(0)
-         }
+        @Test
+        fun zeroValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0, 0), TestMapTile(1))
+            assertThat(map.getMaxY()).isEqualTo(0)
+        }
 
-         @Test
-         fun negativeValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(-5, -6), TestMapTile(1))
-             assertThat(map.getMaxY()).isEqualTo(-6)
-         }
+        @Test
+        fun negativeValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(-5, -6), TestMapTile(1))
+            assertThat(map.getMaxY()).isEqualTo(-6)
+        }
 
-         @Test
-         fun positiveValue() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(57, 4), TestMapTile(1))
-             assertThat(map.getMaxY()).isEqualTo(4)
-         }
+        @Test
+        fun positiveValue() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(57, 4), TestMapTile(1))
+            assertThat(map.getMaxY()).isEqualTo(4)
+        }
 
-         @Test
-         fun multipleValuesShouldReturnLargest() {
-             val map = TestAdventMap2D()
-             map.addExampleTile(Point2D(57, 4), TestMapTile(1))
-             map.addExampleTile(Point2D(-6, 23), TestMapTile(1))
-             map.addExampleTile(Point2D(12, -5), TestMapTile(1))
-             assertThat(map.getMaxY()).isEqualTo(23)
-         }
+        @Test
+        fun multipleValuesShouldReturnLargest() {
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(57, 4), TestMapTile(1))
+            map.addExampleTile(Point2D(-6, 23), TestMapTile(1))
+            map.addExampleTile(Point2D(12, -5), TestMapTile(1))
+            assertThat(map.getMaxY()).isEqualTo(23)
+        }
     }
 
     @Nested
@@ -434,45 +415,46 @@ class AdventMap2DTest {
         @Test
         fun onlyValuesOnXAxis() {
             val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0,0), TestMapTile(0))
-            map.addExampleTile(Point2D(1,0), TestMapTile(1))
-            map.addExampleTile(Point2D(2,0), TestMapTile(0))
+            map.addExampleTile(Point2D(0, 0), TestMapTile(0))
+            map.addExampleTile(Point2D(1, 0), TestMapTile(1))
+            map.addExampleTile(Point2D(2, 0), TestMapTile(0))
             assertThat(map.toString()).isEqualTo("0 1 0\n")
         }
 
         @Test
         fun onlyValuesOnYAxis() {
             val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0,0), TestMapTile(0))
-            map.addExampleTile(Point2D(0,1), TestMapTile(1))
-            map.addExampleTile(Point2D(0,2), TestMapTile(0))
+            map.addExampleTile(Point2D(0, 0), TestMapTile(0))
+            map.addExampleTile(Point2D(0, 1), TestMapTile(1))
+            map.addExampleTile(Point2D(0, 2), TestMapTile(0))
             assertThat(map.toString()).isEqualTo("0\n1\n0\n")
         }
 
         @Test
         fun valuesOnBothAxes() {
             val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0,0), TestMapTile(0))
-            map.addExampleTile(Point2D(1,0), TestMapTile(1))
-            map.addExampleTile(Point2D(2,0), TestMapTile(0))
-            map.addExampleTile(Point2D(0,1), TestMapTile(0))
-            map.addExampleTile(Point2D(1,1), TestMapTile(1))
-            map.addExampleTile(Point2D(2,1), TestMapTile(0))
+            map.addExampleTile(Point2D(0, 0), TestMapTile(0))
+            map.addExampleTile(Point2D(1, 0), TestMapTile(1))
+            map.addExampleTile(Point2D(2, 0), TestMapTile(0))
+            map.addExampleTile(Point2D(0, 1), TestMapTile(0))
+            map.addExampleTile(Point2D(1, 1), TestMapTile(1))
+            map.addExampleTile(Point2D(2, 1), TestMapTile(0))
             assertThat(map.toString()).isEqualTo("0 1 0\n0 1 0\n")
         }
 
         @Test
         fun missingCoordinatesBetweenExistingOnes() {
             val map = TestAdventMap2D()
-            map.addExampleTile(Point2D(0,0), TestMapTile(0))
-            map.addExampleTile(Point2D(2,0), TestMapTile(0))
-            map.addExampleTile(Point2D(0,1), TestMapTile(0))
-            map.addExampleTile(Point2D(2,1), TestMapTile(0))
+            map.addExampleTile(Point2D(0, 0), TestMapTile(0))
+            map.addExampleTile(Point2D(2, 0), TestMapTile(0))
+            map.addExampleTile(Point2D(0, 1), TestMapTile(0))
+            map.addExampleTile(Point2D(2, 1), TestMapTile(0))
             assertThat(map.toString()).isEqualTo("0   0\n0   0\n")
         }
     }
 
     private inner class TestAdventMap2D : AdventMap2D<TestMapTile>() {
+        fun initialise(data: List<String>) = init(data) { value -> TestMapTile(if (value == '#') 1 else 0) }
         fun tileQuantityExample() = tileQuantity()
         fun addExampleTile(pos: Point2D, default: TestMapTile) = addTile(pos, default)
         fun getExampleTile(pos: Point2D) = getTile(pos)
@@ -481,8 +463,6 @@ class AdventMap2DTest {
         fun hasTileExample(tile: TestMapTile) = hasTile(tile)
         fun filterPointsExample(positions: Set<Point2D>) = filterPoints(positions)
         fun filterTilesExample(predicate: (TestMapTile) -> Boolean) = filterTiles(predicate)
-        fun getAdjacentTiles(positions: Set<Point2D>) = adjacentTiles(positions)
-        fun getAdjacentTiles(positions: Set<Point2D>, default: TestMapTile?) = adjacentTiles(positions, default)
         fun getAdjacentTilesOrthogonal(positions: Set<Point2D>) = adjacentTilesOrthogonal(positions)
         fun getMinX() = xMin()
         fun getMinY() = yMin()

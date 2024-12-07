@@ -39,4 +39,15 @@ class InputReaderTest {
         val e = assertThrows<UnsupportedOperationException> { InputReader.read<Double>(Day(100)) }
         assertThat(e.message).isEqualTo("Input Reader does not support type: Double")
     }
+
+
+    @Test
+    fun badPath() {
+        val e = assertThrows<IllegalArgumentException> {
+            InputReader.read<Double>(Day(85))
+        }
+        val expectedMessage = "Cannot find /day85/input.txt in resources. " +
+                "Did you forget to add the puzzle input?"
+        assertThat(e.message).isEqualTo(expectedMessage)
+    }
 }

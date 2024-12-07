@@ -42,6 +42,23 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
     fun orthogonallyAdjacent() = listOf(Point2D(x, y + 1), Point2D(x + 1, y), Point2D(x, y - 1), Point2D(x - 1, y))
 
     /**
+     * Diagonally adjacent points are the 4 points that are in the immediate
+     * adjacent vicinity to the current point, excluding any orthogonally
+     * adjacent points.
+     *
+     * In other words, it's the top right, bottom right, bottom left and top right
+     * points relative to the current one.
+     */
+    fun diagonallyAdjacent(): List<Point2D> {
+        return listOf(
+            this.shift(Direction.TOP_RIGHT),
+            this.shift(Direction.BOTTOM_RIGHT),
+            this.shift(Direction.BOTTOM_LEFT),
+            this.shift(Direction.TOP_LEFT)
+        )
+    }
+
+    /**
      * Calculates the Manhattan Distance between two [Point2D]s.
      * The distance between the points is measured along the axes at right angles.
      */
@@ -132,6 +149,35 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
             yDelta > 0 -> Pair(Direction.UP, yDelta)
             yDelta < 0 -> Pair(Direction.DOWN, abs(yDelta))
             else -> null
+        }
+    }
+
+    /**
+     * Calculates the direction in which the [other] point is
+     * in relation to this [Point2D] instance. Also returns
+     * the x and y distance to the other point in the form of
+     * another [Point2D] instance.
+     *
+     * @param other The point to check the relative direction of.
+     * @return The relative direction and coordinate distances.
+     */
+    fun directionTo(other: Point2D): Pair<Direction?, Point2D> {
+        val xDelta = other.x - x
+        val yDelta = other.y - y
+        val distance = Point2D(abs(xDelta), abs(yDelta))
+
+        return when {
+            yDelta > 0 && xDelta == 0 -> Direction.UP
+            yDelta < 0 && xDelta == 0 -> Direction.DOWN
+            xDelta > 0 && yDelta == 0 -> Direction.RIGHT
+            xDelta < 0 && yDelta == 0 -> Direction.LEFT
+            yDelta < 0 && xDelta > 0 -> Direction.BOTTOM_RIGHT
+            yDelta > 0 && xDelta < 0 -> Direction.TOP_LEFT
+            yDelta < 0 -> Direction.BOTTOM_LEFT
+            yDelta > 0 -> Direction.TOP_RIGHT
+            else -> null
+        }.let { direction ->
+            Pair(direction, distance)
         }
     }
 

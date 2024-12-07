@@ -23,16 +23,16 @@ abstract class DeltaReport : BenchmarkReport() {
     }
 
     /**
-     * Formats the given [time] difference in a colour for the report.
+     * Formats the given [delta] in a colour for the report.
      * Positive times are shown in green, while negative are in red.
      *
-     * @param time The time difference in nanoseconds
+     * @param delta The time difference in nanoseconds
      * @return The ANSI formatted time string
      */
-    private fun formatDelta(time: Long): String = when {
-        time > ONE_MILLISECOND -> "+${formatTime(time)}".coloured(Colour.RED)
-        time in 1 until ONE_MILLISECOND -> "+${formatTime(time)}".coloured(Colour.YELLOW)
-        time < 0 -> formatTime(time).coloured(Colour.GREEN)
+    private fun formatDelta(delta: Long): String = when {
+        delta > ONE_MILLISECOND -> "+${formatTime(delta)}".coloured(Colour.RED)
+        delta in 1 until ONE_MILLISECOND -> "+${formatTime(delta)}".coloured(Colour.YELLOW)
+        delta < 0 -> formatTime(delta).coloured(Colour.GREEN)
         else -> "±0ms"
     }
 }

@@ -16,15 +16,28 @@ The main utility classes and datastructures to be compiled in the `implementatio
 #### `advent-of-code-test-support`
 Test utility classes for supporting unit tests and benchmarking for the `testImplementation` scope.
 
-## Contents
-* [Implementation Library](#implementation-library)
-  * [Logging](#logging)
-  * [Input De-Serialisation](#input-de-serialisation)
-  * [Math](#math)
-  * [Solution Running & Benchmarking](#solution-running--benchmarking)
-* [Test Support Library](#test-support-library)
-  * [VisualVM Support](#visualvm-support)
-* [Release Instructions](#release-instructions)
+<!-- TOC -->
+* [:christmas_tree: Advent of Code Library](#christmas_tree-advent-of-code-library)
+  * [About](#about)
+      * [`advent-of-code-libs`](#advent-of-code-libs)
+      * [`advent-of-code-test-support`](#advent-of-code-test-support)
+  * [Implementation Library](#implementation-library)
+    * [Logging](#logging)
+    * [Input De-Serialisation](#input-de-serialisation)
+    * [Math](#math)
+    * [Solution Running & Benchmarking](#solution-running--benchmarking)
+    * [Documentation](#documentation)
+      * [Extension Functions](#extension-functions)
+        * [Collections Extension Functions](#collections-extension-functions)
+        * [Primitive Extension Functions](#primitive-extension-functions)
+        * [Range Extension Functions](#range-extension-functions)
+        * [Tuple Extension Functions](#tuple-extension-functions)
+      * [Graphing Algorithms](#graphing-algorithms)
+  * [Test Support Library](#test-support-library)
+    * [VisualVM Support](#visualvm-support)
+  * [Release Instructions](#release-instructions)
+  * [To-Do List](#to-do-list)
+<!-- TOC -->
 
 ## Implementation Library
 ### Logging
@@ -121,6 +134,316 @@ There will be an info log printed, and the report will have the deltas omitted l
 If your terminal supports ANSI escape codes then the deltas will be green or red for increased and decreased runtimes
 respectively.
 
+### Documentation
+A complete list of all publicly exposed classes and functions.
+
+#### Extension Functions
+
+##### Collections Extension Functions
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>List&lt;Int&gt;.product(): Int</code></pre>
+      </td>
+      <td>
+        Returns the product of all the integers in the given list.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>List&lt;Long&gt;.product(): Long</code></pre>
+      </td>
+      <td>
+        Returns the product of all the longs in the given list.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>IntArray.toDecimal(): Long</code></pre>
+      </td>
+      <td>
+        Converts the <code>IntArray</code> into its decimal equivalent. Assumes the array contains only 1s and 0s.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin">
+          <code>
+&lt;S, T&gt; List&lt;S&gt;.cartesianProduct(
+  other: List&lt;T&gt;
+): List&lt;Pair&lt;S, T&gt;>
+          </code>
+        </pre>
+      </td>
+      <td>
+        For two sets A and B, the Cartesian product of A and B is denoted by A×B and defined as 
+        <code>A×B = { (a,b) | aϵA and bϵB }</code>. Put simply, the Cartesian Product is the multiplication 
+        of two sets to form the set of all ordered pairs. Returns the cartesian product of itself 
+        and the given set, meaning A and B are <code>this</code> and <code>other</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; List&lt;T&gt;.cartesianProductQuadratic(
+): List&lt;Pair&lt;T, T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        For two sets A and B, the Cartesian product of A and B is denoted by A×B and defined as 
+        <code>A×B = { (a,b) | aϵA and bϵB }</code>. Put simply, the Cartesian Product is the multiplication 
+        of two sets to form the set of all ordered pairs. Returns the cartesian product of itself, 
+        meaning both A and B are simply <code>this</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; List&lt;T&gt;.cartesianProductCubic(
+): List&lt;Triple&lt;T, T, T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        For three sets A, B and C, the Cartesian product of A, B and C is denoted by A×B×C and 
+        defined as <code>A×B×C = { (p, q, r) | pϵA and qϵB and rϵC }</code>. Put simply, the Cartesian Product 
+        is the multiplication of three sets to form the set of all ordered pairs. Returns the 
+        cartesian product of itself and the given sets, meaning that A, B & C are all <code>this</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; List&lt;T&gt;.cartesianProductCubic(
+  second: List&lt;T&gt;, 
+  third: List&lt;T&gt;
+): List&lt;Triple&lt;T, T, T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        For three sets A, B and C, the Cartesian product of A, B and C is denoted by A×B×C and 
+        defined as <code>A×B×C = { (p, q, r) | pϵA and qϵB and rϵC }</code>. Put simply, the Cartesian Product 
+        is the multiplication of three sets to form the set of all ordered pairs. Returns the 
+        cartesian product of itself and the given sets, meaning both A, B and C are <code>this</code>, 
+        <code>second</code> and <code>third</code> respectively.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; cartesianProduct(
+  vararg sets: List&lt;T&gt;
+): List&lt;List&lt;T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        Finds the Cartesian Product of any number of given sets.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; Collection&lt;T&gt;.distinctPairs()
+returns List&lt;Pair&lt;T, T&gt;>
+        </code></pre>
+      </td>
+      <td>
+        Produces a list of all distinct pairs of elements from the given collection. Pairs are 
+        considered distinct irrespective of their order.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>
+&lt;T&gt; Collection&lt;T&gt;.split(
+  predicate: (element: T) -> Boolean
+): Collection&lt;Collection&lt;T&gt;&gt;
+        </code></pre>
+      </td>
+      <td>
+        Splits a collection based on a given predicate.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin">
+          <code>
+&lt;L, R&gt; Collection&lt;String&gt;.toVerticalLists(
+  parse: (String) -> Pair&lt;L, R&gt;?
+): Pair&lt;MutableList&lt;L&gt;, MutableList&lt;R&gt;>
+          </code>
+        </pre>
+      </td>
+      <td>
+        Parses a collection of Strings (Usually puzzle input lines) vertically to produce two lists.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>List&lt;Long&gt;.lcm(): Long</code></pre>
+      </td>
+      <td>
+        Calculates the lowest common multiple of all the long values of this given list.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+##### Primitive Extension Functions
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Int.toBinary(bits: Int): IntArray</code></pre>
+      </td>
+      <td>
+         Converts an <code>Int</code> into its binary equivalent. Pads the number with trailing 0s to reach the number of given bits.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Double.toRadians(): Double</code></pre>
+      </td>
+      <td>
+         Converts an angle in degrees into radians.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Int.nthBinomialCoefficient(): Int</code></pre>
+      </td>
+      <td>
+        Calculate the value at the given position in Pascal's triangle. This can be expressed as <code>(n^2 + n) / 2</code> as a binomial coefficient.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+##### Range Extension Functions
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>IntRange.midpoint(): Int</code></pre>
+      </td>
+      <td>
+         Finds the midpoint in an <code>IntRange</code>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+##### Tuple Extension Functions
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Pair<&lt;Int, Int&gt;.product(): Int</code></pre>
+      </td>
+      <td>
+         Calculates the product of the integer values of a given <code>Pair</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Pair&lt;Int, Int&gt;.sum(): Int</code></pre>
+      </td>
+      <td>
+         Calculates the sum of the integer values of a given <code>Pair</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Pair&lt;Long, Long&gt;.sum(): Long</code></pre>
+      </td>
+      <td>
+         Calculates the sum of the long values of a given <code>Pair</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Triple&lt;Int, Int, Int&gt;.sum(): Int</code></pre>
+      </td>
+      <td>
+         Calculates the sum of the integer values of a given <code>Triple</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre lang="kotlin"><code>Triple&lt;Int, Int, Int&gt;.product(): Int</code></pre>
+      </td>
+      <td>
+         Calculates the product of the integer values of a given <code>Triple</code>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Graphing Algorithms
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Signature</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="kotlin">
+            <code>
+&lt;N&gt; dijkstraShortestPath(
+    startingPositions: Collection&lt;N&gt;,
+    evaluateAdjacency: (
+        currentNode: Node&lt;N&gt;
+    ) -&gt; Collection&lt;Node&lt;N&gt;&gt;,
+    processNode: (
+        currentNode: Node&lt;N&gt;, 
+        adjacentNode: Node&lt;N&gt;
+    ) -&gt; Node&lt;N&gt;,
+    terminates: (
+        currentNode: Node&lt;N&gt;
+    ) -&gt; Boolean
+): Int
+            </code>
+        </pre>
+      </td>
+      <td>
+        Calculates the shortest distance to all nodes in a weighted-graph from the given starting Positions and terminates based on the given predicate.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ## Test Support Library
 ### VisualVM Support
 Running unit tests with JUnit via VisualVM can be difficult due to the time taken to launch the VisualVM process,
@@ -150,9 +473,11 @@ This kept things inline with the 'enterprise-style' aspect of my codebase as it 
 * This will trigger GitHub actions release pipeline, wait for run to complete
 
 ## To-Do List
-* Add error handling for input not found for solution runner
 * Investigate and fix big integer printing, seems to be truncating
-* Add init method to Map classes so you can pass a data set and have it parse (generic type for tile + predicate for mapping)
 * A test support class for testing solutions. Accepts a solution and expected answers for p1, p2
 * Added graph/node objets for graphing algos like Djikstra
 * Added a findTile() function to the AdventMaps so you can pass a predicate to find or null
+* Automatic scanning for Solution classes for the SolutionRunner
+* AdventMap3D xMin() returns only where z=0? Can this be removed?
+* AdventMap ordMin() methods use minByOrNull instead of minBy
+* Move Formulae (lcm, gcd) from aoc-2019 to math package
