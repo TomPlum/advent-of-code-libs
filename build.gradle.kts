@@ -34,7 +34,7 @@ subprojects {
     apply(plugin = "maven-publish")
 
     ext {
-        set("releaseVersion", "2.4.1")
+        set("releaseVersion", "2.5.0")
     }
 
     repositories {
