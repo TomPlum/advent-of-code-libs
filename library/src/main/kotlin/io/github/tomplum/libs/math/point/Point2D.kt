@@ -61,8 +61,30 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
     /**
      * Calculates the Manhattan Distance between two [Point2D]s.
      * The distance between the points is measured along the axes at right angles.
+     *
+     * For the Euclidean distance between two points, see [realDistanceBetween].
      */
     fun distanceBetween(point: Point2D): Int = abs(this.x - point.x) + abs(this.y - point.y)
+
+    /**
+     * Calculates the "real" distance between two [Point2D]s
+     * as the square root of dx^2 + dy^2.
+     *
+     * This treats the points like standard coordinates on a
+     * cartesian grid system and calculates the distance of a
+     * line drawn between the two, also known as the Euclidean
+     * distance.
+     *
+     * For the manhattan distance between two points, see [distanceBetween].
+     *
+     * @param point The point to check the distance to.
+     * @return The distance as a [Double] for full precision.
+     */
+    fun realDistanceBetween(point: Point2D): Double {
+        val dx = point.x.toDouble() - this.x.toDouble()
+        val dy = point.y.toDouble() - this.y.toDouble()
+        return sqrt(dx * dx + dy * dy)
+    }
 
     /**
      * Calculates the positive clockwise angle between two [Point2D] in degrees.
