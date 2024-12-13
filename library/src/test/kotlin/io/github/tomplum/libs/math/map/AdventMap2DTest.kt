@@ -104,6 +104,91 @@ class AdventMap2DTest {
     }
 
     @Nested
+    inner class IsWithinBounds {
+        @Test
+        fun `position is within default bounds`() {
+            val position = Point2D(5, 5)
+
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0, 0), TestMapTile(4))
+            map.addExampleTile(Point2D(10, 10), TestMapTile(4))
+
+            val result = map.isWithinBoundsExample(position)
+            assertThat(result).isTrue()
+        }
+
+        @Test
+        fun `position is outside default bounds`() {
+            // Assuming default bounds are xMin=0, yMin=0, xMax=10, yMax=10
+            val position = Point2D(11, 5)
+
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0, 0), TestMapTile(4))
+            map.addExampleTile(Point2D(10, 10), TestMapTile(4))
+
+            val result = map.isWithinBoundsExample(position)
+            assertThat(result).isFalse()
+        }
+
+        @Test
+        fun `position is within custom bounds`() {
+            val position = Point2D(3, 4)
+            val customBounds = Pair(Point2D(2, 3), Point2D(5, 6))
+
+            val map = TestAdventMap2D()
+
+            val result = map.isWithinBoundsExample(position, customBounds)
+            assertThat(result).isTrue()
+        }
+
+        @Test
+        fun `position is on the boundary within custom bounds`() {
+            val position = Point2D(5, 6)
+            val customBounds = Pair(Point2D(2, 3), Point2D(5, 6))
+
+            val map = TestAdventMap2D()
+
+            val result = map.isWithinBoundsExample(position, customBounds)
+            assertThat(result).isTrue()
+        }
+
+        @Test
+        fun `position is outside custom bounds`() {
+            val position = Point2D(6, 7)
+            val customBounds = Pair(Point2D(2, 3), Point2D(5, 6))
+
+            val map = TestAdventMap2D()
+
+            val result = map.isWithinBoundsExample(position, customBounds)
+            assertThat(result).isFalse()
+        }
+
+        @Test
+        fun `position is on the lower boundary within default bounds`() {
+            val position = Point2D(0, 0)
+
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0, 0), TestMapTile(4))
+            map.addExampleTile(Point2D(10, 10), TestMapTile(4))
+
+            val result = map.isWithinBoundsExample(position)
+            assertThat(result).isTrue()
+        }
+
+        @Test
+        fun `position is outside lower boundary within default bounds`() {
+            val position = Point2D(-1, -1)
+
+            val map = TestAdventMap2D()
+            map.addExampleTile(Point2D(0, 0), TestMapTile(4))
+            map.addExampleTile(Point2D(10, 10), TestMapTile(4))
+
+            val result = map.isWithinBoundsExample(position)
+            assertThat(result).isFalse()
+        }
+    }
+
+    @Nested
     inner class HasTile {
         @Test
         fun hasTilePositive() {
@@ -460,6 +545,7 @@ class AdventMap2DTest {
         fun getExampleTile(pos: Point2D) = getTile(pos)
         fun getExampleTile(pos: Point2D, default: TestMapTile) = getTile(pos, default)
         fun hasRecordedExample(pos: Point2D) = hasRecorded(pos)
+        fun isWithinBoundsExample(position: Point2D, bounds: Pair<Point2D, Point2D>? = null) = isWithinBounds(position, bounds)
         fun hasTileExample(tile: TestMapTile) = hasTile(tile)
         fun filterPointsExample(positions: Set<Point2D>) = filterPoints(positions)
         fun filterTilesExample(predicate: (TestMapTile) -> Boolean) = filterTiles(predicate)

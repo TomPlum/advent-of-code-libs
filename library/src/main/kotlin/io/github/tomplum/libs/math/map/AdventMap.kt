@@ -7,7 +7,7 @@ import io.github.tomplum.libs.math.point.Point
  *
  * Lots of the days involve the concept of a 'Map' or a 'Maze' which can be represented as a cartesian grid.
  * A cartesian-style grid is internally maintained that maps tiles to [Point] coordinates.
- * Several sub-type abstract classes exist mapping the different dimensions against the tiles.
+ * Several subtype abstract classes exist mapping the different dimensions against the tiles.
  *
  * @param T The type of [MapTile] that will be recorded in the grid.
  */

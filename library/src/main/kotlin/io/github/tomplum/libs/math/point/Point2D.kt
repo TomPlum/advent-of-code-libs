@@ -35,7 +35,7 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
 
     /**
      * Orthogonally adjacent points are the 4 points immediately horizontal or vertical.
-     * A.K.A 'Edge Adjacent'
+     * Also-known-as 'Edge Adjacent'
      * @see adjacent for a function that returns on the diagonal too.
      * @return The four points that are orthogonally adjacent.
      */
@@ -75,7 +75,7 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
      * line drawn between the two, also known as the Euclidean
      * distance.
      *
-     * For the manhattan distance between two points, see [distanceBetween].
+     * For the Manhattan distance between two points, see [distanceBetween].
      *
      * @param point The point to check the distance to.
      * @return The distance as a [Double] for full precision.
