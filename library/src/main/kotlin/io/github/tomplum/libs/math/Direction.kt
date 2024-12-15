@@ -14,6 +14,16 @@ enum class Direction(private val degree: Int) {
     LEFT(270),
     TOP_LEFT(315);
 
+    companion object {
+        fun fromChar(value: Char) = when (value) {
+            '^' -> UP
+            '>' -> RIGHT
+            'v' -> DOWN
+            '<' -> LEFT
+            else -> throw IllegalArgumentException("Invalid Direction String: $value")
+        }
+    }
+
     /**
      * Rotates the current direction by the given [angle].
      * Angles can be negative to rotate anti-clockwise.

@@ -11,6 +11,37 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class DirectionTest {
     @Nested
+    inner class FromCharStaticFactoryConstructor {
+        @Test
+        fun up() {
+            assertThat(Direction.fromChar('^')).isEqualTo(UP)
+        }
+
+        @Test
+        fun right() {
+            assertThat(Direction.fromChar('>')).isEqualTo(RIGHT)
+        }
+
+        @Test
+        fun down() {
+            assertThat(Direction.fromChar('v')).isEqualTo(DOWN)
+        }
+
+        @Test
+        fun left() {
+            assertThat(Direction.fromChar('<')).isEqualTo(LEFT)
+        }
+
+        @Test
+        fun invalidChar() {
+            val e = assertThrows<IllegalArgumentException> {
+                Direction.fromChar('A')
+            }
+            assertThat(e.message).isEqualTo("Invalid Direction String: A")
+        }
+    }
+
+    @Nested
     inner class Rotate {
         @Nested
         inner class Clockwise90 {
