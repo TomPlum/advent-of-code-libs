@@ -14,6 +14,16 @@ enum class Direction(private val degree: Int) {
     LEFT(270),
     TOP_LEFT(315);
 
+    companion object {
+        fun fromChar(value: Char) = when (value) {
+            '^' -> UP
+            '>' -> RIGHT
+            'v' -> DOWN
+            '<' -> LEFT
+            else -> throw IllegalArgumentException("Invalid Direction String: $value")
+        }
+    }
+
     /**
      * Rotates the current direction by the given [angle].
      * Angles can be negative to rotate anti-clockwise.
@@ -25,6 +35,24 @@ enum class Direction(private val degree: Int) {
     fun rotate(angle: Int): Direction = entries
         .find { it.degree == normalise(angle) }
         ?: throw IllegalArgumentException("Invalid Angle $angle")
+
+    /**
+     * Determines if the direction is opposite the [other].
+     *
+     * @param other The other direction to compare against.
+     * @returns true if the [other] direction is opposite this one, else false.
+     */
+    fun isOpposite(other: Direction): Boolean = when {
+        this == UP -> other == DOWN
+        this == RIGHT -> other == LEFT
+        this == DOWN -> other == UP
+        this == LEFT -> other == RIGHT
+        this == TOP_RIGHT -> other == BOTTOM_LEFT
+        this == BOTTOM_RIGHT -> other == TOP_LEFT
+        this == BOTTOM_LEFT -> other == TOP_RIGHT
+        this == TOP_LEFT -> other == BOTTOM_RIGHT
+        else -> false
+    }
 
     private fun normalise(angle: Int): Int {
         var targetDegree = degree + angle

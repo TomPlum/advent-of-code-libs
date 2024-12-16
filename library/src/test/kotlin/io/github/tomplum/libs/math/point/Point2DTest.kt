@@ -63,7 +63,7 @@ class Point2DTest {
     }
 
     @Nested
-    inner class ManhattanDistance {
+    inner class ManhattanDistanceBetween {
         @Test
         fun targetToTheRight() {
             assertThat(Point2D(0, 0).distanceBetween(Point2D(0, 5))).isEqualTo(5)
@@ -102,6 +102,49 @@ class Point2DTest {
         @Test
         fun targetDiagonalTopLeft() {
             assertThat(Point2D(0, 0).distanceBetween(Point2D(-12, 12))).isEqualTo(24)
+        }
+    }
+
+    @Nested
+    inner class RealDistanceBetween {
+        @Test
+        fun targetToTheRight() {
+            assertThat(Point2D(0, 0).realDistanceBetween(Point2D(0, 5))).isEqualTo(5.0)
+        }
+
+        @Test
+        fun targetIsBelow() {
+            assertThat(Point2D(0, 0).realDistanceBetween(Point2D(0, -4))).isEqualTo(4.0)
+        }
+
+        @Test
+        fun targetToTheLeft() {
+            assertThat(Point2D(0, 0).realDistanceBetween(Point2D(-12, 0))).isEqualTo(12.0)
+        }
+
+        @Test
+        fun targetIsAbove() {
+            assertThat(Point2D(0, 0).realDistanceBetween(Point2D(0, 8))).isEqualTo(8.0)
+        }
+
+        @Test
+        fun targetDiagonalTopRight() {
+            assertThat(Point2D(0, 0).realDistanceBetween(Point2D(3, 3))).isEqualTo(4.242640687119285)
+        }
+
+        @Test
+        fun targetDiagonalBottomRight() {
+            assertThat(Point2D(0, 0).realDistanceBetween(Point2D(4, -4))).isEqualTo(5.656854249492381)
+        }
+
+        @Test
+        fun targetDiagonalBottomLeft() {
+            assertThat(Point2D(0, 0).realDistanceBetween(Point2D(-6, -6))).isEqualTo(8.48528137423857)
+        }
+
+        @Test
+        fun targetDiagonalTopLeft() {
+            assertThat(Point2D(0, 0).realDistanceBetween(Point2D(-12, 12))).isEqualTo(16.97056274847714)
         }
     }
 
@@ -172,8 +215,18 @@ class Point2DTest {
         }
 
         @Test
+        fun shiftUp_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.UP, isRasterSystem = true)).isEqualTo(Point2D(0, -1))
+        }
+
+        @Test
         fun shiftRight() {
             assertThat(Point2D(0, 0).shift(Direction.RIGHT)).isEqualTo(Point2D(1, 0))
+        }
+
+        @Test
+        fun shiftRight_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.RIGHT, isRasterSystem = true)).isEqualTo(Point2D(1, 0))
         }
 
         @Test
@@ -182,8 +235,18 @@ class Point2DTest {
         }
 
         @Test
+        fun shiftDown_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.DOWN, isRasterSystem = true)).isEqualTo(Point2D(0, 1))
+        }
+
+        @Test
         fun shiftLeft() {
             assertThat(Point2D(0, 0).shift(Direction.LEFT)).isEqualTo(Point2D(-1, 0))
+        }
+
+        @Test
+        fun shiftLeft_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.LEFT, isRasterSystem = true)).isEqualTo(Point2D(-1, 0))
         }
 
         @Test
@@ -192,8 +255,18 @@ class Point2DTest {
         }
 
         @Test
+        fun shiftTopRight_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.TOP_RIGHT, isRasterSystem = true)).isEqualTo(Point2D(1, 1))
+        }
+
+        @Test
         fun shiftBottomRight() {
             assertThat(Point2D(0, 0).shift(Direction.BOTTOM_RIGHT)).isEqualTo(Point2D(1, -1))
+        }
+
+        @Test
+        fun shiftBottomRight_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.BOTTOM_RIGHT, isRasterSystem = true)).isEqualTo(Point2D(1, -1))
         }
 
         @Test
@@ -202,13 +275,28 @@ class Point2DTest {
         }
 
         @Test
+        fun shiftBottomLeft_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.BOTTOM_LEFT, isRasterSystem = true)).isEqualTo(Point2D(-1, -1))
+        }
+
+        @Test
         fun shiftTopLeft() {
             assertThat(Point2D(0, 0).shift(Direction.TOP_LEFT)).isEqualTo(Point2D(-1, 1))
         }
 
         @Test
-        fun shiftUpMoreThanOneUnit() {
+        fun shiftTopLeft_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.TOP_LEFT, isRasterSystem = true)).isEqualTo(Point2D(-1, 1))
+        }
+
+        @Test
+        fun shiftUp_givenUnit() {
             assertThat(Point2D(0, 0).shift(Direction.UP, 4)).isEqualTo(Point2D(0, 4))
+        }
+
+        @Test
+        fun shiftUp_givenUnit_rasterSystem() {
+            assertThat(Point2D(0, 0).shift(Direction.UP, 4, isRasterSystem = true)).isEqualTo(Point2D(0, -4))
         }
     }
 

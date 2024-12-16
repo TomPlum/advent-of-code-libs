@@ -45,6 +45,21 @@ abstract class AdventMap2D<T: MapTile<*>>: AdventMap<Point2D, T>() {
     }
 
     /**
+     * Determines if the given [position] falls within the given [bounds].
+     * If [bounds] are not provided, then they default to the current known
+     * bounds of the map [data] denoted by ([xMin], [yMin]) and ([xMax], [yMax]).
+     *
+     * @param position The position to check for.
+     * @param bounds Opposite corners of a custom square boundary to check within.
+     * @returns true if the given [position] falls within the bounds, else false.
+     */
+    protected fun isWithinBounds(position: Point2D, bounds: Pair<Point2D, Point2D>? = null): Boolean {
+        val (xMin, yMin) = bounds?.first ?: Point2D(xMin()!!, yMin()!!)
+        val (xMax, yMax) = bounds?.second ?: Point2D(xMax()!!, yMax()!!)
+        return position.x in xMin..xMax && position.y >= yMin && position.y <= yMax
+    }
+
+    /**
      * @return The minimum x-ordinate currently recorded in the map.
      */
     protected fun xMin(): Int? = data.keys.minByOrNull { pos -> pos.x }?.x

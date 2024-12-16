@@ -35,7 +35,7 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
 
     /**
      * Orthogonally adjacent points are the 4 points immediately horizontal or vertical.
-     * A.K.A 'Edge Adjacent'
+     * Also-known-as 'Edge Adjacent'
      * @see adjacent for a function that returns on the diagonal too.
      * @return The four points that are orthogonally adjacent.
      */
@@ -61,8 +61,30 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
     /**
      * Calculates the Manhattan Distance between two [Point2D]s.
      * The distance between the points is measured along the axes at right angles.
+     *
+     * For the Euclidean distance between two points, see [realDistanceBetween].
      */
     fun distanceBetween(point: Point2D): Int = abs(this.x - point.x) + abs(this.y - point.y)
+
+    /**
+     * Calculates the "real" distance between two [Point2D]s
+     * as the square root of dx^2 + dy^2.
+     *
+     * This treats the points like standard coordinates on a
+     * cartesian grid system and calculates the distance of a
+     * line drawn between the two, also known as the Euclidean
+     * distance.
+     *
+     * For the Manhattan distance between two points, see [distanceBetween].
+     *
+     * @param point The point to check the distance to.
+     * @return The distance as a [Double] for full precision.
+     */
+    fun realDistanceBetween(point: Point2D): Double {
+        val dx = point.x.toDouble() - this.x.toDouble()
+        val dy = point.y.toDouble() - this.y.toDouble()
+        return sqrt(dx * dx + dy * dy)
+    }
 
     /**
      * Calculates the positive clockwise angle between two [Point2D] in degrees.
@@ -83,12 +105,17 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
     /**
      * Shifts the [Point2D] one unit in the given [direction] unless specified by the [units] parameter.
      * E.g. (0, 0) shifted [Direction.RIGHT] would become (1, 0)
+     *
+     * @param direction The direction to shift in.
+     * @param units The number of units to shift by.
+     * @param isRasterSystem Whether the shift should be treated as if it's in a raster or screen coordinate system (Up goes down below the x-axis).
+     *
      * @return A point at the shifted location.
      */
-    fun shift(direction: Direction, units: Int = 1): Point2D = when (direction) {
-        Direction.UP -> Point2D(x, y + units)
+    fun shift(direction: Direction, units: Int = 1, isRasterSystem: Boolean = false): Point2D = when (direction) {
+        Direction.UP -> Point2D(x, if (isRasterSystem) y - units else y + units)
         Direction.RIGHT -> Point2D(x + units, y)
-        Direction.DOWN -> Point2D(x, y - units)
+        Direction.DOWN -> Point2D(x, if (isRasterSystem) y + units else y - units)
         Direction.LEFT -> Point2D(x - units, y)
         Direction.TOP_RIGHT -> Point2D(x + units, y + units)
         Direction.BOTTOM_RIGHT -> Point2D(x + units, y - units)
