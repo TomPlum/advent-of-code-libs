@@ -10,7 +10,7 @@ import io.github.tomplum.libs.math.point.Point2D
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-class DijkstrasAlgorithmKtTest {
+class DijkstrasAlgorithmTest {
     private data class CrucibleLocation(
         val position: Point2D,
         val direction: Direction,
@@ -207,6 +207,41 @@ class DijkstrasAlgorithmKtTest {
                 }
             )
         }
+
+        fun countBestPathTiles(): Int {
+            val (startingPosition) = findTile { it.isReindeerStart() }!!
+            val startingDirection = Direction.RIGHT
+
+            return dijkstraAllShortestPaths(
+                startingPositions = listOf(startingPosition to startingDirection),
+                evaluateAdjacency = { currentNode ->
+                    val (currentPosition, direction) = currentNode.value
+                    val adjacentNodes = mutableListOf<Node<Pair<Point2D, Direction>>>()
+
+                    val nextPosition = currentPosition.shift(direction)
+                    if (getTile(nextPosition, MazeTile('?')).isTraversable()) {
+                        adjacentNodes.add(Node(nextPosition to direction, 1))
+                    }
+
+                    val rotations = directions
+                        .filterNot { currentDirection ->
+                            val isSameDirection = currentDirection == direction
+                            val isBacktracking = currentDirection.isOpposite(direction)
+                            isSameDirection || isBacktracking
+                        }
+                        .map { currentDirection ->
+                            Node(currentPosition to currentDirection, 1000)
+                        }
+
+                    adjacentNodes.addAll(rotations)
+
+                    adjacentNodes
+                },
+                terminates = { currentNode ->
+                    getTile(currentNode.value.first, MazeTile('?')).isEnd()
+                }
+            ).shortestPaths.flatten().map { it.first }.toSet().count()
+        }
     }
 
     @Nested
@@ -232,6 +267,27 @@ class DijkstrasAlgorithmKtTest {
             val data = TestInputReader.read<String>("$exampleInputLocation/input.txt")
             val reindeerMaze = ReindeerMaze(data.value)
             assertThat(reindeerMaze.calculateLowestPossibleScore()).isEqualTo(65436)
+        }
+
+        @Test
+        fun partTwoExampleOne() {
+            val data = TestInputReader.read<String>("$exampleInputLocation/example-1.txt")
+            val reindeerMaze = ReindeerMaze(data.value)
+            assertThat(reindeerMaze.countBestPathTiles()).isEqualTo(45)
+        }
+
+        @Test
+        fun partTwoExampleTwo() {
+            val data = TestInputReader.read<String>("$exampleInputLocation/example-2.txt")
+            val reindeerMaze = ReindeerMaze(data.value)
+            assertThat(reindeerMaze.countBestPathTiles()).isEqualTo(64)
+        }
+
+        @Test
+        fun partTwoSolution() {
+            val data = TestInputReader.read<String>("$exampleInputLocation/input.txt")
+            val reindeerMaze = ReindeerMaze(data.value)
+            assertThat(reindeerMaze.countBestPathTiles()).isEqualTo(489)
         }
     }
 }
