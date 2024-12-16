@@ -27,8 +27,8 @@ data class Node<T>(val value: T, val distance: Int): Comparable<Node<T>> {
 fun <N> dijkstraShortestPath(
     startingPositions: Collection<N>,
     evaluateAdjacency: (currentNode: Node<N>) -> Collection<Node<N>>,
-    processNode: (currentNode: Node<N>, adjacentNode: Node<N>) -> Node<N>,
-    terminates: (currentNode: Node<N>) -> Boolean
+    terminates: (currentNode: Node<N>) -> Boolean,
+    processNode: (currentNode: Node<N>, adjacentNode: Node<N>) -> Node<N> = { _, adjacentNode -> adjacentNode }
 ): Int {
     // A map of nodes and the shortest distance from the given starting positions to it
     val distance = mutableMapOf<N, Int>()
