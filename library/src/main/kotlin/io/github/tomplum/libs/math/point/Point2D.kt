@@ -105,12 +105,17 @@ data class Point2D(val x: Int, val y: Int) : Point, Comparable<Point2D> {
     /**
      * Shifts the [Point2D] one unit in the given [direction] unless specified by the [units] parameter.
      * E.g. (0, 0) shifted [Direction.RIGHT] would become (1, 0)
+     *
+     * @param direction The direction to shift in.
+     * @param units The number of units to shift by.
+     * @param isRasterSystem Whether the shift should be treated as if it's in a raster or screen coordinate system (Up goes down below the x-axis).
+     *
      * @return A point at the shifted location.
      */
-    fun shift(direction: Direction, units: Int = 1): Point2D = when (direction) {
-        Direction.UP -> Point2D(x, y + units)
+    fun shift(direction: Direction, units: Int = 1, isRasterSystem: Boolean = false): Point2D = when (direction) {
+        Direction.UP -> Point2D(x, if (isRasterSystem) y - units else y + units)
         Direction.RIGHT -> Point2D(x + units, y)
-        Direction.DOWN -> Point2D(x, y - units)
+        Direction.DOWN -> Point2D(x, if (isRasterSystem) y + units else y - units)
         Direction.LEFT -> Point2D(x - units, y)
         Direction.TOP_RIGHT -> Point2D(x + units, y + units)
         Direction.BOTTOM_RIGHT -> Point2D(x + units, y - units)
