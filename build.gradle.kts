@@ -52,11 +52,11 @@ subprojects {
         runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.24.3")
 
         //Testing
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
-        testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.4")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:6.1.3")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:6.1.3")
         testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.28.1")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.4")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.4")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.1.3")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.3")
     }
 
     java {
