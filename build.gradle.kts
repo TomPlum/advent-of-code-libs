@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath(kotlin("gradle-plugin", version = "2.1.0"))
+        classpath(kotlin("gradle-plugin", version = "2.4.20"))
     }
 }
 
@@ -14,7 +14,7 @@ plugins {
     idea
     jacoco
     `maven-publish`
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.4.20"
 }
 
 project.tasks.publish {
@@ -47,16 +47,16 @@ subprojects {
         implementation(kotlin("reflect"))
 
         //Logging
-        compileOnly("org.slf4j:slf4j-api:2.0.16")
-        runtimeOnly("org.apache.logging.log4j:log4j-core:2.24.3")
-        runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.24.3")
+        compileOnly("org.slf4j:slf4j-api:2.0.19")
+        runtimeOnly("org.apache.logging.log4j:log4j-core:2.26.1")
+        runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.26.1")
 
         //Testing
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
-        testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.4")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:5.14.4")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:5.14.4")
         testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.28.1")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.4")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.4")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.14.4")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.14.4")
     }
 
     java {
@@ -107,7 +107,7 @@ subprojects {
     }
 
     jacoco {
-        toolVersion = "0.8.12"
+        toolVersion = "0.8.15"
         reportsDirectory.set(file("${layout.buildDirectory}/reports"))
     }
 
